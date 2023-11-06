@@ -8,7 +8,7 @@ import baseUrl from '../../utils/baseUrl';
 import handleChange from '../../utils/handleChange';
 import toast_alert from '../../utils/toast_alert';
 
-const Update_company = () => {
+const Update_category = () => {
     const {companies} = useUserStore();
     const {id} = useParams()
     const toast = useToast()
@@ -30,7 +30,7 @@ const Update_company = () => {
                   toast,
                   res.data.message
               )
-              navigate('/companies')
+              navigate('/categories')
           }
       } catch (error) {
           setLoading(false)
@@ -73,4 +73,4 @@ const Update_company = () => {
     );
 };
 
-export default Update_company;
+export default Update_category;

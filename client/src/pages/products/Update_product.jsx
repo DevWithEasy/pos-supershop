@@ -15,8 +15,7 @@ const Update_product = () => {
     const navigate = useNavigate()
     const toast = useToast()
     const [value,setValue] = useState(products.find(p => p._id === id))
-    const [companies,setCompanies] = useState([])
-    const [generics,setGenerics] = useState([])
+    const [categories, setCategories] = useState([])
     const [loading,setLoading] = useState(false)
     const [updating,setUpdating] = useState(false)
 
@@ -25,8 +24,7 @@ const Update_product = () => {
         try {
             const res = await axios.get(`${baseUrl}/api/product/findGenericBrand`)
             if(res.data.status ===200){
-                setCompanies(res.data.data.companies)
-                setGenerics(res.data.data.generics)
+                setCategories(res.data.data)
                 setLoading(false)
             } 
         } catch (error) {

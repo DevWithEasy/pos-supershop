@@ -10,7 +10,7 @@ import api_url from '../../utils/api_url';
 import baseUrl from '../../utils/baseUrl';
 
 
-const Companies = () => {
+const Categories = () => {
     const navigate = useNavigate()
     const {addCompanies,companies} = useUserStore()
     const [remove,setRemove] = useState(false)
@@ -96,4 +96,4 @@ const Companies = () => {
     );
 };
 
-export default Companies;
+export default Categories;

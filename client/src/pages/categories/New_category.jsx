@@ -10,7 +10,7 @@ import baseUrl from '../../utils/baseUrl';
 import handleChange from '../../utils/handleChange';
 import toast_alert from '../../utils/toast_alert';
 
-const New_company = () => {
+const New_category = () => {
     const toast = useToast()
     const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
@@ -79,4 +79,4 @@ const New_company = () => {
   )
 };
 
-export default New_company;
+export default New_category;

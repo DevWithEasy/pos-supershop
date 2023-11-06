@@ -56,9 +56,9 @@ const Signin = () => {
 
     return (
         <div
-            className='w-full grid grid-cols-2'
+            className='h-screen w-full grid grid-cols-2 bg-sky-500 text-white'
         >
-            <div className='w-full flex flex-col justify-center items-center space-y-2 text-white p-4'>
+            <div className='w-full flex flex-col justify-center items-center space-y-2 p-4'>
                 <h1
                     className='text-4xl font-bold uppercase'
                 >

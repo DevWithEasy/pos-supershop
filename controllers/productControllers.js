@@ -1,5 +1,4 @@
-const Company = require("../models/Company")
-const Generic = require("../models/Generic")
+const Category = require("../models/Category")
 const Product = require("../models/Product")
 
 exports.createProduct=async(req,res,next)=>{
@@ -198,7 +197,7 @@ exports.findGenericBrand=async(req,res,next)=>{
   
   try{
     const generics = await Generic.find({})
-    const companies = await Company.find({})
+    const companies = await Category.find({})
 
     res.status(200).json({
         success : true,

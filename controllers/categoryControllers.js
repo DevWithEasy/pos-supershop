@@ -1,20 +1,19 @@
-const Generic = require("../models/Generic")
+const Company = require("../models/Category")
 
-
-exports.createGeneric=async(req,res,next)=>{
+exports.createCategory=async(req,res,next)=>{
   
     try{
-      const new_generic = new Generic({
+      const new_category = new Company({
         ...req.body
       })
 
-      const generic= await new_generic.save()
+      const company = await new_category.save()
 
       res.status(200).json({
           success : true,
           status : 200,
-          message : 'Generic successfully created',
-          data : generic
+          message : 'Company created successfully',
+          data : company
       })
     }catch(err){
       res.status(500).json({
@@ -25,22 +24,24 @@ exports.createGeneric=async(req,res,next)=>{
     }
 }
 
-exports.updateGeneric=async(req,res,next)=>{
+exports.updateCategory=async(req,res,next)=>{
   
   try{
-    const generic = await Generic.findByIdAndUpdate(req.params.id,{
+    const company = await Company.findByIdAndUpdate(req.params.id,{
       $set : {
         name: req.body.name
       }
     },
-    {new : true}
+    {new  : true}
     )
+
     res.status(200).json({
         success : true,
         status : 200,
-        message : 'Generic successfully updated',
-        data : generic
+        message : 'Company updated successfully',
+        data : company
     })
+
   }catch(err){
     res.status(500).json({
         success : false,
@@ -50,15 +51,15 @@ exports.updateGeneric=async(req,res,next)=>{
   }
 }
 
-exports.deleteGeneric=async(req,res,next)=>{
+exports.deleteCategory=async(req,res,next)=>{
   
   try{
-    await Generic.findByIdAndDelete(req.params.id)
-
+    await Company.findByIdAndDelete(req.params.id)
+    
     res.status(200).json({
         success : true,
         status : 200,
-        message : 'Generic successfully deleted',
+        message : 'Company deleted successfully',
         data : {}
     })
   }catch(err){
@@ -69,16 +70,16 @@ exports.deleteGeneric=async(req,res,next)=>{
     })
   }
 }
-  
-exports.getAllGeneric=async(req,res,next)=>{
+
+exports.getAllCategory=async(req,res,next)=>{
   
   try{
-    const generics = await Generic.find({})
+    const companies = await Company.find({})
     res.status(200).json({
         success : true,
         status : 200,
-        message : 'Generics retrived successfully',
-        data : generics
+        message : 'Brands retrieved successfully',
+        data : companies
     })
   }catch(err){
     res.status(500).json({

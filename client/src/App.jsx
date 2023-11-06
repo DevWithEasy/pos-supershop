@@ -10,15 +10,9 @@ import New_purchase from './pages/admin/purchases/New_purchase'
 import Purchase from './pages/admin/purchases/Purchase'
 import New_report from './pages/admin/reports/New_report'
 import Reports from './pages/admin/reports/Reports'
-import Companies from './pages/companies/Companies'
-import New_company from './pages/companies/New_company'
-import Update_company from './pages/companies/Update_company'
 import Customers from './pages/customers/Customers'
 import New_customer from './pages/customers/New_customer'
 import UpdateCustomer from './pages/customers/UpdateCustomer'
-import Generics from './pages/generics/Generics'
-import New_generic from './pages/generics/New_generic'
-import Update_generic from './pages/generics/Update_generic'
 import Invoice from './pages/invoices/Invoice'
 import Invoices from './pages/invoices/Invoices'
 import New_product from './pages/products/New_product'
@@ -30,6 +24,9 @@ import Users from './pages/users/Users'
 import Purchases from './pages/admin/purchases/Purchases'
 import Protected from './pages/Protected'
 import LayoutAdmin from './pages/LayoutAdmin'
+import Categories from './pages/categories/Categories'
+import Update_category from './pages/categories/Update_category'
+import New_category from './pages/categories/New_category'
 
 function App() {
   const routes= useRoutes([
@@ -101,51 +98,26 @@ function App() {
     </Protected>
     },
     {
-      path : '/generic/new',
-      element : 
-      <Protected>
+      path : '/category/new',
+      element : <Protected>
       <LayoutAdmin>
-        <New_generic/>
+        <New_category/>
       </LayoutAdmin>
     </Protected>
     },
     {
-      path : '/generics',
+      path : '/categories',
       element : <Protected>
       <LayoutAdmin>
-        <Generics/>
+        <Categories/>
       </LayoutAdmin>
     </Protected>
     },
     {
-      path : '/generic/:id',
+      path : '/category/:id',
       element : <Protected>
       <LayoutAdmin>
-        <Update_generic/>
-      </LayoutAdmin>
-    </Protected>
-    },
-    {
-      path : '/company/new',
-      element : <Protected>
-      <LayoutAdmin>
-        <New_company/>
-      </LayoutAdmin>
-    </Protected>
-    },
-    {
-      path : '/companies',
-      element : <Protected>
-      <LayoutAdmin>
-        <Companies/>
-      </LayoutAdmin>
-    </Protected>
-    },
-    {
-      path : '/company/:id',
-      element : <Protected>
-      <LayoutAdmin>
-        <Update_company/>
+        <Update_category/>
       </LayoutAdmin>
     </Protected>
     },

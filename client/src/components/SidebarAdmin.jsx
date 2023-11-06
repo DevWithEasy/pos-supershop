@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BiLogInCircle, BiLogOutCircle } from 'react-icons/bi';
-import { MdOutlineAdminPanelSettings } from 'react-icons/md';
+import { BiCategoryAlt, BiLogOutCircle } from 'react-icons/bi';
+import { PiBarcode } from 'react-icons/pi';
 import { RiProductHuntLine } from 'react-icons/ri';
-import { RxDashboard } from 'react-icons/rx';
-import { TbFileInvoice } from 'react-icons/tb';
+import { RxDashboard, } from 'react-icons/rx';
+import { RiAddBoxLine } from 'react-icons/ri';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
 
@@ -20,7 +20,7 @@ const SidebarAdmin = () => {
                 {
                     path: '/admin',
                     title: 'Dashboard',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <RxDashboard size={16} />
                 }
             ]
         },
@@ -30,27 +30,27 @@ const SidebarAdmin = () => {
                 {
                     path: '/product/new',
                     title: 'Create Product',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <RiAddBoxLine size={16} />
                 },
                 {
                     path: '/products',
                     title: 'Products',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <RiProductHuntLine size={16} />
                 },
                 {
                     path: '/categories/new',
                     title: 'Create Category',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <RiAddBoxLine size={16} />
                 },
                 {
                     path: '/categories',
                     title: 'Categories',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <BiCategoryAlt size={16} />
                 },
                 {
                     path: '/printbarcode',
                     title: 'Print Barcode',
-                    icon: <AiOutlineHome size={16} />
+                    icon: <PiBarcode size={16} />
                 },
             ]
         },
@@ -70,9 +70,10 @@ const SidebarAdmin = () => {
                                 <Link 
                                     to={link.path}
                                     onClick={()=>setPath(link.path)}
-                                    className={`block w-full p-2 hover:text-blue-500 ${link.path == path ? 'bg-blue-50 text-blue-500 rounded-md' : 'text-gray-600'}`}
+                                    className={`w-full p-2 flex items-center space-x-2  hover:text-blue-500 ${link.path == path ? 'bg-blue-50 text-blue-500 rounded-md' : 'text-gray-600'}`}
                                 >
-                                    {link.title}
+                                    {link.icon}
+                                    <span>{link.title}</span>
                                 </Link>
                             )
                         }

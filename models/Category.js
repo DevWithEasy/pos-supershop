@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const companySchema = new mongoose.Schema({
+const categorySchema = new mongoose.Schema({
     name : {
         type : String,
         required : true
@@ -8,6 +8,6 @@ const companySchema = new mongoose.Schema({
 
 },{timestamps : true})
 
-const Company = mongoose.model('Company', companySchema)
+const Category = mongoose.model('Category', categorySchema)
 
-module.exports = Company
+module.exports = Category
