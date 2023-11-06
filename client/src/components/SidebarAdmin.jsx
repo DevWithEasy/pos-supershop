@@ -38,13 +38,13 @@ const SidebarAdmin = () => {
                     icon: <AiOutlineHome size={16} />
                 },
                 {
-                    path: '/categories',
-                    title: 'Categories',
+                    path: '/categories/new',
+                    title: 'Create Category',
                     icon: <AiOutlineHome size={16} />
                 },
                 {
-                    path: '/categories/new',
-                    title: 'Create Category',
+                    path: '/categories',
+                    title: 'Categories',
                     icon: <AiOutlineHome size={16} />
                 },
                 {

@@ -86,9 +86,9 @@ function App() {
       path : '/products',
       element : 
       <Protected>
-      <Layout>
+      <LayoutAdmin>
         <Products/>
-      </Layout>
+      </LayoutAdmin>
     </Protected>
     },
     {

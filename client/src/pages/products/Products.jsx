@@ -25,13 +25,13 @@ const Products = () => {
     },[])
     return (
         <div className='p-2'>
-            <Search
-                {...{
-                    placeholder : 'Search by product,generic or company name',
-                    setQuery
-                }}
+                <input 
+                type="search"
+                onChange={(e)=>setQuery(e.target.value.toLowerCase())}
+                placeholder='Search by product,generic or company name'
+                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
             />
-            <Heading>Products</Heading>
+            
             <div className="relative overflow-x-auto space-y-3">
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-blue-50">
