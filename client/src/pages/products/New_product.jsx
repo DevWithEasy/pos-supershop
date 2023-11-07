@@ -60,7 +60,7 @@ const New_product = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get(`${baseUrl}/api/product/findGenericBrand`)
+            const res = await axios.get(`${baseUrl}/api/category/`)
             setCategories(res.data.data)
         } catch (error) {
             console.log(error)

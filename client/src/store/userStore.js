@@ -6,8 +6,7 @@ const createUserStore = (set)=>({
     user : {},
     users : [],
     products : [],
-    companies : [],
-    generics : [],
+    categories : [],
     customers : [],
     purchases : [],
     invoices : [],
@@ -40,9 +39,9 @@ const createUserStore = (set)=>({
             products : products
         }))
     },
-    addCompanies : (companies)=>{
+    addCategoties : (categories)=>{
         set((state)=>({
-            companies : companies
+            categories : categories
         }))
     },
     addGenerics : (generics)=>{

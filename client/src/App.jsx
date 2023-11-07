@@ -27,6 +27,8 @@ import LayoutAdmin from './pages/LayoutAdmin'
 import Categories from './pages/categories/Categories'
 import Update_category from './pages/categories/Update_category'
 import New_category from './pages/categories/New_category'
+import PrintBarCode from './pages/products/PrintBarCode'
+import New_Invoice from './pages/New_Invoice'
 
 function App() {
   const routes= useRoutes([
@@ -51,6 +53,15 @@ function App() {
       element : <Protected>
       <Layout>
         <Order/>
+      </Layout>
+    </Protected>
+    },
+    {
+      path : '/invoice/new',
+      element : 
+      <Protected>
+      <Layout>
+        <New_Invoice/>
       </Layout>
     </Protected>
     },
@@ -85,6 +96,15 @@ function App() {
       <Protected>
       <LayoutAdmin>
         <Products/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/printbarcode',
+      element : 
+      <Protected>
+      <LayoutAdmin>
+        <PrintBarCode/>
       </LayoutAdmin>
     </Protected>
     },
@@ -154,7 +174,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/user/new',
+      path : 'user/new',
       element : <Protected>
       <LayoutAdmin>
         <New_user/>
@@ -162,7 +182,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/users',
+      path : '/users',
       element : <Protected>
       <LayoutAdmin>
         <Users/>
@@ -170,7 +190,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/user/:id',
+      path : '/user/:id',
       element : <Protected>
       <LayoutAdmin>
         <Update_user/>
@@ -178,7 +198,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/purchase/new',
+      path : '/purchase/new',
       element : <Protected>
       <LayoutAdmin>
         <New_purchase/>
@@ -186,7 +206,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/purchases',
+      path : '/purchases',
       element : <Protected>
       <LayoutAdmin>
         <Purchases/>
@@ -194,7 +214,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/purchase/:id',
+      path : 'purchase/:id',
       element : <Protected>
       <LayoutAdmin>
         <Purchase/>
@@ -202,7 +222,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/report/new',
+      path : '/report/new',
       element : <Protected>
       <LayoutAdmin>
         <New_report/>
@@ -210,7 +230,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/reports',
+      path : '/reports',
       element : <Protected>
       <LayoutAdmin>
         <Reports/>

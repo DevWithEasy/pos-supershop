@@ -5,27 +5,9 @@ const productSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    generic : {
+    category : {
         type : mongoose.Types.ObjectId,
-        ref : 'Generic'
-    },
-    company : {
-        type : mongoose.Types.ObjectId,
-        ref : 'Company'
-    },
-    sku : {
-        type : String,
-        required : true
-    },
-    sku_unit : {
-        type : String,
-        enum : ['mg','ml'],
-        required : true
-    },
-    type : {
-        type : String,
-        enum : ['Tablet','Capsule','Syrup','Suspension','Cream'],
-        required : true
+        ref : 'Category'
     },
     price : {
         type : Number,
@@ -35,6 +17,10 @@ const productSchema = new mongoose.Schema({
         type : Number,
         required : true,
         default : 0
+    },
+    barCode : {
+        type : String,
+        required : true
     }
 
 },{timestamps : true})

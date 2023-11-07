@@ -29,6 +29,11 @@ const Sidebar = () => {
             icon : <RiProductHuntLine size={16}/>
         },
         {
+            path : '/invoice/new',
+            title : 'Create Invoices',
+            icon : <TbFileInvoice size={16}/>
+        },
+        {
             path : '/invoices',
             title : 'Invoices',
             icon : <TbFileInvoice size={16}/>

@@ -12,14 +12,14 @@ import baseUrl from '../../utils/baseUrl';
 
 const Categories = () => {
     const navigate = useNavigate()
-    const {addCompanies,companies} = useUserStore()
+    const {addCategoties,categories} = useUserStore()
     const [remove,setRemove] = useState(false)
     const [query,setQuery] = useState('')
-    const getCompanies = async() =>{
+    const getCategories = async() =>{
         try {
-            const res = await axios.get(`${baseUrl}/api/company`)
+            const res = await axios.get(`${baseUrl}/api/category`)
             if(res.status === 200){
-                addCompanies(res.data.data)
+                addCategoties(res.data.data)
             }
         } catch (error) {
             console.log(error)
@@ -27,19 +27,18 @@ const Categories = () => {
     }
 
     useEffect(()=>{
-        getCompanies()
+        getCategories()
     },[])
     return (
         <div
             className='p-2'
         >
-            <Search
-                {...{
-                    placeholder:'Search by name',
-                    setQuery
-                }}
+            <input
+                type="search"
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                placeholder='Search by name'
+                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
             />
-            <Heading>Companies</Heading>
             <div className="relative overflow-x-auto space-y-3">
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-blue-50">
@@ -48,7 +47,7 @@ const Categories = () => {
                                 Sl
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
-                                Company name
+                                Category name
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
                                 Action
@@ -57,16 +56,16 @@ const Categories = () => {
                     </thead>
                     <tbody>
                         {
-                            companies.filter(company=>company.name.toLowerCase().includes(query)).map((company,i)=><tr 
-                                    key={company._id}
+                            categories && categories.filter(category=>category.name.toLowerCase().includes(query)).map((category,i)=><tr 
+                                    key={category._id}
                                     className='bg-white cursor-pointer border-b'
                                 >
                                 <td className="px-6 py-3 text-center">{i+1}</td>
-                                <td className="px-6 py-3 text-center">{company?.name}</td>
+                                <td className="px-6 py-3 text-center">{category?.name}</td>
                                 <td className="px-6 py-3 text-center space-x-2">
                                     <button 
                                         onClick={()=>{
-                                            navigate(`/company/${company._id}`)
+                                            navigate(`/category/${category._id}`)
                                         }}
                                         className='p-1.5 bg-green-400 text-white rounded-md'
                                     >
@@ -82,7 +81,7 @@ const Categories = () => {
                                     </button>
                                     {remove && <Delete_data {...{
                                         id : company._id, 
-                                        path : 'company',
+                                        path : 'category',
                                         remove, 
                                         setRemove
                                     }}/>}

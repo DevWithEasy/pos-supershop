@@ -28,7 +28,7 @@ const New_category = () => {
       }
       try {
           setLoading(true)
-          const res = await axios.post(`${baseUrl}/api/company/create`,value,{
+          const res = await axios.post(`${baseUrl}/api/category/create`,value,{
               headers: {
                   authorization : localStorage.getItem('token')
               }
@@ -39,7 +39,7 @@ const New_category = () => {
                   toast,
                   res.data.message
               )
-              navigate('/companies')
+              navigate('/categories')
           }
           
       } catch (error) {
@@ -54,12 +54,12 @@ const New_category = () => {
     }
   return (
     <div className='p-4'>
-      <Heading>Add new company</Heading>
+      <Heading>Add new Category</Heading>
         <form
           className='w-1/2 mx-auto space-y-2 p-4 bg-white rounded shadow'
         >
             <div className='space-y-2'>
-                <label htmlFor="">Company Name :</label>
+                <label htmlFor="">Category Name :</label>
                 <input 
                     type='text' 
                     name='name'

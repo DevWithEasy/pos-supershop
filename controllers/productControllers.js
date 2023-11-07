@@ -1,12 +1,25 @@
 const Category = require("../models/Category")
 const Product = require("../models/Product")
+const jsbarcode = require("jsbarcode")
+const {createCanvas} = require("canvas")
 
 exports.createProduct=async(req,res,next)=>{
     try{
       const new_product = new Product({
         ...req.body
       })
+
+      const canvas = createCanvas(300, 100);
+
+      jsbarcode(canvas, new_product._id, {
+        format: 'CODE128',
+        displayValue: true,
+      });
+
+      new_product.barCode = canvas.toDataURL('image/png')
+
       const product = await new_product.save()
+      
       res.status(200).json({
           success : true,
           status : 200,
@@ -29,11 +42,7 @@ exports.updateProduct=async(req,res,next)=>{
     const product = await Product.findByIdAndUpdate(req.params.id,{
       $set : {
         name : req.body.name,
-        generic : req.body.generic,
-        brand : req.body.brand,
-        sku : req.body.sku,
-        sku_unit : req.body.sku_unit,
-        type : req.body.type,
+        category : req.body.category,
         price : req.body.price,
         quantity : req.body.quantity
       }
@@ -103,8 +112,7 @@ exports.getProducts=async(req,res,next)=>{
   try{
 
     const products = await Product.find({})
-    .populate('generic' , 'name')
-    .populate('company' , 'name')
+    .populate('category' , 'name')
 
     res.status(200).json({
         success : true,
@@ -121,33 +129,12 @@ exports.getProducts=async(req,res,next)=>{
   }
 }
 
-exports.getProductsByBrand=async(req,res,next)=>{
-  
-  try{
-    const products = await Product.find({
-      brand : req.param.id
-    })
-
-    res.status(200).json({
-        success : true,
-        status : 200,
-        message : 'Products retrieved successfully.',
-        data : products
-    })
-  }catch(err){
-    res.status(500).json({
-        success : false,
-        status : 500,
-        message : err.message
-    })
-  }
-}
 
 exports.getProductsByGeneric=async(req,res,next)=>{
   
   try{
     const products = await Product.find({
-      generic : req.param.id
+      category : req.param.id
     })
 
     res.status(200).json({

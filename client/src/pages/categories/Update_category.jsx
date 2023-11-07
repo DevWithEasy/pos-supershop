@@ -9,17 +9,17 @@ import handleChange from '../../utils/handleChange';
 import toast_alert from '../../utils/toast_alert';
 
 const Update_category = () => {
-    const {companies} = useUserStore();
+    const {categories} = useUserStore();
     const {id} = useParams()
     const toast = useToast()
     const navigate = useNavigate()
     const [loading,setLoading] = useState(false)
-    const [value,setValue] = useState(companies.find(c => c._id === id))
-    const updateCompany= async(e) => {
+    const [value,setValue] = useState(categories.find(c => c._id === id))
+    const updateCategory= async(e) => {
       e.preventDefault()
       setLoading(true)
       try {
-          const res = await axios.put(`${baseUrl}/api/company/update/${value._id}`,value,{
+          const res = await axios.put(`${baseUrl}/api/category/update/${value._id}`,value,{
               headers: {
                   authorization : localStorage.getItem('token')
               }
@@ -48,11 +48,11 @@ const Update_category = () => {
         >
           <Heading>Update company</Heading>
           <form 
-            onSubmit={(e)=>updateCompany(e)}
+            onSubmit={(e)=>updateCategory(e)}
             className='w-1/2 mx-auto space-y-2 p-4 bg-white rounded shadow'
           >
             <div className='space-y-2'>
-                  <label htmlFor="">Company Name :</label>
+                  <label htmlFor="">Category Name :</label>
                   <input 
                       type='text' 
                       name='name'

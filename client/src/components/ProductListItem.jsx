@@ -6,22 +6,14 @@ import Delete_data from './Delete_data';
 const ProductListItem = ({product}) => {
     const navigate = useNavigate()
     const [remove,setRemove] = useState(false)
+    
     return (
         <tr className={`bg-white border-b ${product.quantity === 0 ? 'text-red-500' :''}`}>
             <th scope="row" className="px-2 py-2 font-medium whitespace-nowrap">
                 {product.name}
             </th>
             <td className="px-6 py-2 text-center">
-                {product?.generic?.name}
-            </td>
-            <td className="px-6 py-2 text-center">
-                {product?.company?.name}
-            </td>
-            <td className="px-6 py-2 text-center">
-                {product.sku} {product.sku_unit}
-            </td>
-            <td className="px-6 py-2 text-center">
-                {product.type}
+                {product?.category?.name}
             </td>
             <td className="px-6 py-2 text-center">
                 {product.price}

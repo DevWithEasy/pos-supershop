@@ -4,7 +4,7 @@ import ProductListItem from '../../components/ProductListItem';
 import useUserStore from '../../store/userStore';
 import baseUrl from '../../utils/baseUrl';
 
-const Products = () => {
+const PrintBarCode = () => {
     const { products, addProducts } = useUserStore()
     const [query, setQuery] = useState('')
     const getProducts = async () => {
@@ -37,24 +37,23 @@ const Products = () => {
                             <th scope="col" className="px-2 py-3">
                                 Name
                             </th>
+                            
                             <th scope="col" className="px-6 py-3 text-center">
-                                Category
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-center">
-                                Price
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-center">
-                                Quantity
-                            </th>
-                            <th scope="col" className="px-6 py-3 text-center">
-                                Action
+                                Image
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             products.filter(product => product.name.toLowerCase().includes(query) || product.company.name.toLowerCase().includes(query) || product.generic.name.toLowerCase().includes(query))
-                                .map(product => <ProductListItem key={product._id} {...{ product }} />)
+                                .map(product => 
+                                    <tr key={product._id} >
+                                        <td>{product?.name}</td>
+                                        <td>
+                                            <img src={product?.barCode}/>
+                                        </td>
+                                    </tr>
+                                )
                         }
                     </tbody>
                 </table>
@@ -63,4 +62,4 @@ const Products = () => {
     );
 };
 
-export default Products;
+export default PrintBarCode;
