@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import BarcodeScanner from '../components/Scanner';
 
 const New_Invoice = () => {
-    const [data, setData] = React.useState("Not Found");
+    const [data, setData] = useState("Not Found");
     console.log(data)
+    const _onDetected = result => {
+        console.log(result)
+    }
     return (
         <div>
-            <BarcodeScanner/>
+            <BarcodeScanner onDetected={_onDetected}/>
         </div>
     );
 };
