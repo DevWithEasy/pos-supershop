@@ -19,10 +19,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "jsbarcode": "^3.11.5",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.0",
-    "node-cron": "^3.0.2"
+    "node-cron": "^3.0.2",
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

@@ -102,6 +102,7 @@ const New_Invoice = () => {
         <div
             className='relative'
         >
+            <BarcodeScanner/>
             <div
                 className='p-2'
             >

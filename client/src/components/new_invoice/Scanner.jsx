@@ -1,42 +1,33 @@
-import React, { useEffect } from 'react';
-import Quagga from 'quagga';
+import React, { useEffect, useState } from 'react';
+import {Html5QrcodeScanner} from "html5-qrcode";
+
 
 function BarcodeScanner() {
-    useEffect(() => {
-        Quagga.init(
-            {
-                inputStream: {
-                    name: 'Live',
-                    type: 'LiveStream',
-                    target: document.querySelector('#barcode-scanner'), // The target HTML element for the video stream
-                    constraints: {
-                        facingMode: 'environment', // Use the rear camera for mobile devices
-                    },
-                },
-                decoder: {
-                    readers: ['code_128_reader'], // You can specify the barcode formats you want to scan
-                },
+    const [data, setData] = useState('No result');
+    
+    const success =(result)=>{
+        scanner.clear()
+        console.log(result)
+    }
+
+    const error =(error)=>{
+        console.log(error)
+    }
+    useEffect(() =>{
+        const scanner = new Html5QrcodeScanner('reader',{
+            qrbox: {
+                width: 650,
+                height: 650,
             },
-            (err) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
-                Quagga.start();
-            }
-        );
+            fps: 5
+        })
+    
+        scanner.render(success,error)
+    },[])
 
-        Quagga.onDetected((data) => {
-            console.log('Barcode detected:', data.codeResult.code);
-            // Handle the detected barcode here, e.g., send it to an API or update the UI.
-        });
-
-        return () => {
-            Quagga.stop();
-        };
-    }, []);
-
-    return <div id="barcode-scanner"></div>;
+    return (
+        <div id="reader" width="600px" height="600px"></div>
+    );
 }
 
 export default BarcodeScanner;
