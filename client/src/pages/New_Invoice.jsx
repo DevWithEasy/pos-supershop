@@ -18,9 +18,35 @@ const New_Invoice = () => {
     const [price, setPrice] = useState('')
     const [quantity, setQuantity] = useState('')
     const [isSelect, setIsSelect] = useState(false)
+    const [scaneSearch, setScaneSearch] = useState('')
 
     const searchRef = useRef(null)
     const selectRef = useRef(null)
+
+    const handleScanSearch = async (result) => {
+        if(scaneSearch === result){
+            return
+        }
+
+        setScaneSearch(result)
+        
+        if (!scaneSearch.length === 24) {
+            return
+        }
+
+        try {
+            const res = await axios.get(`${baseUrl}/api/product/find/${scaneSearch}`)
+            // setFind(res.data.data)
+            // if (selectRef.current) {
+            //     selectRef.current.focus();
+            // }
+            // setIsSelect(!isSelect)
+            console.log(res.data.data)
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     const handleSearch = async (query) => {
         setSearch(query)
@@ -102,7 +128,7 @@ const New_Invoice = () => {
         <div
             className='relative'
         >
-            <BarcodeScanner/>
+            <BarcodeScanner {...{handleScanSearch}}/>
             <div
                 className='p-2'
             >

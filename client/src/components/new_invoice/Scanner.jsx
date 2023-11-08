@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import {Html5QrcodeScanner} from "html5-qrcode";
+import { useState } from 'react';
+import { useZxing } from "react-zxing";
 
+const BarcodeScanner = ({handleScanSearch}) => {
+    const [result, setResult] = useState("");
+    const { ref } = useZxing({
+        onDecodeResult(result) {
+            handleScanSearch(result.getText());
+        },
+    });
 
-function BarcodeScanner() {
-    const [data, setData] = useState('No result');
-    
-    const success =(result)=>{
-        scanner.clear()
-        console.log(result)
-    }
-
-    const error =(error)=>{
-        console.log(error)
-    }
-    useEffect(() =>{
-        const scanner = new Html5QrcodeScanner('reader',{
-            qrbox: {
-                width: 650,
-                height: 650,
-            },
-            fps: 5
-        })
-    
-        scanner.render(success,error)
-    },[])
+    // console.log(result.length)
 
     return (
-        <div id="reader" width="600px" height="600px"></div>
+        <div
+            className='absolute right-0 top-0 w-2/12 h-[150px] z-10 overflow-hidden opacity-20'
+        >
+            <video 
+                ref={ref} 
+                className='w-[100%] bg-cover'
+            />
+        </div>
     );
-}
+};
 
 export default BarcodeScanner;
