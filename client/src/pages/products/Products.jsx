@@ -53,7 +53,7 @@ const Products = () => {
                     </thead>
                     <tbody>
                         {
-                            products.filter(product => product.name.toLowerCase().includes(query) || product.company.name.toLowerCase().includes(query) || product.generic.name.toLowerCase().includes(query))
+                            products.filter(product => product.name.toLowerCase().includes(query) || product.name.toLowerCase().includes(query))
                                 .map(product => <ProductListItem key={product._id} {...{ product }} />)
                         }
                     </tbody>
