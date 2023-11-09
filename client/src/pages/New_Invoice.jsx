@@ -7,9 +7,9 @@ import { useToast } from '@chakra-ui/react';
 import Product_Select_invoice from '../components/new_invoice/Product_Select_invoice';
 import Product_list_invoice from '../components/new_invoice/Product_list_invoice';
 import Heading from '../components/Heading';
-import Cart from '../components/Cart';
-
+import useProductStore from '../store/productStore'
 const New_Invoice = () => {
+    const {cart,addCart} = useProductStore()
     const toast = useToast()
     const [isAdd, setIsAdd] = useState(false)
     const [search, setSearch] = useState('')
@@ -100,7 +100,7 @@ const New_Invoice = () => {
     const addProduct = (e) => {
         e.preventDefault()
         if (!quantity) return
-        const find = products.find(product => product._id === _id)
+        const find = cart.find(product => product._id === _id)
         if (find) {
             return toast({
                 title: 'already added this product.',
@@ -108,10 +108,7 @@ const New_Invoice = () => {
                 isClosable: true,
             })
         } else {
-            setProducts(
-                [...products, { _id, name, price, quantity }]
-
-            )
+            addCart({ _id, name, price, quantity })
             set_id('')
             setName('')
             setPrice('')
@@ -144,6 +141,8 @@ const New_Invoice = () => {
         setProducts(newArray)
     }
 
+    console.log(cart)
+
     return (
         <div
             className='relative h-screen p-2'
@@ -159,7 +158,7 @@ const New_Invoice = () => {
                 className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
                 placeholder='find by product name'
             />
-            <Product_list_invoice {...{ products, handleChangeQuantity, removeProduct }} />
+            <Product_list_invoice/>
 
             {find.length > 0 && isSelect &&
                 <Product_Select_invoice {...{

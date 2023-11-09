@@ -19,19 +19,19 @@ const CartItem = ({product}) => {
         }
     }
 
-    const value = product?.price * product.qty
+    const value = product?.price * product.quantity
     
     useEffect (()=>{
-        setQty(product.qty)
+        setQty(product.quantity)
     })
     return (
         <div className='flex justify-between items-center p-2 space-x-2'>
             <p className='w-8/12 flex items-center space-x-3'>
-                <RxCrossCircled onClick={()=>removeCart(product.id)} size={20} className='text-red-500 shrink-0'/>
+                <RxCrossCircled onClick={()=>removeCart(product._id)} size={20} className='text-red-500 shrink-0'/>
 
                 <span>{product?.name}</span>
             </p>
-            <input type='number' value={qty} min='1' onChange={(e)=>handleQtyChange(e)} className='w-20 border outline-none rounded-lg text-center p-1'/>
+            <input type='number' value={product.quantity} min='1' onChange={(e)=>handleQtyChange(e)} className='w-20 border outline-none rounded-lg text-center p-1'/>
             <p className='w-2/12 text-center'>{value} /-</p>
         </div>
     );

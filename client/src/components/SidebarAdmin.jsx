@@ -9,11 +9,9 @@ import {TbReportSearch} from 'react-icons/tb'
 import {PiKeyReturnLight,PiUsersDuotone,PiUsersBold} from 'react-icons/pi'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
+import Header from '../components/Header';
 
 const SidebarAdmin = () => {
-    const { isAuth, user, removeUser } = useUserStore()
-    const navigate = useNavigate()
-    const [path,setPath] = useState('/admin')
 
     const data = [
         {
@@ -134,7 +132,7 @@ const SidebarAdmin = () => {
     ]
 
     return (
-        <div className='h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
+        <div className='relative h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
             <Link 
                 to='/' 
                 className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>

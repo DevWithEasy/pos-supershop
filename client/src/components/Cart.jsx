@@ -19,15 +19,15 @@ const Cart = ({}) => {
     const btnRef = useRef()
     const navigate = useNavigate()
     const {cart} = useProductStore()
-    const total = Number(cart.reduce((total, cartItem) => total + cartItem.price * cartItem.qty,0).toFixed(2))
+    const total = Number(cart.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity,0).toFixed(2))
     return (
       <>
-      <div className='absolute right-4 top-40 w-16 h-16 shadow-lg rounded-md text-sm'>
-                    <p ref={btnRef} onClick={onOpen}  className='h-16 p-2 flex flex-col  items-center bg-slate-400/80 hover:bg-slate-400 text-yellow-200 cursor-pointer'>
-                        <HiOutlineShoppingBag size={25}/>
+      <div className='absolute right-2 top-32 w-16 h-16 shadow-lg rounded-md text-sm'>
+                    <p ref={btnRef} onClick={onOpen}  className='h-12 p-2 flex flex-col  items-center bg-slate-400/80 hover:bg-slate-400 text-yellow-200 text-xs cursor-pointer'>
+                        <HiOutlineShoppingBag size={20}/>
                         <span>{cart.length} Items</span>
                     </p>
-                    <p className='text-center bg-slate-100'>{total} ৳</p>
+                    <p className='text-center text-xs bg-slate-100'>{total} ৳</p>
                 </div>
       <Drawer
         isOpen={isOpen}

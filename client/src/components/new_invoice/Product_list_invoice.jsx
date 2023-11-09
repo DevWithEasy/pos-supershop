@@ -1,7 +1,9 @@
 import React from 'react';
 import { RxCross2 } from 'react-icons/rx';
+import useProductStore from '../../store/productStore';
 
-const Product_list_invoice = ({products,handleChangeQuantity,removeProduct}) => {
+const Product_list_invoice = () => {
+    const {cart,adjustQuantity,removeCart} = useProductStore()
     return (
         <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
@@ -28,8 +30,8 @@ const Product_list_invoice = ({products,handleChangeQuantity,removeProduct}) => 
                 </tr>
             </thead>
             <tbody>
-                {products &&
-                    products.map((product, i) => <tr
+                {cart &&
+                    cart.map((product, i) => <tr
                         key={product._id}
                         className='bg-white border-b'
                     >
@@ -47,7 +49,7 @@ const Product_list_invoice = ({products,handleChangeQuantity,removeProduct}) => 
                                 name={product._id}
                                 type='number'
                                 value={product?.quantity}
-                                onChange={(e) => handleChangeQuantity(e)}
+                                onChange={(e) => adjustQuantity(product._id,e.target.value)}
                                 className='p-1 border text-center focus:outline-none focus:border-sky-500 rounded-md'
                             />
                         </td>
@@ -56,7 +58,7 @@ const Product_list_invoice = ({products,handleChangeQuantity,removeProduct}) => 
                         </td>
                         <td className='p-2 text-center flex justify-center  text-red-500'>
                             <RxCross2
-                                onClick={() => removeProduct(product._id)}
+                                onClick={() => removeCart(product._id)}
                                 size={20}
                                 className='cursor-pointer'
                             />

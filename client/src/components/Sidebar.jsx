@@ -7,6 +7,7 @@ import { RxDashboard } from 'react-icons/rx';
 import { TbFileInvoice } from 'react-icons/tb';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
+import Header from '../components/Header'
 
 const Sidebar = () => {
     const {isAuth,user,removeUser} = useUserStore()
@@ -42,21 +43,11 @@ const Sidebar = () => {
             path : '/dashboard',
             title : 'Dashboard',
             icon : <RxDashboard size={16}/>
-        },
-        // {
-        //     path : '/signup',
-        //     title : 'Signup',
-        //     icon : <AiOutlineUserAdd size={16}/>
-        // },
-        // {
-        //     path : '/signin',
-        //     title : 'Signin',
-        //     icon : <BiLogInCircle size={16}/>
-        // }
+        }
     ]
 
     return (
-        <div className='h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
+        <div className='relative h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
             <Link 
                 to='/' 
                 className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
@@ -109,6 +100,7 @@ const Sidebar = () => {
                     <span className='hidden sm:block'>Signin</span>
                 </NavLink>
             }
+
         </div>
     );
 };

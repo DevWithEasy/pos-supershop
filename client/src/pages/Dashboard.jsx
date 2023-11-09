@@ -12,17 +12,17 @@ import baseUrl from '../utils/baseUrl';
 import get_fixed_num from '../utils/get_fixed_num';
 
 const Dashboard = () => {
-    const [loading,setLoading] = useState(false)
-    const [data,setData] = useState({})
-    const getDashboardData =async()=>{
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState({})
+    const getDashboardData = async () => {
         setLoading(true)
         try {
-            const res = await axios.get(`${baseUrl}/api/auth/dashboard`,{
+            const res = await axios.get(`${baseUrl}/api/auth/dashboard`, {
                 headers: {
-                    authorization : localStorage.getItem('token')
+                    authorization: localStorage.getItem('token')
                 }
             })
-            if(res.data.status === 200){
+            if (res.data.status === 200) {
                 setLoading(false)
                 setData(res.data.data)
             }
@@ -32,65 +32,70 @@ const Dashboard = () => {
         }
     }
 
-    const {users,companies,generics,customers,current_month,product,total} = data
+    const { users, companies, generics, customers, current_month, product, total } = data
 
     const benifits = (product?.stock_value + total?.sale) - total?.purchase
 
     const benifits_percent = (benifits / total?.purchase
-)*100
-    useEffect(() =>{
+    ) * 100
+    useEffect(() => {
         getDashboardData()
-    },[])
+    }, [])
 
-    
+
     return (
         <>
-            {loading ? 
-                <Dashboard_skeleton/>
+            {loading ?
+                <Dashboard_skeleton />
                 :
                 <div className='p-4'>
                     <Heading>Dashborad</Heading>
-                    <div className='w-full grid grid-cols-2 md:grid-cols-4 text-white gap-3'>
-                        <div className='bg-green-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <RxAvatar size={40} className='shrink-0'/>
+                    <div className='w-full grid grid-cols-2 md:grid-cols-4 gap-3'>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
+                            >
+                                <RxAvatar size={25} className='shrink-0 text-pink-500' />
+                            </div>
+
                             <div>
                                 <p>Total Users : </p>
                                 <p className='text-2xl font-bold text-center'>{users}</p>
                             </div>
                         </div>
                         <div className='bg-cyan-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <RxHome size={40} className='shrink-0'/>
+                            <RxHome size={40} className='shrink-0' />
                             <div>
                                 <p>Total Company : </p>
                                 <p className='text-2xl font-bold text-center'>{companies}</p>
                             </div>
                         </div>
                         <div className='bg-yellow-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <RxHeart size={40} className='shrink-0'/>
+                            <RxHeart size={40} className='shrink-0' />
                             <div>
                                 <p>Total Generics : </p>
                                 <p className='text-2xl font-bold text-center'>{generics}</p>
                             </div>
                         </div>
                         <div className='bg-teal-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <GiMedicines size={40} className='shrink-0'/>
+                            <GiMedicines size={40} className='shrink-0' />
                             <div>
                                 <p>Total Products : </p>
                                 <p className='text-2xl font-bold text-center'>
                                     {product?.total_products ?
-                                    product?.total_products : 0 }
+                                        product?.total_products : 0}
                                 </p>
                             </div>
                         </div>
                         <div className='bg-teal-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineUserSwitch size={40} className='shrink-0'/>
+                            <AiOutlineUserSwitch size={40} className='shrink-0' />
                             <div>
                                 <p>Total Customers : </p>
                                 <p className='text-2xl font-bold text-center'>{customers}</p>
                             </div>
                         </div>
                         <div className='bg-sky-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <TbMoneybag size={40} className='shrink-0'/>
+                            <TbMoneybag size={40} className='shrink-0' />
                             <div>
                                 <p>Total Investment : </p>
                                 <p className='text-2xl font-bold text-center'>
@@ -99,7 +104,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='bg-red-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <MdOutlineSell size={40} className='shrink-0'/>
+                            <MdOutlineSell size={40} className='shrink-0' />
                             <div>
                                 <p>Total Sales : </p>
                                 <p className='text-2xl font-bold text-center'>
@@ -108,16 +113,16 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='bg-blue-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineLineChart size={40} className='shrink-0'/>
+                            <AiOutlineLineChart size={40} className='shrink-0' />
                             <div>
                                 <p>Total Stock : </p>
                                 <p className='text-2xl font-bold text-center'>
-                                    {product ? get_fixed_num(product?.stock_value) : 0 }
+                                    {product ? get_fixed_num(product?.stock_value) : 0}
                                 </p>
                             </div>
                         </div>
                         <div className='bg-green-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineBarChart size={40} className='shrink-0'/>
+                            <AiOutlineBarChart size={40} className='shrink-0' />
                             <div>
                                 <p>Total Benifits : </p>
                                 <p className='text-2xl font-bold text-center'>
@@ -126,14 +131,14 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <div className='bg-yellow-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <TbMoneybag size={40} className='shrink-0'/>
+                            <TbMoneybag size={40} className='shrink-0' />
                             <div>
                                 <p>This month purchase : </p>
                                 <p className='text-2xl font-bold text-center'>{current_month?.purchase ? current_month?.purchase : 0}</p>
                             </div>
                         </div>
                         <div className='bg-cyan-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <MdOutlineSell size={40} className='shrink-0'/>
+                            <MdOutlineSell size={40} className='shrink-0' />
                             <div>
                                 <p>This Month Sale : </p>
                                 <p className='text-2xl font-bold text-center'>{current_month && get_fixed_num(current_month?.sale)}</p>
@@ -143,11 +148,11 @@ const Dashboard = () => {
                     <div
                         className='w-full grid grid-cols-2 gap-3 mt-5'
                     >
-                        {data.reports && 
-                            <ReportChart 
-                            {...{
-                                reports : data.reports
-                            }}
+                        {data.reports &&
+                            <ReportChart
+                                {...{
+                                    reports: data.reports
+                                }}
                             />
                         }
                         <div

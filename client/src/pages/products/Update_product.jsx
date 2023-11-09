@@ -70,7 +70,7 @@ const Update_product = () => {
     }, [])
 
     return (
-        <div className='p-4'>
+        <div className='p-2'>
             <Heading>Update Product</Heading>
             <form
                 onSubmit={(e) => updateProduct(e)}

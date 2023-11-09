@@ -72,7 +72,7 @@ const New_product = () => {
     }, [])
 
     return (
-        <div className='p-4'>
+        <div className='p-2'>
             <Heading> Create new product </Heading>
             <form
                 onSubmit={(e) => createProduct(e)}

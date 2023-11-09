@@ -38,7 +38,7 @@ const PrintBarCode = () => {
                             <th scope="col" className="px-2 py-3">
                                 Name
                             </th>
-                            
+
                             <th scope="col" className="px-6 py-3 text-center">
                                 Image
                             </th>
@@ -47,7 +47,7 @@ const PrintBarCode = () => {
                     <tbody>
                         {
                             products.filter(product => product.name.toLowerCase().includes(query) || product.company.name.toLowerCase().includes(query) || product.generic.name.toLowerCase().includes(query))
-                                .map(product => 
+                                .map(product =>
                                     <tr key={product._id} >
                                         <td>{product?.name}</td>
                                         <td className='flex justify-center'>
@@ -55,7 +55,7 @@ const PrintBarCode = () => {
                                                 href={product?.barCode}
                                                 download={product?.name}
                                             >
-                                                <img src={product?.barCode} className='w-16'/>
+                                                <img src={product?.barCode} className='w-16' />
                                             </a>
                                         </td>
                                     </tr>

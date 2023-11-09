@@ -6,7 +6,7 @@ import Heading from './../components/Heading'
 const Admin = () => {
 
     return (
-        <div className='p-4'>
+        <div className='p-2'>
             <Heading>Admin Dashboard</Heading>
             <div
                 className='grid grid-cols-4 gap-4'
