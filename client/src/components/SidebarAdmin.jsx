@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
-import { BiCategoryAlt,BiPurchaseTag } from 'react-icons/bi';
-import { PiBarcode } from 'react-icons/pi';
-import { RiProductHuntLine } from 'react-icons/ri';
-import { RxDashboard, } from 'react-icons/rx';
-import { RiAddBoxLine } from 'react-icons/ri';
+import React from 'react';
+import { AiOutlineHome } from 'react-icons/ai';
+import { BiCategoryAlt, BiPurchaseTag } from 'react-icons/bi';
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
-import {TbReportSearch} from 'react-icons/tb'
-import {PiKeyReturnLight,PiUsersDuotone,PiUsersBold} from 'react-icons/pi'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import useUserStore from '../store/userStore';
-import Header from '../components/Header';
+import { PiBarcode, PiKeyReturnLight, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
+import { RiAddBoxLine, RiProductHuntLine } from 'react-icons/ri';
+import { RxDashboard, } from 'react-icons/rx';
+import { TbReportSearch } from 'react-icons/tb';
+import { Link, NavLink } from 'react-router-dom';
 
 const SidebarAdmin = () => {
 
@@ -17,6 +14,11 @@ const SidebarAdmin = () => {
         {
             title: 'Main',
             links: [
+                {
+                    path: '/',
+                    title: 'Home',
+                    icon: <AiOutlineHome size={16} />
+                },
                 {
                     path: '/admin',
                     title: 'Dashboard',

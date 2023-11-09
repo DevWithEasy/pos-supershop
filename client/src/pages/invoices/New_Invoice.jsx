@@ -1,20 +1,22 @@
 import React, { useRef, useState } from 'react';
-import BarcodeScanner from '../components/new_invoice/Scanner';
+import BarcodeScanner from '../../components/new_invoice/Scanner';
 import axios from 'axios';
-import baseUrl from '../utils/baseUrl';
-import Add_product_invoice from '../components/new_invoice/Add_product_invoice';
+import baseUrl from '../../utils/baseUrl';
+import Add_product_invoice from '../../components/new_invoice/Add_product_invoice';
 import { useToast } from '@chakra-ui/react';
-import Product_Select_invoice from '../components/new_invoice/Product_Select_invoice';
-import Product_list_invoice from '../components/new_invoice/Product_list_invoice';
-import Heading from '../components/Heading';
-import useProductStore from '../store/productStore'
+import Product_Select_invoice from '../../components/new_invoice/Product_Select_invoice';
+import Product_list_invoice from '../../components/new_invoice/Product_list_invoice';
+import Heading from '../../components/Heading';
+import useProductStore from '../../store/productStore'
+import { MdOutlineRefresh } from 'react-icons/md'
+import { LuRefreshCw } from 'react-icons/lu'
+
 const New_Invoice = () => {
-    const {cart,addCart} = useProductStore()
+    const { cart, addCart, resetCart } = useProductStore()
     const toast = useToast()
     const [isAdd, setIsAdd] = useState(false)
     const [search, setSearch] = useState('')
     const [find, setFind] = useState([])
-    const [products, setProducts] = useState([])
     const [_id, set_id] = useState('')
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -28,7 +30,7 @@ const New_Invoice = () => {
 
     const handleScanSearch = async (result) => {
         const id = scaneSearch
-        const find = products.find(product => product._id === result)
+        const find = cart.find(product => product._id === result)
         if (find) {
             if (!toast.isActive(id)) {
                 toast({
@@ -40,9 +42,6 @@ const New_Invoice = () => {
             }
             return
         }
-
-        setScaneSearch(result)
-
         if (!scaneSearch.length === 24) {
             return toast({
                 id: result,
@@ -55,12 +54,15 @@ const New_Invoice = () => {
         }
 
         try {
+            if (result === scaneSearch) {
+                return setScaneSearch('')
+            }
             const res = await axios.get(`${baseUrl}/api/product/find/${result}`)
             if (res.data.success) {
-                setIsAdd(!isAdd)
                 set_id(res.data.data._id)
                 setName(res.data.data.name)
                 setPrice(res.data.data.price)
+                setIsAdd(!isAdd)
             }
         } catch (error) {
             console.log(error)
@@ -118,6 +120,7 @@ const New_Invoice = () => {
             if (searchRef.current) {
                 searchRef.current.focus();
             }
+            setScaneSearch('')
         }
 
     }
@@ -129,36 +132,60 @@ const New_Invoice = () => {
             setPrice('')
             setQuantity('')
             setIsAdd(!isAdd)
+            setScaneSearch('')
         }
     }
 
-    const removeProduct = (id) => {
-        setProducts(products.filter(product => product._id !== id))
-    }
-
-    const handleChangeQuantity = (e) => {
-        const newArray = products.map(product => product._id === e.target.name ? { ...product, quantity: Number(e.target.value) } : product)
-        setProducts(newArray)
-    }
-
-    console.log(cart)
 
     return (
         <div
             className='relative h-screen p-2'
         >
-            <BarcodeScanner {...{ handleScanSearch, audioRef }} />
+            <BarcodeScanner {...{ handleScanSearch, setScaneSearch, audioRef }} />
             {/* <Scanner_Barcode/> */}
             <Heading>Create Invoice</Heading>
-            <input
-                type='search'
-                value={search}
-                ref={searchRef}
-                onChange={(e) => handleSearch(e.target.value)}
-                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
-                placeholder='find by product name'
-            />
-            <Product_list_invoice/>
+            <div
+                className='flex items-center space-x-3'
+            >
+                <input
+                    type='search'
+                    value={search}
+                    ref={searchRef}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
+                    placeholder='find by product name'
+                />
+                <MdOutlineRefresh 
+                    size={25} 
+                    onClick={()=>resetCart()}
+                    className='mb-2 hover:text-red-500 cursor-pointer'
+                />
+                <LuRefreshCw
+                size={20} 
+                onClick={()=>setScaneSearch()}
+                className='mb-2 hover:text-red-500 cursor-pointer'
+                />
+                {/* <div
+                    className='pl-4 flex items-center mb-2 space-x-2  bg-gray-500 text-sm border border-gray-500 rounded-full'
+                >
+                    <span className='inline-block text-white '>Reset : </span>
+                    <div
+                        className='pl-2 pr-4 py-0.5 bg-white space-x-2 rounded-r-full'
+                    >
+                        <button
+                            className='py-0.5 px-4 bg-red-500 text-white rounded-full '
+                        >
+                            Cart
+                        </button>
+                        <button
+                            className='py-0.5 px-4 bg-red-500 text-white rounded-full '
+                        >
+                            Scan
+                        </button>
+                    </div>
+                </div> */}
+            </div>
+            <Product_list_invoice />
 
             {find.length > 0 && isSelect &&
                 <Product_Select_invoice {...{
