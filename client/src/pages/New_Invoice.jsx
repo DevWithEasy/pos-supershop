@@ -6,6 +6,7 @@ import Add_product_invoice from '../components/new_invoice/Add_product_invoice';
 import { useToast } from '@chakra-ui/react';
 import Product_Select_invoice from '../components/new_invoice/Product_Select_invoice';
 import Product_list_invoice from '../components/new_invoice/Product_list_invoice';
+import Scanner_Barcode from '../components/new_invoice/Scanner_Barcode';
 
 const New_Invoice = () => {
     const toast = useToast()
@@ -129,6 +130,7 @@ const New_Invoice = () => {
             className='relative'
         >
             <BarcodeScanner {...{handleScanSearch}}/>
+            {/* <Scanner_Barcode/> */}
             <div
                 className='p-2'
             >

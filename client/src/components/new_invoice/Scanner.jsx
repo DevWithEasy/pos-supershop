@@ -6,6 +6,7 @@ const BarcodeScanner = ({handleScanSearch}) => {
     const { ref } = useZxing({
         onDecodeResult(result) {
             handleScanSearch(result.getText());
+            console.log(result.getText())
         },
     });
 
