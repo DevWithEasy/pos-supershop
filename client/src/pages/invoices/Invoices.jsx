@@ -32,7 +32,7 @@ const Invoices = () => {
 
     return (
         <div className='p-2'>
-            <Heading>Products</Heading>
+            <Heading>Invoices</Heading>
             <input
                 type="search"
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}

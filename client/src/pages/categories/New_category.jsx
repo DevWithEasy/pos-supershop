@@ -53,7 +53,7 @@ const New_category = () => {
       }
     }
   return (
-    <div className='p-4'>
+    <div className='p-2'>
       <Heading>Add new Category</Heading>
         <form
           className='w-1/2 mx-auto space-y-2 p-4 bg-white rounded shadow'

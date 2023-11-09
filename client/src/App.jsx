@@ -51,6 +51,15 @@ function App() {
     </Protected>
     },
     {
+      path : '/invoices/all',
+      element : 
+      <Protected>
+      <Layout>
+        <Invoices/>
+      </Layout>
+    </Protected>
+    },
+    {
       path : '/dashboard',
       element : <Protected>
       <Layout>
@@ -79,9 +88,9 @@ function App() {
       path : '/invoices',
       element : 
       <Protected>
-      <Layout>
+      <LayoutAdmin>
         <Invoices/>
-      </Layout>
+      </LayoutAdmin>
     </Protected>
     },
     {

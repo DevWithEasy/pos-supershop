@@ -35,7 +35,7 @@ const Sidebar = () => {
             icon : <TbFileInvoice size={16}/>
         },
         {
-            path : '/invoices',
+            path : '/invoices/all',
             title : 'Invoices',
             icon : <TbFileInvoice size={16}/>
         },
