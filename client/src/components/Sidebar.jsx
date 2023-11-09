@@ -55,7 +55,7 @@ const Sidebar = () => {
             </Link>
             {
                 isAuth ? 
-                <div className='w-full flex flex-col items-center justify-center space-y-2'>
+                <div className='w-full flex flex-col items-center justify-center space-y-2 mt-5'>
                     {
                         data.map((d,i)=><NavLink 
                             key={i} 

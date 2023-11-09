@@ -21,7 +21,7 @@ const Admin = () => {
                     <div>
                         <p>Total Users : </p>
                         <p className='text-2xl font-bold text-center'>
-
+                            20
                         </p>
                     </div>
                 </div>

@@ -63,85 +63,37 @@ const Dashboard = () => {
                                 <p className='text-2xl font-bold text-center'>{users}</p>
                             </div>
                         </div>
-                        <div className='bg-cyan-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <RxHome size={40} className='shrink-0' />
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
+                            >
+                                <RxAvatar size={25} className='shrink-0 text-green-500' />
+                            </div>
                             <div>
-                                <p>Total Company : </p>
-                                <p className='text-2xl font-bold text-center'>{companies}</p>
+                                <p>Total Users : </p>
+                                <p className='text-2xl font-bold text-center'>{users}</p>
                             </div>
                         </div>
-                        <div className='bg-yellow-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <RxHeart size={40} className='shrink-0' />
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
+                            >
+                                <RxAvatar size={25} className='shrink-0 text-blue-500' />
+                            </div>
                             <div>
-                                <p>Total Generics : </p>
-                                <p className='text-2xl font-bold text-center'>{generics}</p>
+                                <p>Total Users : </p>
+                                <p className='text-2xl font-bold text-center'>{users}</p>
                             </div>
                         </div>
-                        <div className='bg-teal-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <GiMedicines size={40} className='shrink-0' />
-                            <div>
-                                <p>Total Products : </p>
-                                <p className='text-2xl font-bold text-center'>
-                                    {product?.total_products ?
-                                        product?.total_products : 0}
-                                </p>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-yellow-50 shrink-0 rounded-full'
+                            >
+                                <RxAvatar size={25} className='shrink-0 text-yellow-500' />
                             </div>
-                        </div>
-                        <div className='bg-teal-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineUserSwitch size={40} className='shrink-0' />
                             <div>
-                                <p>Total Customers : </p>
-                                <p className='text-2xl font-bold text-center'>{customers}</p>
-                            </div>
-                        </div>
-                        <div className='bg-sky-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <TbMoneybag size={40} className='shrink-0' />
-                            <div>
-                                <p>Total Investment : </p>
-                                <p className='text-2xl font-bold text-center'>
-                                    {total && get_fixed_num(total?.purchase)}
-                                </p>
-                            </div>
-                        </div>
-                        <div className='bg-red-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <MdOutlineSell size={40} className='shrink-0' />
-                            <div>
-                                <p>Total Sales : </p>
-                                <p className='text-2xl font-bold text-center'>
-                                    {total && get_fixed_num(total?.sale)}
-                                </p>
-                            </div>
-                        </div>
-                        <div className='bg-blue-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineLineChart size={40} className='shrink-0' />
-                            <div>
-                                <p>Total Stock : </p>
-                                <p className='text-2xl font-bold text-center'>
-                                    {product ? get_fixed_num(product?.stock_value) : 0}
-                                </p>
-                            </div>
-                        </div>
-                        <div className='bg-green-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <AiOutlineBarChart size={40} className='shrink-0' />
-                            <div>
-                                <p>Total Benifits : </p>
-                                <p className='text-2xl font-bold text-center'>
-                                    {benifits ? get_fixed_num(benifits) : 0}
-                                </p>
-                            </div>
-                        </div>
-                        <div className='bg-yellow-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <TbMoneybag size={40} className='shrink-0' />
-                            <div>
-                                <p>This month purchase : </p>
-                                <p className='text-2xl font-bold text-center'>{current_month?.purchase ? current_month?.purchase : 0}</p>
-                            </div>
-                        </div>
-                        <div className='bg-cyan-400 flex items-center rounded-md p-2 space-x-4 shadow'>
-                            <MdOutlineSell size={40} className='shrink-0' />
-                            <div>
-                                <p>This Month Sale : </p>
-                                <p className='text-2xl font-bold text-center'>{current_month && get_fixed_num(current_month?.sale)}</p>
+                                <p>Total Users : </p>
+                                <p className='text-2xl font-bold text-center'>{users}</p>
                             </div>
                         </div>
                     </div>
