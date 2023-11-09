@@ -1,6 +1,7 @@
 const Category = require("../models/Category")
 const Product = require("../models/Product")
 const qr = require('qrcode');
+const JsBarcode = require('jsbarcode');
 const { createCanvas } = require("canvas")
 
 exports.createProduct = async (req, res, next) => {
@@ -9,7 +10,32 @@ exports.createProduct = async (req, res, next) => {
       ...req.body
     })
 
-    qr.toDataURL(new_product._id.toString(), { type: 'image/png', errorCorrectionLevel: 'H', size: 300 }, async(err, url) => {
+    // const standardWidth = 2;
+    // const standardHeight = 100
+
+    // const canvas = createCanvas(standardWidth * new_product._id.length, standardHeight);
+    // const ctx = canvas.getContext('2d');
+
+    // JsBarcode(canvas, new_product._id, {
+    //   format: 'CODE128',
+    //   displayValue: true,
+    //   width: standardWidth,
+    //   height: standardHeight,
+    // })
+
+    // new_product.barCode = canvas.toDataURL('image/png')
+
+    // const product = await new_product.save()
+
+    // res.status(200).json({
+    //   success: true,
+    //   status: 200,
+    //   message: 'Product created successfully.',
+    //   data: product
+    // })
+
+
+    qr.toDataURL(new_product._id.toString(), { type: 'image/png', errorCorrectionLevel: 'H', size: 300 }, async (err, url) => {
       if (err) {
         res.status(500).json({
           success: false,
@@ -92,7 +118,7 @@ exports.deleteProduct = async (req, res, next) => {
 exports.getProduct = async (req, res, next) => {
 
   try {
-    const product = await Product.findOne({_id : req.params.id})
+    const product = await Product.findOne({ _id: req.params.id })
     res.status(200).json({
       success: true,
       status: 200,

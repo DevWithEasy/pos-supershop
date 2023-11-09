@@ -22,7 +22,7 @@ const Cart = ({}) => {
     const total = Number(cart.reduce((total, cartItem) => total + cartItem.price * cartItem.quantity,0).toFixed(2))
     return (
       <>
-      <div className='absolute right-2 top-32 w-16 h-16 shadow-lg rounded-md text-sm'>
+      <div className='absolute right-2 top-[68px] w-16 h-16 shadow-lg rounded-md text-sm'>
                     <p ref={btnRef} onClick={onOpen}  className='h-12 p-2 flex flex-col  items-center bg-slate-400/80 hover:bg-slate-400 text-yellow-200 text-xs cursor-pointer'>
                         <HiOutlineShoppingBag size={20}/>
                         <span>{cart.length} Items</span>

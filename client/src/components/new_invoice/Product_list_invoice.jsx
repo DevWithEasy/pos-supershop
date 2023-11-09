@@ -5,8 +5,8 @@ import useProductStore from '../../store/productStore';
 const Product_list_invoice = () => {
     const {cart,adjustQuantity,removeCart} = useProductStore()
     return (
-        <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-500">
+        <div className="relative overflow-x-auto w-8/12">
+        <table className="w-full text-sm text-left text-gray-500 border">
             <thead className="text-xs text-gray-700 uppercase bg-blue-50">
                 <tr>
                     <th scope="col" className="px-2 py-2 text-center">
@@ -38,7 +38,7 @@ const Product_list_invoice = () => {
                         <td className='p-2 text-center'>
                             {i + 1}
                         </td>
-                        <td className='px-6 py-2 text-center'>
+                        <td className='px-6 py-2'>
                             {product?.name}
                         </td>
                         <td className='p-2 text-center'>

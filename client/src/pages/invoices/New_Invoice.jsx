@@ -10,6 +10,7 @@ import Heading from '../../components/Heading';
 import useProductStore from '../../store/productStore'
 import { MdOutlineRefresh } from 'react-icons/md'
 import { LuRefreshCw } from 'react-icons/lu'
+import Summary_invoice from '../../components/new_invoice/Summary_invoice';
 
 const New_Invoice = () => {
     const { cart, addCart, resetCart } = useProductStore()
@@ -142,7 +143,6 @@ const New_Invoice = () => {
             className='relative h-screen p-2'
         >
             <BarcodeScanner {...{ handleScanSearch, setScaneSearch, audioRef }} />
-            {/* <Scanner_Barcode/> */}
             <Heading>Create Invoice</Heading>
             <div
                 className='flex items-center space-x-3'
@@ -155,37 +155,24 @@ const New_Invoice = () => {
                     className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
                     placeholder='find by product name'
                 />
-                <MdOutlineRefresh 
-                    size={25} 
-                    onClick={()=>resetCart()}
+                <MdOutlineRefresh
+                    size={25}
+                    onClick={() => resetCart()}
                     className='mb-2 hover:text-red-500 cursor-pointer'
                 />
                 <LuRefreshCw
-                size={20} 
-                onClick={()=>setScaneSearch()}
-                className='mb-2 hover:text-red-500 cursor-pointer'
+                    size={20}
+                    onClick={() => setScaneSearch('')}
+                    className='mb-2 hover:text-red-500 cursor-pointer'
                 />
-                {/* <div
-                    className='pl-4 flex items-center mb-2 space-x-2  bg-gray-500 text-sm border border-gray-500 rounded-full'
-                >
-                    <span className='inline-block text-white '>Reset : </span>
-                    <div
-                        className='pl-2 pr-4 py-0.5 bg-white space-x-2 rounded-r-full'
-                    >
-                        <button
-                            className='py-0.5 px-4 bg-red-500 text-white rounded-full '
-                        >
-                            Cart
-                        </button>
-                        <button
-                            className='py-0.5 px-4 bg-red-500 text-white rounded-full '
-                        >
-                            Scan
-                        </button>
-                    </div>
-                </div> */}
             </div>
-            <Product_list_invoice />
+
+            <div
+                className='flex justify-between space-x-4'
+            >
+                <Product_list_invoice />
+                <Summary_invoice />
+            </div>
 
             {find.length > 0 && isSelect &&
                 <Product_Select_invoice {...{
