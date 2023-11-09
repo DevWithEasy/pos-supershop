@@ -49,8 +49,13 @@ const PrintBarCode = () => {
                                 .map(product => 
                                     <tr key={product._id} >
                                         <td>{product?.name}</td>
-                                        <td>
-                                            <img src={product?.barCode}/>
+                                        <td className='flex justify-center'>
+                                            <a
+                                                href={product?.barCode}
+                                                download={product?.name}
+                                            >
+                                                <img src={product?.barCode} className='w-16'/>
+                                            </a>
                                         </td>
                                     </tr>
                                 )

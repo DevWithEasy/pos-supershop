@@ -93,13 +93,12 @@ exports.getProduct = async (req, res, next) => {
 
   try {
     const product = await Product.findOne({_id : req.params.id})
-    console.log(product)
-    // res.status(200).json({
-    //   success: true,
-    //   status: 200,
-    //   message: 'Product retrieved successfully.',
-    //   data: product
-    // })
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Product retrieved successfully.',
+      data: product
+    })
 
   } catch (err) {
     res.status(500).json({

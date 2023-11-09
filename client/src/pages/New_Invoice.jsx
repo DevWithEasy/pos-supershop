@@ -23,26 +23,44 @@ const New_Invoice = () => {
 
     const searchRef = useRef(null)
     const selectRef = useRef(null)
+    const audioRef = useRef(null)
 
     const handleScanSearch = async (result) => {
-        if(scaneSearch === result){
+        const id = scaneSearch
+        const find = products.find(product=> product._id === result)
+        if (find) {
+            if (!toast.isActive(id)) {
+                toast({
+                    id,
+                    title: 'Already added.',
+                    status: 'error',
+                    isClosable: true,
+                })
+            }
             return
         }
 
         setScaneSearch(result)
-        
+
         if (!scaneSearch.length === 24) {
-            return
+            return toast({
+                id: result,
+                title: 'QR not accurate againt our policy',
+                status: 'error',
+                isClosable: true,
+            })
+        }else{
+            audioRef.current.play();
         }
 
         try {
-            const res = await axios.get(`${baseUrl}/api/product/find/${scaneSearch}`)
-            // setFind(res.data.data)
-            // if (selectRef.current) {
-            //     selectRef.current.focus();
-            // }
-            // setIsSelect(!isSelect)
-            console.log(res.data.data)
+            const res = await axios.get(`${baseUrl}/api/product/find/${result}`)
+            if (res.data.success) {
+                setIsAdd(!isAdd)
+                set_id(res.data.data._id)
+                setName(res.data.data.name)
+                setPrice(res.data.data.price)
+            }
         } catch (error) {
             console.log(error)
         }
@@ -129,7 +147,7 @@ const New_Invoice = () => {
         <div
             className='relative'
         >
-            <BarcodeScanner {...{handleScanSearch}}/>
+            <BarcodeScanner {...{ handleScanSearch,audioRef }} />
             {/* <Scanner_Barcode/> */}
             <div
                 className='p-2'
