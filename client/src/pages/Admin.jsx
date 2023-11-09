@@ -1,11 +1,13 @@
 import React from 'react';
 import { GiMedicines } from 'react-icons/gi';
 import { RxAvatar, RxHeart, RxHome } from 'react-icons/rx';
+import Heading from './../components/Heading'
 
 const Admin = () => {
 
     return (
         <div className='p-4'>
+            <Heading>Admin Dashboard</Heading>
             <div
                 className='grid grid-cols-4 gap-4'
             >

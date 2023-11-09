@@ -29,6 +29,7 @@ import Update_category from './pages/categories/Update_category'
 import New_category from './pages/categories/New_category'
 import PrintBarCode from './pages/products/PrintBarCode'
 import New_Invoice from './pages/New_Invoice'
+import Products_Home from './pages/products/Products_Home'
 
 function App() {
   const routes= useRoutes([
@@ -39,6 +40,15 @@ function App() {
           <Home/>
         </Layout>
       </Protected>
+    },
+    {
+      path : '/products/all',
+      element : 
+      <Protected>
+      <Layout>
+        <Products_Home/>
+      </Layout>
+    </Protected>
     },
     {
       path : '/dashboard',

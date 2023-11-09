@@ -33,6 +33,7 @@ const Categories = () => {
         <div
             className='p-2'
         >
+            <Heading>Categories</Heading>
             <input
                 type="search"
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}

@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import ProductListItem from '../../components/ProductListItem';
 import useUserStore from '../../store/userStore';
 import baseUrl from '../../utils/baseUrl';
 import Heading from '../../components/Heading';
+import ProductListItem_Home from '../../components/ProductListItem_home';
 
-const PrintBarCode = () => {
+const Products_Home = () => {
     const { products, addProducts } = useUserStore()
     const [query, setQuery] = useState('')
     const getProducts = async () => {
@@ -23,7 +25,7 @@ const PrintBarCode = () => {
     }, [])
     return (
         <div className='p-2'>
-            <Heading>Print Product QR Code</Heading>
+            <Heading>Products</Heading>
             <input
                 type="search"
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}
@@ -38,28 +40,24 @@ const PrintBarCode = () => {
                             <th scope="col" className="px-2 py-3">
                                 Name
                             </th>
-                            
                             <th scope="col" className="px-6 py-3 text-center">
-                                Image
+                                Category
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Price
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Quantity
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Code
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            products.filter(product => product.name.toLowerCase().includes(query) || product.company.name.toLowerCase().includes(query) || product.generic.name.toLowerCase().includes(query))
-                                .map(product => 
-                                    <tr key={product._id} >
-                                        <td>{product?.name}</td>
-                                        <td className='flex justify-center'>
-                                            <a
-                                                href={product?.barCode}
-                                                download={product?.name}
-                                            >
-                                                <img src={product?.barCode} className='w-16'/>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                )
+                            products.filter(product => product.name.toLowerCase().includes(query) || product.name.toLowerCase().includes(query))
+                                .map(product => <ProductListItem_Home key={product._id} {...{ product }} />)
                         }
                     </tbody>
                 </table>
@@ -68,4 +66,4 @@ const PrintBarCode = () => {
     );
 };
 
-export default PrintBarCode;
+export default Products_Home;

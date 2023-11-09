@@ -24,7 +24,7 @@ const Sidebar = () => {
             icon : <AiOutlineHome size={16}/>
         },
         {
-            path : '/products',
+            path : '/products/all',
             title : 'Products',
             icon : <RiProductHuntLine size={16}/>
         },
@@ -56,10 +56,12 @@ const Sidebar = () => {
     ]
 
     return (
-        <div className='h-screen sm:w-2/12 pl-4'>
-            <div className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-700 text-white rounded-full'>
+        <div className='h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
+            <Link 
+                to='/' 
+                className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
                 <span className='text-2xl sm:text-4xl'>POS</span>
-            </div>
+            </Link>
             {
                 isAuth ? 
                 <div className='w-full flex flex-col items-center justify-center space-y-2'>

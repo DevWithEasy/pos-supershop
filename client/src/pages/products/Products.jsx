@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ProductListItem from '../../components/ProductListItem';
 import useUserStore from '../../store/userStore';
 import baseUrl from '../../utils/baseUrl';
+import Heading from '../../components/Heading';
 
 const Products = () => {
     const { products, addProducts } = useUserStore()
@@ -23,6 +24,7 @@ const Products = () => {
     }, [])
     return (
         <div className='p-2'>
+            <Heading>Products</Heading>
             <input
                 type="search"
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}

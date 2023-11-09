@@ -7,7 +7,6 @@ import { RiAddBoxLine } from 'react-icons/ri';
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import {TbReportSearch} from 'react-icons/tb'
 import {PiKeyReturnLight,PiUsersDuotone,PiUsersBold} from 'react-icons/pi'
-
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '../store/userStore';
 
@@ -135,7 +134,12 @@ const SidebarAdmin = () => {
     ]
 
     return (
-        <div className='h-screen sm:w-2/12 px-2 pt-12 border-r overflow-y-auto'>
+        <div className='h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
+            <Link 
+                to='/' 
+                className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
+                <span className='text-2xl sm:text-4xl'>POS</span>
+            </Link>
             {
                 data.map((d,i)=><div key={i}>
                     <p className='py-2 border-b'>{d.title}</p>
@@ -144,15 +148,14 @@ const SidebarAdmin = () => {
                     >
                         {
                             d.links.map((link,i)=>
-                                <Link 
+                                <NavLink 
                                     key={i}
                                     to={link.path}
-                                    onClick={()=>setPath(link.path)}
-                                    className={`w-full p-2 flex items-center space-x-2  hover:text-blue-500 ${link.path == path ? 'bg-blue-50 text-blue-500 rounded-md' : 'text-gray-600'}`}
+                                    className={`w-full p-2 flex items-center space-x-2`}
                                 >
                                     {link.icon}
                                     <span>{link.title}</span>
-                                </Link>
+                                </NavLink>
                             )
                         }
                     </div>

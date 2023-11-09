@@ -6,7 +6,8 @@ import Add_product_invoice from '../components/new_invoice/Add_product_invoice';
 import { useToast } from '@chakra-ui/react';
 import Product_Select_invoice from '../components/new_invoice/Product_Select_invoice';
 import Product_list_invoice from '../components/new_invoice/Product_list_invoice';
-import Scanner_Barcode from '../components/new_invoice/Scanner_Barcode';
+import Heading from '../components/Heading';
+import Cart from '../components/Cart';
 
 const New_Invoice = () => {
     const toast = useToast()
@@ -27,7 +28,7 @@ const New_Invoice = () => {
 
     const handleScanSearch = async (result) => {
         const id = scaneSearch
-        const find = products.find(product=> product._id === result)
+        const find = products.find(product => product._id === result)
         if (find) {
             if (!toast.isActive(id)) {
                 toast({
@@ -49,7 +50,7 @@ const New_Invoice = () => {
                 status: 'error',
                 isClosable: true,
             })
-        }else{
+        } else {
             audioRef.current.play();
         }
 
@@ -145,23 +146,19 @@ const New_Invoice = () => {
 
     return (
         <div
-            className='relative'
+            className='relative h-screen p-2'
         >
-            <BarcodeScanner {...{ handleScanSearch,audioRef }} />
+            <BarcodeScanner {...{ handleScanSearch, audioRef }} />
             {/* <Scanner_Barcode/> */}
-            <div
-                className='p-2'
-            >
-                <input
-                    type='search'
-                    value={search}
-                    ref={searchRef}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
-                    placeholder='find by product name'
-                />
-            </div>
-
+            <Heading>Create Invoice</Heading>
+            <input
+                type='search'
+                value={search}
+                ref={searchRef}
+                onChange={(e) => handleSearch(e.target.value)}
+                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
+                placeholder='find by product name'
+            />
             <Product_list_invoice {...{ products, handleChangeQuantity, removeProduct }} />
 
             {find.length > 0 && isSelect &&

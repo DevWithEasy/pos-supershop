@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useReactToPrint } from "react-to-print";
 import Loading_request from '../../components/Loding_request';
 import baseUrl from '../../utils/baseUrl';
+import Heading from '../../components/Heading';
 
 const Invoice = () => {
     const {id} = useParams()
@@ -41,13 +42,14 @@ const Invoice = () => {
     },[])
 
     return (
-        <>
+        <div className='p-2'>
+            <Heading>Invoice Details</Heading>
             {loading ?
                 <Loading_request {...{loading,setLoading}}/>
                 : 
                 <div
                     ref={printRef}
-                    className='bg-white p-4 print:mx-10 m-4 rounded-md'
+                    className='bg-white p-4 print:mx-10 rounded-md'
                 >
                     <div className='flex justify-between items-center'>
                         <div className='h-20 w-20 bg-blue-500 rounded-full'>
@@ -208,7 +210,7 @@ const Invoice = () => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 };
 

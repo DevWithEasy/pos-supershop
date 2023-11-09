@@ -3,7 +3,7 @@ import { RxCross2 } from 'react-icons/rx';
 
 const Product_list_invoice = ({products,handleChangeQuantity,removeProduct}) => {
     return (
-        <div className="relative p-2 overflow-x-auto">
+        <div className="relative overflow-x-auto">
         <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-blue-50">
                 <tr>

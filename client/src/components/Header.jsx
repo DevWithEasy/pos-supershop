@@ -17,7 +17,7 @@ const Header = () => {
             </div>
             <div className='w-4/12 flex justify-end space-x-4'>
                 <div className='relative w-10 h-10 flex justify-center items-center'>
-                    <AiOutlineShoppingCart onClick={()=>navigate('/order')} size={30} className='cursor-pointer text-white'/>
+                    <AiOutlineShoppingCart onClick={()=>navigate('/order')} size={30} className='cursor-pointer text-sky-500'/>
                     { cart.length >0 && <div className='absolute -top-1 -right-2 flex justify-center items-center bg-red-500 text-white w-5 rounded-full h-5 text-sm'>
                         <span>{cart.length}</span>
                     </div>}
