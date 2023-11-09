@@ -42,7 +42,7 @@ function App() {
       </Protected>
     },
     {
-      path : '/products/all',
+      path : '/products/',
       element : 
       <Protected>
       <Layout>
@@ -51,11 +51,28 @@ function App() {
     </Protected>
     },
     {
-      path : '/invoices/all',
+      path : '/invoice/new',
+      element : 
+      <Protected>
+      <Layout>
+        <New_Invoice/>
+      </Layout>
+    </Protected>
+    },
+    {
+      path : '/invoices',
       element : 
       <Protected>
       <Layout>
         <Invoices/>
+      </Layout>
+    </Protected>
+    },
+    {
+      path : '/invoice/:id',
+      element : <Protected>
+      <Layout>
+        <Invoice/>
       </Layout>
     </Protected>
     },
@@ -76,16 +93,15 @@ function App() {
     </Protected>
     },
     {
-      path : '/invoice/new',
-      element : 
-      <Protected>
-      <Layout>
-        <New_Invoice/>
-      </Layout>
+      path : '/admin/dashboard',
+      element : <Protected>
+      <LayoutAdmin>
+        <Admin/>
+      </LayoutAdmin>
     </Protected>
     },
     {
-      path : '/invoices',
+      path : '/admin/invoices',
       element : 
       <Protected>
       <LayoutAdmin>
@@ -94,15 +110,15 @@ function App() {
     </Protected>
     },
     {
-      path : '/invoice/:id',
+      path : '/admin/invoice/:id',
       element : <Protected>
-      <Layout>
+      <LayoutAdmin>
         <Invoice/>
-      </Layout>
+      </LayoutAdmin>
     </Protected>
     },
     {
-      path : '/product/new',
+      path : '/admin/product/new',
       element : <Protected>
       <LayoutAdmin>
         <New_product/>
@@ -110,7 +126,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/products',
+      path : '/admin/products',
       element : 
       <Protected>
       <LayoutAdmin>
@@ -119,7 +135,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/printbarcode',
+      path : '/admin/printbarcode',
       element : 
       <Protected>
       <LayoutAdmin>
@@ -128,7 +144,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/product/:id',
+      path : '/admin/product/:id',
       element : 
       <Protected>
       <LayoutAdmin>
@@ -137,7 +153,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/category/new',
+      path : '/admin/category/new',
       element : <Protected>
       <LayoutAdmin>
         <New_category/>
@@ -145,7 +161,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/categories',
+      path : '/admin/categories',
       element : <Protected>
       <LayoutAdmin>
         <Categories/>
@@ -153,7 +169,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/category/:id',
+      path : '/admin/category/:id',
       element : <Protected>
       <LayoutAdmin>
         <Update_category/>
@@ -161,7 +177,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/customer/new',
+      path : '/admin/customer/new',
       element : <Protected>
       <LayoutAdmin>
         <New_customer/>
@@ -169,7 +185,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/customers',
+      path : '/admin/customers',
       element : <Protected>
       <LayoutAdmin>
         <Customers/>
@@ -177,7 +193,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/customer/:id',
+      path : '/admin/customer/:id',
       element : <Protected>
       <LayoutAdmin>
         <UpdateCustomer/>
@@ -185,15 +201,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin',
-      element : <Protected>
-      <LayoutAdmin>
-        <Admin/>
-      </LayoutAdmin>
-    </Protected>
-    },
-    {
-      path : 'user/new',
+      path : '/admin/adminuser/new',
       element : <Protected>
       <LayoutAdmin>
         <New_user/>
@@ -201,7 +209,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/users',
+      path : '/admin/admin/users',
       element : <Protected>
       <LayoutAdmin>
         <Users/>
@@ -209,7 +217,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/user/:id',
+      path : '/admin/admin/user/:id',
       element : <Protected>
       <LayoutAdmin>
         <Update_user/>
@@ -217,7 +225,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/purchase/new',
+      path : '/admin/purchase/new',
       element : <Protected>
       <LayoutAdmin>
         <New_purchase/>
@@ -225,7 +233,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/purchases',
+      path : '/admin/purchases',
       element : <Protected>
       <LayoutAdmin>
         <Purchases/>
@@ -233,7 +241,7 @@ function App() {
     </Protected>
     },
     {
-      path : 'purchase/:id',
+      path : '/adminpurchase/:id',
       element : <Protected>
       <LayoutAdmin>
         <Purchase/>
@@ -241,7 +249,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/report/new',
+      path : '/admin/report/new',
       element : <Protected>
       <LayoutAdmin>
         <New_report/>
@@ -249,7 +257,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/reports',
+      path : '/admin/reports',
       element : <Protected>
       <LayoutAdmin>
         <Reports/>

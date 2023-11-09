@@ -25,7 +25,7 @@ const Sidebar = () => {
             icon : <AiOutlineHome size={16}/>
         },
         {
-            path : '/products/all',
+            path : '/products/',
             title : 'Products',
             icon : <RiProductHuntLine size={16}/>
         },
@@ -35,7 +35,7 @@ const Sidebar = () => {
             icon : <TbFileInvoice size={16}/>
         },
         {
-            path : '/invoices/all',
+            path : '/invoices/',
             title : 'Invoices',
             icon : <TbFileInvoice size={16}/>
         },
@@ -70,7 +70,7 @@ const Sidebar = () => {
 
                     {user.isAdmin && 
                     <NavLink
-                        to='/admin'
+                        to='/admin/dashboard'
                         className='p-2 w-10 sm:w-full flex justify-center items-center sm:justify-start space-x-2 bg-white rounded-md overflow-hidden'
                     >
                         <span className='shrink-0'>

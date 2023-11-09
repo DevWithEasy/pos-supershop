@@ -20,7 +20,7 @@ const SidebarAdmin = () => {
                     icon: <AiOutlineHome size={16} />
                 },
                 {
-                    path: '/admin',
+                    path: '/admin/dashboard',
                     title: 'Dashboard',
                     icon: <RxDashboard size={16} />
                 }
@@ -30,27 +30,27 @@ const SidebarAdmin = () => {
             title: 'Product',
             links: [
                 {
-                    path: '/product/new',
+                    path: '/admin/product/new',
                     title: 'Create Product',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/products',
+                    path: '/admin/products',
                     title: 'Products',
                     icon: <RiProductHuntLine size={16} />
                 },
                 {
-                    path: '/category/new',
+                    path: '/admin/category/new',
                     title: 'Create Category',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/categories',
+                    path: '/admin/categories',
                     title: 'Categories',
                     icon: <BiCategoryAlt size={16} />
                 },
                 {
-                    path: '/printbarcode',
+                    path: '/admin/printbarcode',
                     title: 'Print Barcode',
                     icon: <PiBarcode size={16} />
                 },
@@ -60,12 +60,12 @@ const SidebarAdmin = () => {
             title: 'Sales',
             links: [
                 {
-                    path: '/invoices',
+                    path: '/admin/invoices',
                     title: 'Invoices',
                     icon: <LiaFileInvoiceSolid size={16} />
                 },
                 {
-                    path: '/invoices-return',
+                    path: '/admin/invoices-return',
                     title: 'Sales Return',
                     icon: <PiKeyReturnLight size={16} />
                 },
@@ -75,17 +75,17 @@ const SidebarAdmin = () => {
             title: 'Purchases',
             links: [
                 {
-                    path: '/purchase/new',
+                    path: '/admin/purchase/new',
                     title: 'Create Purchase',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/purchases',
+                    path: '/admin/purchases',
                     title: 'Purchases',
                     icon: <BiPurchaseTag size={16} />
                 },
                 {
-                    path: '/purchases-return',
+                    path: '/admin/purchases-return',
                     title: 'Purchases Return',
                     icon: <PiKeyReturnLight size={16} />
                 },
@@ -95,22 +95,22 @@ const SidebarAdmin = () => {
             title: 'Customers & Users',
             links: [
                 {
-                    path: '/customer/new',
+                    path: '/admin/customer/new',
                     title: 'Add New Customer',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/customers',
+                    path: '/admin/customers',
                     title: 'Customers',
                     icon: <PiUsersDuotone size={16} />
                 },
                 {
-                    path: '/user/new',
+                    path: '/admin/user/new',
                     title: 'Add New User',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/users',
+                    path: '/admin/users',
                     title: 'Users',
                     icon: <PiUsersBold size={16} />
                 },
