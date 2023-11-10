@@ -63,16 +63,10 @@ const Summary_invoice = () => {
                 >
                     Confirm
                 </button>
-                {/* <button
-                    onClick={()=>setView(!view)}
-                    className='w-full py-2 bg-green-500 text-white rounded-md'
-                >
-                    Find Customer
-                </button> */}
                 </div>
             </div>
             {view &&
-                <Find_customer_invoice {...{view,setView}}/>
+                <Find_customer_invoice {...{view,setView,setPercent}}/>
             }
         </div>
     );

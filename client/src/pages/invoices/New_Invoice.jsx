@@ -24,6 +24,7 @@ const New_Invoice = () => {
     const [quantity, setQuantity] = useState('')
     const [isSelect, setIsSelect] = useState(false)
     const [scaneSearch, setScaneSearch] = useState('')
+    const [findProduct,setFindProduct] = useState({})
 
     const searchRef = useRef(null)
     const selectRef = useRef(null)
@@ -60,6 +61,7 @@ const New_Invoice = () => {
             }
             const res = await axios.get(`${baseUrl}/api/product/find/${result}`)
             if (res.data.success) {
+                setFindProduct(res.data.data)
                 set_id(res.data.data._id)
                 setName(res.data.data.name)
                 setPrice(res.data.data.price)
@@ -102,8 +104,19 @@ const New_Invoice = () => {
 
     const addProduct = (e) => {
         e.preventDefault()
+
         if (!quantity) return
+
+        if(findProduct.quantity < quantity){
+            return toast({
+                title: `${quantity} pcs product isn't stock.`,
+                status: 'error',
+                isClosable: true,
+            })
+        }
+
         const find = cart.find(product => product._id === _id)
+
         if (find) {
             return toast({
                 title: 'already added this product.',
@@ -184,7 +197,7 @@ const New_Invoice = () => {
 
             {
                 isAdd && <Add_product_invoice {...{
-                    isAdd,
+                    findProduct,
                     name,
                     price,
                     quantity,

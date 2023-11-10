@@ -153,7 +153,7 @@ const New_purchase = () => {
     }
     
     return (
-        <div className='p-4'>
+        <div className='p-2'>
             <Heading>Create new purchase</Heading>
             <div className='flex justify-between space-x-2'>
                 <div className='w-1/2 space-y-2 bg-white p-2 rounded-md'>

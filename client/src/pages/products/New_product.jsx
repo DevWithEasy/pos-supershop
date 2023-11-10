@@ -45,7 +45,7 @@ const New_product = () => {
                     toast,
                     res.data.message
                 )
-                navigate('/products')
+                navigate('/admin/products')
             }
 
         } catch (error) {

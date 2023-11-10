@@ -5,7 +5,7 @@ import baseUrl from "../../utils/baseUrl"
 import axios from "axios"
 import {CiKeyboard} from 'react-icons/ci'
 
-export default function Find_customer_invoice({ view, setView }) {
+export default function Find_customer_invoice({ view, setView, setPercent }) {
     const toast = useToast()
 
     const [formView, setFormView] = useState(false)
@@ -15,11 +15,14 @@ export default function Find_customer_invoice({ view, setView }) {
     const [phone, setPhone] = useState('')
 
     const [customer, setCustomer] = useState({})
+    
+    const [customerView,setCustomerView] = useState(false)
 
     const handleKeyDown = (e) => {
         if (e.key === 'F2') {
             setFormView(!formView)
             setPhone('')
+            setCustomerView(!customerView)
         }
         if (e.key === 'ArrowDown') {
             document.querySelector('#phone').focus()
@@ -29,6 +32,7 @@ export default function Find_customer_invoice({ view, setView }) {
     const handleCancel = (e) => {
         if (e.target.id === 'wrapper') {
             setView(!view)
+            setCustomer({})
         }
     }
 
@@ -56,6 +60,7 @@ export default function Find_customer_invoice({ view, setView }) {
 
             } else {
                 setCustomer(res.data.data)
+                setPercent(res.data.data.status === 'Silver' ? 2.5 : res.data.data.status === 'Gold' ? 5 : res.data.data.status === 'Diamond' ? 10 : 0)
                 toast_alert(
                     toast,
                     'Customer successfully find.'
@@ -67,6 +72,38 @@ export default function Find_customer_invoice({ view, setView }) {
         }
     }
 
+    const handleCreateInvoice = async(e) => {
+        e.preventDefault()
+        if(!name || !phone || phone < 11){
+            return toast_alert(
+                toast,
+                'Please field is blank.',
+                'error'
+            )
+        }
+        try {
+            const res = await axios.post(`${baseUrl}/api/invoice/create`,order,{
+                headers: {
+                    authorization : localStorage.getItem('token')
+                }
+            })
+            if(res.data.status === 200){
+                resetCart()
+                navigate('/invice/new')
+                toast_alert(
+                    toast,
+                    'Invoice created successfully'
+                )
+            }
+        } catch (error) {
+            toast_alert(
+                toast,
+                'Invoice created failed.',
+                'error'
+            )
+        }
+    }
+
     return (
         <div
             id='wrapper'
@@ -75,11 +112,11 @@ export default function Find_customer_invoice({ view, setView }) {
         >
 
             <div
-                className="w-4/12 mx-auto mt-24 bg-white shadow-lg rounded-lg"
+                className="w-4/12 mx-auto mt-24 bg-white shadow-xl rounded-lg"
             >
                 {!formView ?
                     <form
-                        onSubmit={(e) => handleFindCustomer(e)}
+                        onSubmit={(e) => handleCreateInvoice(e)}
                         className='p-4 space-y-3'
                     >
                         <h2 className="text-xl font-semibold">New customer</h2>
@@ -129,7 +166,7 @@ export default function Find_customer_invoice({ view, setView }) {
                         </div>
                     </form>
                 }
-                { customer.name &&
+                { customerView && customer.name &&
                     <div
                     className="p-4"
                 >
@@ -156,6 +193,7 @@ export default function Find_customer_invoice({ view, setView }) {
                         </tbody>
                     </table>
                     <button
+                        onClick={(e)=>handleCreateInvoice(e)}
                         className="w-full py-2 bg-sky-500 text-white rounded-md"
                     >
                         Submit
@@ -167,7 +205,7 @@ export default function Find_customer_invoice({ view, setView }) {
                 >
                     Press 
                     <span className="mx-2 px-2 py-1 flex items-center font-semibold border rounded-md"><CiKeyboard size={20} className="inline-block"/> F2 Key</span> 
-                    select Find or New Customer Form
+                    select Find or New Customer Form.
                 </div>
             </div>
         </div>

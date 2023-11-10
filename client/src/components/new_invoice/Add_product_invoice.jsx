@@ -1,4 +1,4 @@
-export default function Add_product_invoice({ isAdd, name, price, quantity, setQuantity, addProduct, handleCancel }) {
+export default function Add_product_invoice({ findProduct, name, price, quantity, setQuantity, addProduct, handleCancel }) {
 
   return (
     <div
@@ -8,28 +8,38 @@ export default function Add_product_invoice({ isAdd, name, price, quantity, setQ
     >
       <form
         onSubmit={(e) => addProduct(e)}
-        className='w-4/12 mx-auto mt-24 p-4 bg-white space-y-3 shadow-lg rounded-lg'
+        className='w-4/12 mx-auto mt-10 p-4 bg-white space-y-3 shadow-lg rounded-lg'
       >
-        <input
-          name={name}
-          value={name}
-          className='w-full p-2 focus:outline-none border rounded-md'
-          readOnly
-        />
-        <input
-          name={price}
-          value={price}
-          className='w-full p-2 focus:outline-none border rounded-md'
-          readOnly
-        />
-        <input
-          name='qty'
-          value={quantity}
-          type='number'
-          onChange={(e) => setQuantity(Number(e.target.value))}
-          autoFocus
-          className='w-full p-2 rounded-md border focus:outline-sky-500'
-        />
+        <h2 className='pb-2 text-lg font-medium border-b'>Product</h2>
+        <div className="space-y-1">
+          <label className="text-sm">Name : </label>
+          <input
+            name={name}
+            value={name}
+            className='w-full p-2 focus:outline-none border rounded-md'
+            readOnly
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-sm">Price : </label>
+          <input
+            name={price}
+            value={price}
+            className='w-full p-2 focus:outline-none border rounded-md'
+            readOnly
+          />
+        </div>
+        <div className="space-y-1">
+          <label className="text-sm">Quantity : ( {findProduct?.quantity} in Stock )</label>
+          <input
+            name='qty'
+            value={quantity}
+            type='number'
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            autoFocus
+            className={`w-full p-2 rounded-md border ${findProduct?.quantity < quantity ? 'focus:outline-red-500' : 'focus:outline-sky-500'}`}
+          />
+        </div>
         <div className='flex justify-end'>
           <button
             type='submit'
