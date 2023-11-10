@@ -3,7 +3,6 @@ import Admin from './pages/Admin'
 import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import Layout from './pages/Layout'
-import Order from './pages/Order'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import New_purchase from './pages/admin/purchases/New_purchase'
@@ -81,14 +80,6 @@ function App() {
       element : <Protected>
       <Layout>
         <Dashboard/>
-      </Layout>
-    </Protected>
-    },
-    {
-      path : '/order',
-      element : <Protected>
-      <Layout>
-        <Order/>
       </Layout>
     </Protected>
     },

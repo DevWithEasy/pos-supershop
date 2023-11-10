@@ -57,7 +57,7 @@ const Cart = ({}) => {
                 </div>
                 <div className='flex justify-end px-4'>
                   <button 
-                    onClick={() => navigate('/order')} 
+                    onClick={() => navigate('/invoice_new')} 
                     className='px-4 py-2 bg-blue-500 text-white rounded-md'
                     >
                       Place order

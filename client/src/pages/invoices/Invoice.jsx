@@ -7,22 +7,23 @@ import { useReactToPrint } from "react-to-print";
 import Loading_request from '../../components/Loding_request';
 import baseUrl from '../../utils/baseUrl';
 import Heading from '../../components/Heading';
+import get_fixed_num from '../../utils/get_fixed_num';
 
 const Invoice = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     const printRef = useRef()
     const navigate = useNavigate()
-    const [loading,setLoading] = useState(false)
-    const [invoice,setInvoice] = useState({})
-    const getInvoice = async() =>{
+    const [loading, setLoading] = useState(false)
+    const [invoice, setInvoice] = useState({})
+    const getInvoice = async () => {
         setLoading(true)
         try {
-            const res = await axios.get(`${baseUrl}/api/invoice/${id}` , {
+            const res = await axios.get(`${baseUrl}/api/invoice/${id}`, {
                 headers: {
-                    authorization : localStorage.getItem('token')
+                    authorization: localStorage.getItem('token')
                 }
             })
-            if(res.data.status === 200){
+            if (res.data.status === 200) {
                 setLoading(false)
                 setInvoice(res.data.data)
             }
@@ -33,20 +34,20 @@ const Invoice = () => {
     }
 
     const handlePrint = useReactToPrint({
-        content : ()=> printRef.current,
-        documentTitle : invoice?._id
+        content: () => printRef.current,
+        documentTitle: invoice?._id
     })
 
     useEffect(() => {
         getInvoice()
-    },[])
+    }, [])
 
     return (
         <div className='p-2'>
             <Heading>Invoice Details</Heading>
             {loading ?
-                <Loading_request {...{loading,setLoading}}/>
-                : 
+                <Loading_request {...{ loading, setLoading }} />
+                :
                 <div
                     ref={printRef}
                     className='bg-white p-4 print:mx-10 rounded-md'
@@ -62,13 +63,13 @@ const Invoice = () => {
                             <p>
                                 <b>Phone :</b> 01700000000,
                             </p>
-                            <p> 
-                                <b>Email :</b> 01700000000 
+                            <p>
+                                <b>Email :</b> 01700000000
                             </p>
 
                         </div>
                     </div>
-                    <hr className='my-5'/>
+                    <hr className='my-5' />
                     <div className='flex justify-between items-center px-5'>
                         <div className='flex space-x-4'>
                             <p>Bill to : </p>
@@ -109,9 +110,6 @@ const Invoice = () => {
                                             Product name
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-center">
-                                            SKU
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-center">
                                             Price
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-center">
@@ -124,18 +122,15 @@ const Invoice = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        invoice.products && invoice.products.map((product,i) => <tr 
+                                        invoice.products && invoice.products.map((product, i) => <tr
                                             key={product._id}
                                             className='border-b print:border-gray-100 cursor-pointer hover:bg-blue-100'
                                         >
                                             <td className="px-6 py-3 text-left">
-                                                {i+1}
+                                                {i + 1}
                                             </td>
                                             <td className="px-6 py-3 text-center">
                                                 {product?.name}
-                                            </td>
-                                            <td className="px-6 py-3 text-center">
-                                                {product?.sku} {product?.sku_unit}
                                             </td>
                                             <td className="px-6 py-3 text-center">
                                                 {product?.price}
@@ -144,43 +139,43 @@ const Invoice = () => {
                                                 {product?.quantity}
                                             </td>
                                             <td className="px-6 py-3 text-right">
-                                                {invoice?.paid}
+                                                {get_fixed_num(product?.price*product?.quantity)}
                                             </td>
                                         </tr>
                                         )
                                     }
                                     <tr className='border-t'>
-                                            <td colSpan='3' className="px-6 py-3 text-center">
-                                                
-                                            </td>
-                                            <td colSpan='2' className="px-6 py-3 text-left">
-                                                Subtotal
-                                            </td>
-                                            <td className="px-6 py-3 text-right">
-                                                {invoice?.total}
-                                            </td>
+                                        <td colSpan='2' className="px-6 py-3 text-center">
+
+                                        </td>
+                                        <td colSpan='2' className="px-6 py-3 text-left">
+                                            Subtotal
+                                        </td>
+                                        <td className="px-6 py-3 text-right">
+                                            {invoice?.subTotal}
+                                        </td>
                                     </tr>
                                     <tr>
-                                            <td colSpan='3' className="px-6 py-3 text-center">
-                                                
-                                            </td>
-                                            <td colSpan='2' className="px-6 py-3 text-left border-b">
-                                                Discount
-                                            </td>
-                                            <td className="px-6 py-3 text-right border-b">
-                                                {invoice?.discount}
-                                            </td>
+                                        <td colSpan='2' className="px-6 py-3 text-center">
+
+                                        </td>
+                                        <td colSpan='2' className="px-6 py-3 text-left border-b">
+                                            Discount
+                                        </td>
+                                        <td className="px-6 py-3 text-right border-b">
+                                            {invoice?.discount}
+                                        </td>
                                     </tr>
                                     <tr>
-                                            <td colSpan='3' className="px-6 py-3 text-center">
-                                                
-                                            </td>
-                                            <td colSpan='2' className="px-6 py-3 font-bold text-left">
-                                                Total Paid
-                                            </td>
-                                            <td className="px-6 py-3 text-right">
-                                                {invoice?.paid}
-                                            </td>
+                                        <td colSpan='2' className="px-6 py-3 text-center">
+
+                                        </td>
+                                        <td colSpan='2' className="px-6 py-3 font-bold text-left">
+                                            Total Paid
+                                        </td>
+                                        <td className="px-6 py-3 text-right">
+                                            {invoice?.total}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -193,17 +188,17 @@ const Invoice = () => {
                             className='flex space-x-2'
                         >
                             <button
-                                onClick={()=>navigate(-1)}
+                                onClick={() => navigate(-1)}
                                 className='flex items-center space-x-2 px-4 py-2 bg-red-500 text-white rounded-md print:hidden'
                             >
-                                <BiArrowBack/>
+                                <BiArrowBack />
                                 <span>Back</span>
                             </button>
                             <button
-                                onClick={()=>handlePrint()}
+                                onClick={() => handlePrint()}
                                 className='flex items-center space-x-2 px-4 py-2 bg-sky-500 text-white rounded-md print:hidden'
                             >
-                                <AiOutlinePrinter/>
+                                <AiOutlinePrinter />
                                 <span>Print</span>
                             </button>
                         </div>

@@ -53,13 +53,13 @@ const Invoices = () => {
                                 Customer Number
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
-                                Total
+                                Subtotal
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
                                 Discount
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
-                                Paid
+                                Total
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
                                 Action
@@ -83,13 +83,13 @@ const Invoices = () => {
                                         {invoice?.customer?.phone}
                                     </td>
                                     <td className="px-6 py-3 text-center">
-                                        {invoice?.total}
+                                        {invoice?.subTotal}
                                     </td>
                                     <td className="px-6 py-3 text-center">
                                         {invoice?.discount}
                                     </td>
                                     <td className="px-6 py-3 text-center">
-                                        {invoice?.paid}
+                                        {invoice?.total}
                                     </td>
                                     <td className="px-6 py-3 text-center space-x-2">
                                         <button
