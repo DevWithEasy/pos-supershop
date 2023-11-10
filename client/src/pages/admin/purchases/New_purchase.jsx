@@ -130,7 +130,7 @@ const New_purchase = () => {
             ])
             cancel()
             setSearch('')
-            handleFocus('#search')
+            searchRef.current.focus()
         }
     }
 
@@ -189,6 +189,7 @@ const New_purchase = () => {
                             id='search'
                             type='search'
                             ref={searchRef}
+                            value={search}
                             onChange={(e) => handleSearch(e.target.value)}
                             autoFocus
                             className='w-full p-2 mb-2 border rounded-md focus:outline-none focus:ring-2 ring-sky-500 placeholder:text-sm'
