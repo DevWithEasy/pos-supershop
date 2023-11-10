@@ -2,154 +2,154 @@ const Customer = require('../models/Customer');
 const Invoice = require('../models/Invoice');
 const Product = require('../models/Product');
 
-exports.createInvoice=async(req,res,next)=>{
-  
-    try{
-      const findCustomer = await Customer.findOne({phone : req.body.phone})
+exports.createInvoice = async (req, res, next) => {
 
-      const create_new_invoice = async(customer)=>{
-        let products = []
+  try {
+    const findCustomer = await Customer.findOne({ phone: req.body.phone })
 
-        req.body.cart.forEach(product => {
-          products.push({
-            product : product._id,
-            price : product.price,
-            quantity : product.qty
-          })
+    const create_new_invoice = async (customer) => {
+      let products = []
+
+      req.body.cart.forEach(product => {
+        products.push({
+          product: product._id,
+          price: product.price,
+          quantity: product.quantity
         })
-        
-        const new_invoice = new Invoice({
-            customer : customer._id,
-            total : req.body.total,
-            discount : req.body.discount,
-            paid : req.body.paid,
-            user : req.user,
-            products
+      })
+
+      const new_invoice = new Invoice({
+        customer: customer._id,
+        total: req.body.total,
+        discount: req.body.discount,
+        subTotal: req.body.subTotal,
+        user: req.user,
+        products
+      })
+
+      const invoice = await new_invoice.save()
+
+      invoice.products.forEach(async (item) => {
+        await Product.findByIdAndUpdate(item.product, {
+          $inc: {
+            quantity: - item.quantity
+          }
         })
+      })
 
-        const invoice =  await new_invoice.save()
-
-        invoice.products.forEach(async(item) =>{
-          await Product.findByIdAndUpdate(item.product,{
-            $inc : {
-               quantity : - item.quantity
-            }
-          })
-        })
-
-        res.status(200).json({
-            success : true,
-            status : 200,
-            message : 'Invoice successfully created',
-            data : {}
-        })
-      }
-
-      if(!findCustomer){
-        const new_customer = new Customer({
-          name : req.body.name,
-          phone : req.body.phone
-        })
-        const customer = await new_customer.save()
-
-        create_new_invoice(customer)
-
-      }else{
-
-        create_new_invoice(findCustomer)
-
-      }
-      
-    }catch(err){
-      res.status(500).json({
-          success : false,
-          status : 500,
-          message : err.message
+      res.status(200).json({
+        success: true,
+        status: 200,
+        message: 'Invoice successfully created',
+        data: {}
       })
     }
-}
 
-exports.getInvoices=async(req,res,next)=>{
-  
-  try{
-    const invoices = await Invoice.find({}).populate('customer' , '-_id name phone')
-    res.status(200).json({
-        success : true,
-        status : 200,
-        message : 'Invoices successfully retrieved',
-        data : invoices
-    })
-  }catch(err){
+    if (!findCustomer) {
+      const new_customer = new Customer({
+        name: req.body.name,
+        phone: req.body.phone
+      })
+      const customer = await new_customer.save()
+
+      create_new_invoice(customer)
+
+    } else {
+
+      create_new_invoice(findCustomer)
+
+    }
+
+  } catch (err) {
     res.status(500).json({
-        success : false,
-        status : 500,
-        message : err.message
+      success: false,
+      status: 500,
+      message: err.message
     })
   }
 }
 
-exports.getInvoice=async(req,res,next)=>{
-  
-  try{
+exports.getInvoices = async (req, res, next) => {
+
+  try {
+    const invoices = await Invoice.find({}).populate('customer', '-_id name phone')
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Invoices successfully retrieved',
+      data: invoices
+    })
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      status: 500,
+      message: err.message
+    })
+  }
+}
+
+exports.getInvoice = async (req, res, next) => {
+
+  try {
     const invoice = await Invoice.findById(req.params.id)
-    .populate('customer' , '-_id name phone')
-    .populate('user', '-_id name')
+      .populate('customer', '-_id name phone')
+      .populate('user', '-_id name')
 
     const products = []
 
     for (const item of invoice.products) {
-      const product = await Product.findById(item.product,'-generic -company -createdAt -updatedAt')
+      const product = await Product.findById(item.product, '-generic -company -createdAt -updatedAt')
       products.push({
         ...product._doc,
-        price : item.price,
-        quantity : item.quantity
+        price: item.price,
+        quantity: item.quantity
       })
     }
 
     res.status(200).json({
-        success : true,
-        status : 200,
-        message : 'Invoice retrieved successfully',
-        data : {
-          ...invoice._doc,
-          products
-        }
+      success: true,
+      status: 200,
+      message: 'Invoice retrieved successfully',
+      data: {
+        ...invoice._doc,
+        products
+      }
     })
-  }catch(err){
+  } catch (err) {
     res.status(500).json({
-        success : false,
-        status : 500,
-        message : err.message
+      success: false,
+      status: 500,
+      message: err.message
     })
   }
 }
 
-exports.deleteInvoice=async(req,res,next)=>{
-  
-  try{
+exports.deleteInvoice = async (req, res, next) => {
+
+  try {
     const invoice = await Invoice.findById(req.params.id)
-    
-    invoice.products.forEach(async(product)=>{
-      await Product.findByIdAndUpdate(product.product,{
-        $inc : {
-          quantity : product.quantity
+
+    invoice.products.forEach(async (product) => {
+      await Product.findByIdAndUpdate(product.product, {
+        $inc: {
+          quantity: product.quantity
         }
       })
     })
-    
+
     await Invoice.findByIdAndDelete(req.params.id)
 
     res.status(200).json({
-        success : true,
-        status : 200,
-        message : 'Invoice deleted successfully',
-        data : {}
+      success: true,
+      status: 200,
+      message: 'Invoice deleted successfully',
+      data: {}
     })
-  }catch(err){
+  } catch (err) {
     res.status(500).json({
-        success : false,
-        status : 500,
-        message : err.message
+      success: false,
+      status: 500,
+      message: err.message
     })
   }
 }

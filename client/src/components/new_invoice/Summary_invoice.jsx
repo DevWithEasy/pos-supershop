@@ -66,7 +66,7 @@ const Summary_invoice = () => {
                 </div>
             </div>
             {view &&
-                <Find_customer_invoice {...{view,setView,setPercent}}/>
+                <Find_customer_invoice {...{view,setView,setPercent,subTotal,discount,total}}/>
             }
         </div>
     );

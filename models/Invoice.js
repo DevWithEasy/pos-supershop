@@ -17,7 +17,7 @@ const invoiceSchema = new mongoose.Schema({
         type : Number,
         required : true
     },
-    paid : {
+    subTotal : {
         type : Number,
         required : true
     },

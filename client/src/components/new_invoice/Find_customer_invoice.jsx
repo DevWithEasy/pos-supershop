@@ -4,9 +4,12 @@ import { useToast } from "@chakra-ui/react"
 import baseUrl from "../../utils/baseUrl"
 import axios from "axios"
 import { CiKeyboard } from 'react-icons/ci'
+import useProductStore from "../../store/productStore"
 
-export default function Find_customer_invoice({ view, setView, setPercent }) {
+export default function Find_customer_invoice({ view, setView, setPercent,subTotal,discount,total }) {
     const toast = useToast()
+
+    const {cart} = useProductStore()
 
     const [formView, setFormView] = useState(false)
 
@@ -17,6 +20,12 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
     const [customer, setCustomer] = useState({})
 
     const [customerView, setCustomerView] = useState(false)
+
+    const order = {
+        name : name || customer.name,
+        phone : phone || customer.phone,
+        total,discount,subTotal,cart
+    }
 
     const handleKeyDown = (e) => {
         if (e.key === 'F2') {
@@ -38,6 +47,7 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
 
     const handleFindCustomer = async (e) => {
         e.preventDefault()
+
         if (phone.length < 11) {
             return toast_alert(
                 toast,
@@ -45,6 +55,7 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
                 'error'
             )
         }
+
         try {
             const res = await axios.get(`${baseUrl}/api/customer/${phone}`, {
                 headers: {
@@ -74,7 +85,7 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
 
     const handleCreateInvoice = async (e) => {
         e.preventDefault()
-        if (!name || !phone || phone < 11) {
+        if (!order.name || !order.phone || phone < 11) {
             return toast_alert(
                 toast,
                 'Please field is blank.',
@@ -87,7 +98,7 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
                     authorization: localStorage.getItem('token')
                 }
             })
-            if (res.data.status === 200) {
+            if (res.data.success) {
                 resetCart()
                 navigate('/invice/new')
                 toast_alert(
