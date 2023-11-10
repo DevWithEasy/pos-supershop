@@ -44,19 +44,22 @@ const New_purchase = () => {
 
     const handleSearch = async (query) => {
         setSearch(query)
-        if (!search) return
+        if (query.length < 3) return
 
         try {
             const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`)
 
             if (res.data.success) {
                 setFind(res.data.data)
-                if (selectRef.current) {
-                    selectRef.current.focus();
-                }
                 setIsSelect(!isSelect)
             }
 
+            setTimeout(()=>{
+                if (selectRef.current) {
+                    selectRef.current.focus();
+                }
+            },200)
+            
         } catch (error) {
             console.log(error)
         }
@@ -75,13 +78,12 @@ const New_purchase = () => {
     }
 
     const handleKeyDown = (e) => {
-        if (e.key === 'ArrowRight') {
+        if (e.key === 'ArrowDown') {
             handleFocus('#totalPrice')
         }
-        if (e.key === 'ArrowLeft') {
+        if (e.key === 'ArrowUp') {
             handleFocus('#quantity')
         }
-
     }
 
     const cancel = () => {
@@ -100,9 +102,9 @@ const New_purchase = () => {
     const addProduct = (e) => {
         e.preventDefault()
 
-        if (!quantity) {
+        if (!quantity || !totalPrice) {
             return toast({
-                title: 'Input quantity field empty.',
+                title: 'Input quantity and price field empty.',
                 status: 'error',
                 isClosable: true,
             })
@@ -189,7 +191,7 @@ const New_purchase = () => {
                             ref={searchRef}
                             onChange={(e) => handleSearch(e.target.value)}
                             autoFocus
-                            className='w-full p-2 mb-2 border rounded-md border-gray-300 focus:outline-none focus:ring-2 ring-sky-500 placeholder:text-sm'
+                            className='w-full p-2 mb-2 border rounded-md focus:outline-none focus:ring-2 ring-sky-500 placeholder:text-sm'
                             placeholder='find by product name'
                         />
 
@@ -208,7 +210,7 @@ const New_purchase = () => {
                     >
 
                         <div
-                            className='flex space-x-2'
+                            className='space-y-2'
                         >
                             <input
                                 name='name'
@@ -223,17 +225,12 @@ const New_purchase = () => {
                                 className='w-full p-2 border rounded-md focus:outline-sky-500 placeholder:text-sm'
                                 disabled
                             />
-                        </div>
-
-                        <div
-                            className='flex space-x-2'
-                        >
                             <input
                                 id='quantity'
                                 value={quantity}
                                 onChange={(e) => setQuantity(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                className='w-1/2 p-2 border rounded-md focus:outline-sky-500 placeholder:text-sm'
+                                className='w-full p-2 border rounded-md focus:outline-sky-500 placeholder:text-sm'
                                 placeholder='enter total quantity of product'
                             />
                             <input
@@ -241,7 +238,7 @@ const New_purchase = () => {
                                 value={totalPrice}
                                 onChange={(e) => setTotalPrice(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                className='w-1/2 p-2 border rounded-md focus:outline-sky-500 placeholder:text-sm'
+                                className='w-full p-2 border rounded-md focus:outline-sky-500 placeholder:text-sm'
                                 placeholder='enter total price of product'
                             />
                         </div>
@@ -251,7 +248,7 @@ const New_purchase = () => {
                         >
                             <button
                                 type='submit'
-                                className='px-4 py-2 bg-blue-500 text-white rounded-md'
+                                className='px-4 py-2 bg-sky-500 text-white rounded-md'
                             >
                                 Add list
                             </button>
@@ -303,13 +300,26 @@ const New_purchase = () => {
                             >
                                 <button
                                     onClick={() => calculation()}
-                                    className='p-2 bg-blue-500 text-white rounded-md'
+                                    className='p-2 bg-sky-500 text-white rounded-md'
                                 >
                                     Calculate
                                 </button>
                             </div>
                         </div>}
                     </form>
+                    {products.length > 0 &&
+                        <div
+                            className='mt-5 mb-2 flex justify-center'
+                        >
+                            <button
+                                onClick={() => createPurchase()}
+                                className='w-full p-2 bg-sky-500 text-white rounded-md'
+                            >
+                                Create Purchese
+                            </button>
+                            <Loading_request {...{ loading, setLoading }} />
+                        </div>
+                    }
                 </div>
                 <div className='w-8/12 space-y-2 bg-white p-2 rounded-md'>
                     <div className="relative overflow-x-auto space-y-3">
@@ -359,19 +369,7 @@ const New_purchase = () => {
                             </tbody>
                         </table>
                     </div>
-                    {products.length > 0 &&
-                        <div
-                            className='flex justify-center'
-                        >
-                            <button
-                                onClick={() => createPurchase()}
-                                className='p-2 bg-blue-500 text-white rounded-md mt-10'
-                            >
-                                Create investment
-                            </button>
-                            <Loading_request {...{ loading, setLoading }} />
-                        </div>
-                    }
+                    
                 </div>
 
             </div>

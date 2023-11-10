@@ -75,18 +75,21 @@ const New_Invoice = () => {
 
     const handleSearch = async (query) => {
         setSearch(query)
-        if (!search) return
+        if (query.length < 3) return
 
         try {
             const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`)
 
             if (res.data.success) {
                 setFind(res.data.data)
+                setIsSelect(true)
+            }
+            
+            setTimeout(()=>{
                 if (selectRef.current) {
                     selectRef.current.focus();
                 }
-                setIsSelect(!isSelect)
-            }
+            },200)
             
         } catch (error) {
             console.log(error)
@@ -96,6 +99,7 @@ const New_Invoice = () => {
 
     const setProduct = (selectedOption) => {
         const product = find.find(product => product._id === selectedOption.value)
+        setFindProduct(product)
         setIsAdd(!isAdd)
         set_id(product._id)
         setName(product.name)
