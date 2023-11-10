@@ -24,7 +24,7 @@ const New_Invoice = () => {
     const [quantity, setQuantity] = useState('')
     const [isSelect, setIsSelect] = useState(false)
     const [scaneSearch, setScaneSearch] = useState('')
-    const [findProduct,setFindProduct] = useState({})
+    const [findProduct, setFindProduct] = useState({})
 
     const searchRef = useRef(null)
     const selectRef = useRef(null)
@@ -75,17 +75,19 @@ const New_Invoice = () => {
 
     const handleSearch = async (query) => {
         setSearch(query)
-        if (!search) {
-            return
-        }
+        if (!search) return
 
         try {
             const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`)
-            setFind(res.data.data)
-            if (selectRef.current) {
-                selectRef.current.focus();
+
+            if (res.data.success) {
+                setFind(res.data.data)
+                if (selectRef.current) {
+                    selectRef.current.focus();
+                }
+                setIsSelect(!isSelect)
             }
-            setIsSelect(!isSelect)
+            
         } catch (error) {
             console.log(error)
         }
@@ -107,7 +109,7 @@ const New_Invoice = () => {
 
         if (!quantity) return
 
-        if(findProduct.quantity < quantity){
+        if (findProduct.quantity < quantity) {
             return toast({
                 title: `${quantity} pcs product isn't stock.`,
                 status: 'error',
