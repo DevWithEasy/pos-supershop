@@ -3,7 +3,7 @@ import toast_alert from "../../utils/toast_alert"
 import { useToast } from "@chakra-ui/react"
 import baseUrl from "../../utils/baseUrl"
 import axios from "axios"
-import {CiKeyboard} from 'react-icons/ci'
+import { CiKeyboard } from 'react-icons/ci'
 
 export default function Find_customer_invoice({ view, setView, setPercent }) {
     const toast = useToast()
@@ -15,8 +15,8 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
     const [phone, setPhone] = useState('')
 
     const [customer, setCustomer] = useState({})
-    
-    const [customerView,setCustomerView] = useState(false)
+
+    const [customerView, setCustomerView] = useState(false)
 
     const handleKeyDown = (e) => {
         if (e.key === 'F2') {
@@ -72,9 +72,9 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
         }
     }
 
-    const handleCreateInvoice = async(e) => {
+    const handleCreateInvoice = async (e) => {
         e.preventDefault()
-        if(!name || !phone || phone < 11){
+        if (!name || !phone || phone < 11) {
             return toast_alert(
                 toast,
                 'Please field is blank.',
@@ -82,12 +82,12 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
             )
         }
         try {
-            const res = await axios.post(`${baseUrl}/api/invoice/create`,order,{
+            const res = await axios.post(`${baseUrl}/api/invoice/create`, order, {
                 headers: {
-                    authorization : localStorage.getItem('token')
+                    authorization: localStorage.getItem('token')
                 }
             })
-            if(res.data.status === 200){
+            if (res.data.status === 200) {
                 resetCart()
                 navigate('/invice/new')
                 toast_alert(
@@ -166,46 +166,50 @@ export default function Find_customer_invoice({ view, setView, setPercent }) {
                         </div>
                     </form>
                 }
-                { customerView && customer.name &&
+                {customerView && customer.name &&
                     <div
-                    className="p-4"
-                >
-                    <p className="py-1 text-center bg-gray-200 border">Customer</p>
-                    <table
-                        className="w-full border mb-2"
+                        className="p-4"
                     >
-                        <tbody>
-                            <tr>
-                                <td className="px-2 py-1">Name</td>
-                                <td>:</td>
-                                <td className="px-2 py-1">{customer?.name}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-2 py-1">Phone</td>
-                                <td>:</td>
-                                <td className="px-2 py-1">{customer?.phone}</td>
-                            </tr>
-                            <tr>
-                                <td className="px-2 py-1">Status</td>
-                                <td>:</td>
-                                <td className="px-2 py-1">{customer?.status}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button
-                        onClick={(e)=>handleCreateInvoice(e)}
-                        className="w-full py-2 bg-sky-500 text-white rounded-md"
-                    >
-                        Submit
-                    </button>
-                </div>
+                        <p className="py-1 text-center bg-gray-200 border">Customer</p>
+                        <table
+                            className="w-full border mb-2"
+                        >
+                            <tbody>
+                                <tr>
+                                    <td className="px-2 py-1">Name</td>
+                                    <td>:</td>
+                                    <td className="px-2 py-1">{customer?.name}</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-2 py-1">Phone</td>
+                                    <td>:</td>
+                                    <td className="px-2 py-1">{customer?.phone}</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-2 py-1">Status</td>
+                                    <td>:</td>
+                                    <td className="px-2 py-1">{customer?.status}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button
+                            onClick={(e) => handleCreateInvoice(e)}
+                            className="w-full py-2 bg-sky-500 text-white rounded-md"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 }
                 <div
-                    className='p-2 text-sm flex flex-wrap items-center border-t'
+                    className='p-2 text-xs flex flex-wrap items-center border-t'
                 >
-                    Press 
-                    <span className="mx-2 px-2 py-1 flex items-center font-semibold border rounded-md"><CiKeyboard size={20} className="inline-block"/> F2 Key</span> 
-                    select Find or New Customer Form.
+                    Press
+                    <span className="mx-2 px-2 py-1 flex items-center font-semibold border rounded-md"><CiKeyboard size={20} className="inline-block" /> F2 Key</span>
+                    select
+                    <span className='underline px-1'> Find </span>
+                    or
+                    <span className='underline px-1'> New Customer </span>
+                    Form.
                 </div>
             </div>
         </div>
