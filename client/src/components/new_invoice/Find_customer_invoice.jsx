@@ -5,11 +5,15 @@ import baseUrl from "../../utils/baseUrl"
 import axios from "axios"
 import { CiKeyboard } from 'react-icons/ci'
 import useProductStore from "../../store/productStore"
+import { useNavigate } from "react-router-dom"
 
 export default function Find_customer_invoice({ view, setView, setPercent,subTotal,discount,total }) {
+
     const toast = useToast()
 
-    const {cart} = useProductStore()
+    const {cart,resetCart} = useProductStore()
+
+    const navigate = useNavigate()
 
     const [formView, setFormView] = useState(false)
 
