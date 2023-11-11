@@ -201,7 +201,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/adminuser/new',
+      path : '/admin/user/new',
       element : <Protected>
       <LayoutAdmin>
         <New_user/>
@@ -209,7 +209,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/admin/users',
+      path : '/admin/users',
       element : <Protected>
       <LayoutAdmin>
         <Users/>
@@ -217,7 +217,7 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/admin/user/:id',
+      path : '/admin/user/:id',
       element : <Protected>
       <LayoutAdmin>
         <Update_user/>

@@ -19,7 +19,8 @@ const New_user = () => {
       name : '',
       email : '',
       phone : '',
-      password : ''
+      password : '',
+      address : ''
     })
 
     const createUser= async(e) => {
@@ -33,7 +34,7 @@ const New_user = () => {
       }
       try {
           setLoading(true)
-          const res = await axios.post(`${baseUrl}/auth/auth/create`,value,{
+          const res = await axios.post(`${baseUrl}/api/auth/create`,value,{
               headers: {
                   authorization : localStorage.getItem('token')
               }
@@ -58,10 +59,10 @@ const New_user = () => {
       }
     }
   return (
-    <div className='p-4'>
-      <Heading>Add new user</Heading>
+    <div className='p-2'>
+      <Heading>Add new user (Shop)</Heading>
       <form
-        onSubmit={(e)=>createData(e,'auth',value,setLoading,onClose,toast)}
+        onSubmit={(e)=>createUser(e)}
         className='w-1/2 mx-auto space-y-2 p-4 bg-white rounded shadow'
       >
             <div className='space-y-2'>
@@ -100,8 +101,15 @@ const New_user = () => {
                     className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
                 />
             </div>
+            <div className='space-y-2'>
+                <label htmlFor="">Address :</label>
+                <textarea 
+                    name='address'
+                    onChange={(e)=>handleChange(e,value,setValue)} 
+                    className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
+                />
+            </div>
             <button
-              onClick={(e)=>createUser(e)} 
               className='px-6 py-2 bg-sky-500 text-white rounded'
             >
               Submit

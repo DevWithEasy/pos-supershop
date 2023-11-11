@@ -64,7 +64,6 @@ const Update_user = () => {
         }
     }
 
-    console.log(value)
     return (
         <div className='p-2'>
             <Heading>Update user</Heading>
@@ -102,6 +101,14 @@ const Update_user = () => {
                         className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
                     />
                 </div>
+                <div className='space-y-2'>
+                <label htmlFor="">Address :</label>
+                <textarea 
+                    name='address'
+                    onChange={(e)=>handleChange(e,value,setValue)} 
+                    className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
+                />
+            </div>
                 <div className='space-y-2'>
                     <label htmlFor="">User Type :</label>
                     <select

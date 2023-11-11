@@ -43,7 +43,6 @@ const Signin = () => {
                 navigate('/')
                 setLoading(false)
             }
-            
         } catch (error) {
             setLoading(false)
             return toast_alert(
@@ -53,6 +52,7 @@ const Signin = () => {
             )
         }
     }
+
 
     return (
         <div
@@ -86,14 +86,14 @@ const Signin = () => {
                         name='email'
                         onChange={(e)=>handleChange(e,value,setValue)}
                         placeholder='Enter email or phone number' 
-                        className='w-full p-2 rounded-md focus:outline-none placeholder:text-gray-300 shadow'
+                        className='w-full p-2 text-black rounded-md focus:outline-none placeholder:text-gray-300 shadow'
                     />
                     <input 
                         type='text' 
                         name='password'
                         onChange={(e)=>handleChange(e,value,setValue)}
                         placeholder='Enter password' 
-                        className='w-full p-2 rounded-md focus:outline-none placeholder:text-gray-300 shadow'
+                        className='w-full p-2 text-black rounded-md focus:outline-none placeholder:text-gray-300 shadow'
                     />
                     <button
                         className='w-full p-2 text-center bg-blue-700 text-white rounded-lg shadow'

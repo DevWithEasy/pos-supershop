@@ -22,9 +22,9 @@ exports.createAdmin=async(req,res,next)=>{
       password : hash_password
     })
 
-    const user = await new_user.save()
+    await new_user.save()
 
-    res.redirect('http://localhost:3000')
+    res.redirect('/')
 
   }catch(err){
     res.status(500).json({
@@ -120,6 +120,7 @@ exports.updateUser=async(req,res,next)=>{
           name : req.body.name,
           email : req.body.email,
           phone : req.body.phone,
+          address : req.body.address,
           isAdmin : req.body.isAdmin,
           password : hash_password
         }
@@ -139,6 +140,7 @@ exports.updateUser=async(req,res,next)=>{
           name : req.body.name,
           email : req.body.email,
           phone : req.body.phone,
+          address : req.body.address,
           isAdmin : req.body.isAdmin
         }
       },
