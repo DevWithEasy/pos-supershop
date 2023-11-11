@@ -12,7 +12,7 @@ const customerSchema = new mongoose.Schema({
     },
     status : {
         type : String,
-        emun : ['Basic', 'Silver', 'Gold', 'Daimond'],
+        emun : ['Basic', 'Premium'],
         default : 'Basic'
     }
 },{timestamps : true})

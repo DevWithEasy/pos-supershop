@@ -27,8 +27,10 @@ const New_report = () => {
     const generateReport = async (e) => {
         e.preventDefault()
         const day = dayDifference(value.end, value.start)
-        setLoading(true)
-        try {
+        
+        if(day === 0 || day === 27 || day === 28 || day === 29 || day === 30 ){
+            setLoading(true)
+            try {
             const res = await axios.post(`${baseUrl}/api/report`, value, {
                 headers: {
                     authorization: localStorage.getItem('token')
@@ -51,6 +53,14 @@ const New_report = () => {
             setLoading(false)
             console.log(error)
         }
+        }else{
+            return toast_alert(
+                toast,
+                'Plase selcet Two date between one day or Full month',
+                'error'
+            )
+        }
+        
     }
 
     const createReport = async () => {
@@ -78,6 +88,8 @@ const New_report = () => {
             )
         }
     }
+
+    
 
     return (
         <div

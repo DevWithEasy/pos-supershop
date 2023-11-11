@@ -72,7 +72,7 @@ export default function Find_customer_invoice({ view, setView, setPercent,subTot
             } else {
                 setCustomerView(!customerView)
                 setCustomer(res.data.data)
-                setPercent(res.data.data.status === 'Silver' ? 2.5 : res.data.data.status === 'Gold' ? 5 : res.data.data.status === 'Diamond' ? 10 : 0)
+                setPercent(res.data.data.status === 'Premium' ? 3 : 0)
                 toast_alert(
                     toast,
                     'Customer successfully find.'
@@ -101,7 +101,7 @@ export default function Find_customer_invoice({ view, setView, setPercent,subTot
             })
             if (res.data.success) {
                 resetCart()
-                setFormView(false)
+                setView(!view)
                 toast_alert(
                     toast,
                     'Invoice created successfully'

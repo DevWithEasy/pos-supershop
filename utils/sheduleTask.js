@@ -5,52 +5,60 @@ const Customer = require('../models/Customer')
 const sheduleTask = () => {
 
     const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const days = new Date(date.getFullYear(), month + 1, 0).getDate()
-    const start = `${year}-${String(month + 1).padStart(2, '0')}-01`
-    const end = `${year}-${String(month + 1).padStart(2, '0')}-${days}`
+    const startYear = date.getFullYear()
+    const startMonth = String(date.getMonth() + 1).padStart(2, '0')
+    const startDate = String(date.getDate()).padStart(2, '0')
 
-    cron.schedule('59 11 * * *', async () => {
+    const endMonth = 
+    Number(startMonth)+1-3 === -1 ? 11 : 
+    Number(startMonth)+1-3 === 0 ? 12 : 
+    String(Number(startMonth)+1-3).padStart(2, '0')
+
+    let endYear = 
+    Number(startMonth)+1-3 === 0 ? startYear-1 :
+    Number(startMonth)+1-3 === -1 ? startYear-1 : 
+    startYear
+
+
+    const startCount = `${startYear}-${startMonth}-${startDate}`
+    const endCount = `${endYear}-${endMonth}-01`
+
+    cron.schedule('59 59 23 * * *', async () => {
         const invoices = await Invoice.aggregate([
             {
                 $match: {
                     createdAt: {
-                        $gte: new Date(start),
-                        $lte: new Date(end),
+                        $gte: new Date(endCount),
+                        $lte: new Date(startCount),
                     },
-                },
+                }
             },
             {
                 $group: {
                     _id: '$customer',
                     value: {
-                        $sum: '$paid'
+                        $sum: '$total'
                     }
                 }
             }
         ])
         invoices.forEach(async (invoice) => {
-            if (invoice.value < 500) {
+            const customer = await Customer.findById(invoice._id.toHexString())
+            if(customer.status === 'Premium'){
+                return
+            }
+            if (invoice.value < 14999) {
                 return
             } else {
-                let status
-                if (invoice.value >= 500 && invoice.value < 1000) {
-                    return status = 'Silver'
-                } else if (invoice.value >= 1000 && invoice.value < 1500) {
-                    return status = 'Gold'
-                } else {
-                    status = 'Diamond'
-                }
-
                 await Customer.findByIdAndUpdate(invoice._id.toHexString(), {
                     $set: {
-                        status: status
+                        status: 'Premium'
                     }
                 })
             }
         })
     })
+
 }
 
 module.exports = sheduleTask
