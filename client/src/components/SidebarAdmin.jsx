@@ -7,13 +7,124 @@ import { RiAddBoxLine, RiProductHuntLine } from 'react-icons/ri';
 import { RxDashboard, } from 'react-icons/rx';
 import { TbReportSearch } from 'react-icons/tb';
 import { Link, NavLink } from 'react-router-dom';
+import useUserStore from '../store/userStore';
+import { MdAutoAwesomeMosaic } from 'react-icons/md';
 
 const SidebarAdmin = () => {
+    const {user} = useUserStore();
 
-    const data = [
+    const userData = [
         {
             title: 'Main',
             links: [
+                {
+                    path: '/admin/user',
+                    title: 'Welcom',
+                    icon: <MdAutoAwesomeMosaic size={16} />
+                },
+                {
+                    path: '/',
+                    title: 'Home',
+                    icon: <AiOutlineHome size={16} />
+                },
+                {
+                    path: '/admin/user/dashboard',
+                    title: 'Dashboard',
+                    icon: <RxDashboard size={16} />
+                }
+            ]
+        },
+        {
+            title: 'Product',
+            links: [
+                {
+                    path: '/admin/product/new',
+                    title: 'Create Product',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/products',
+                    title: 'Products',
+                    icon: <RiProductHuntLine size={16} />
+                },
+                {
+                    path: '/admin/categories',
+                    title: 'Categories',
+                    icon: <BiCategoryAlt size={16} />
+                },
+                {
+                    path: '/admin/printbarcode',
+                    title: 'Print Barcode',
+                    icon: <PiBarcode size={16} />
+                },
+            ]
+        },
+        {
+            title: 'Purchases & sales',
+            links: [
+                {
+                    path: '/admin/purchase/new',
+                    title: 'Create Purchase',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/purchases',
+                    title: 'Purchases',
+                    icon: <BiPurchaseTag size={16} />
+                },
+                {
+                    path: '/admin/invoices',
+                    title: 'Invoices',
+                    icon: <LiaFileInvoiceSolid size={16} />
+                },
+            ]
+        },
+        {
+            title: 'Customers & Users',
+            links: [
+                {
+                    path: '/admin/customer/new',
+                    title: 'Add New Customer',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/customers',
+                    title: 'Customers',
+                    icon: <PiUsersDuotone size={16} />
+                },
+                {
+                    path: '/admin/users',
+                    title: 'Users',
+                    icon: <PiUsersBold size={16} />
+                },
+            ]
+        },
+        {
+            title: 'Report',
+            links: [
+                {
+                    path: '/admin/report/new',
+                    title: 'Create Report',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/reports',
+                    title: 'Reports',
+                    icon: <TbReportSearch size={16} />
+                }
+            ]
+        },
+    ]
+    
+    const adminData = [
+        {
+            title: 'Main',
+            links: [
+                {
+                    path: '/admin/administration',
+                    title: 'Welcom',
+                    icon: <MdAutoAwesomeMosaic size={16} />
+                },
                 {
                     path: '/',
                     title: 'Home',
@@ -57,22 +168,7 @@ const SidebarAdmin = () => {
             ]
         },
         {
-            title: 'Sales',
-            links: [
-                {
-                    path: '/admin/invoices',
-                    title: 'Invoices',
-                    icon: <LiaFileInvoiceSolid size={16} />
-                },
-                {
-                    path: '/admin/invoices-return',
-                    title: 'Sales Return',
-                    icon: <PiKeyReturnLight size={16} />
-                },
-            ]
-        },
-        {
-            title: 'Purchases',
+            title: 'Purchases & sales',
             links: [
                 {
                     path: '/admin/purchase/new',
@@ -83,7 +179,12 @@ const SidebarAdmin = () => {
                     path: '/admin/purchases',
                     title: 'Purchases',
                     icon: <BiPurchaseTag size={16} />
-                }
+                },
+                {
+                    path: '/admin/invoices',
+                    title: 'Invoices',
+                    icon: <LiaFileInvoiceSolid size={16} />
+                },
             ]
         },
         {
@@ -127,6 +228,7 @@ const SidebarAdmin = () => {
             ]
         },
     ]
+    const data = user.isAdmin ? adminData : userData 
 
     return (
         <div className='relative h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>

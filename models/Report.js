@@ -1,12 +1,21 @@
 const mongoose = require('mongoose')
 
 const reportSchema = new mongoose.Schema({
-    from : {
+    user : {
+        type : mongoose.Types.ObjectId,
+        ref : 'User'
+    },
+    reportType : {
         type : String,
+        enum : ['daily','monthly','yearly'],
+        required : true
+    },
+    from : {
+        type : Date,
         required : true
     },
     to : {
-        type : String,
+        type : Date,
         required : true
     },
     year : {

@@ -55,6 +55,9 @@ const Users = () => {
                                 Phone
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
+                                Address
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
                                 User Role
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
@@ -73,6 +76,7 @@ const Users = () => {
                                 <td className="px-6 py-3 text-center">{user?.name}</td>
                                 <td className="px-6 py-3 text-center">{user?.email}</td>
                                 <td className="px-6 py-3 text-center">{user?.phone}</td>
+                                <td className="px-6 py-3 text-center">{user?.address}</td>
                                 <td className="px-6 py-3 text-center">{user?.isAdmin ? 'Admin' : 'User'}</td>
                                 <td className="px-6 py-3 text-center space-x-2">
                                     <button 

@@ -1,7 +1,6 @@
 const Invoice = require("../models/Invoice")
 const Purchase = require("../models/Purchase")
 const Report = require("../models/Report")
-const mongoose = require('mongoose')
 
 exports.generateReport=async(req,res,next)=>{
     try{

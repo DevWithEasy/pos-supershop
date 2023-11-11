@@ -38,11 +38,6 @@ const Sidebar = () => {
             path : '/invoices/',
             title : 'Invoices',
             icon : <TbFileInvoice size={16}/>
-        },
-        {
-            path : '/dashboard',
-            title : 'Dashboard',
-            icon : <RxDashboard size={16}/>
         }
     ]
 
@@ -53,8 +48,6 @@ const Sidebar = () => {
                 className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
                 <span className='text-2xl sm:text-4xl'>POS</span>
             </Link>
-            {
-                isAuth ? 
                 <div className='w-full flex flex-col items-center justify-center space-y-2 mt-5'>
                     {
                         data.map((d,i)=><NavLink 
@@ -68,16 +61,27 @@ const Sidebar = () => {
                         )
                     }
 
-                    {user.isAdmin && 
+                    {user.isAdmin ?
                     <NavLink
-                        to='/admin/dashboard'
+                        to='/admin/administration'
                         className='p-2 w-10 sm:w-full flex justify-center items-center sm:justify-start space-x-2 bg-white rounded-md overflow-hidden'
                     >
                         <span className='shrink-0'>
-                            <MdOutlineAdminPanelSettings size={16}/>
+                            <RxDashboard size={16}/>
                         </span>
                         <span className='hidden sm:block'>Admin</span>
-                    </NavLink>}
+                    </NavLink>
+                    :
+                    <NavLink
+                        to='/admin/user'
+                        className='p-2 w-10 sm:w-full flex justify-center items-center sm:justify-start space-x-2 bg-white rounded-md overflow-hidden'
+                    >
+                        <span className='shrink-0'>
+                            <RxDashboard size={16}/>
+                        </span>
+                        <span className='hidden sm:block'>Admin</span>
+                    </NavLink>
+                    }
 
                     <button
                         onClick={()=>logout()}
@@ -89,17 +93,6 @@ const Sidebar = () => {
                         <span className='hidden sm:block'>Logout</span>
                     </button>
                 </div>
-                :
-                <NavLink
-                    to='/signin'
-                    className='p-2 w-10 sm:w-full flex justify-center items-center sm:justify-start space-x-2 bg-white rounded-md overflow-hidden'
-                >
-                    <span className='shrink-0'>
-                        <BiLogInCircle size={16}/>
-                    </span>
-                    <span className='hidden sm:block'>Signin</span>
-                </NavLink>
-            }
 
         </div>
     );

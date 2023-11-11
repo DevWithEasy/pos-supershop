@@ -12,12 +12,12 @@ const Home = () => {
                 <hr/>
             </div>
             <div
-                className="w-1/4 bg-white border rounded"
+                className="w-1/4 bg-white border rounded text-sm"
             >  
                 <p
                     className="p-2 border-b"
                 >
-                You logged as {user.isAdmin ? 'Admin' : 'Outlet Owner'}
+                You logged as <b>{user.isAdmin ? 'Admin' : 'Outlet Owner'}</b>
                 </p>
                 <div
                     className="p-2"
@@ -40,6 +40,11 @@ const Home = () => {
                                 <td>Phone</td>
                                 <td>:</td>
                                 <td> {user?.phone}</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>:</td>
+                                <td> {user?.address}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -1,6 +1,4 @@
 import { useRoutes } from 'react-router-dom'
-import Admin from './pages/Admin'
-import Dashboard from './pages/Dashboard'
 import Home from './pages/Home'
 import Layout from './pages/Layout'
 import Signin from './pages/Signin'
@@ -30,6 +28,10 @@ import PrintBarCode from './pages/products/PrintBarCode'
 import New_Invoice from './pages/invoices/New_Invoice'
 import Products_Home from './pages/products/Products_Home'
 import Update_invoice from './pages/invoices/Update_invoice'
+import UserDashboard from './pages/Dashboard_User'
+import Admin_User from './pages/Admin_User'
+import Admin_Administration from './pages/Admin_Administration'
+import AdminDashboard from './pages/Dashboard_Admin'
 
 function App() {
   const routes= useRoutes([
@@ -77,18 +79,34 @@ function App() {
     </Protected>
     },
     {
-      path : '/dashboard',
+      path : '/admin/user/',
       element : <Protected>
-      <Layout>
-        <Dashboard/>
-      </Layout>
+      <LayoutAdmin>
+        <Admin_User/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/administration',
+      element : <Protected>
+      <LayoutAdmin>
+        <Admin_Administration/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/user/dashboard',
+      element : <Protected>
+      <LayoutAdmin>
+        <UserDashboard/>
+      </LayoutAdmin>
     </Protected>
     },
     {
       path : '/admin/dashboard',
       element : <Protected>
       <LayoutAdmin>
-        <Admin/>
+        <AdminDashboard/>
       </LayoutAdmin>
     </Protected>
     },

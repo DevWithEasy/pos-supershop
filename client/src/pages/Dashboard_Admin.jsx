@@ -1,9 +1,9 @@
 import React from 'react';
 import { GiMedicines } from 'react-icons/gi';
 import { RxAvatar, RxHeart, RxHome } from 'react-icons/rx';
-import Heading from './../components/Heading'
+import Heading from '../components/Heading'
 
-const Admin = () => {
+const AdminDashboard = () => {
 
     return (
         <div className='p-2'>
@@ -69,4 +69,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default AdminDashboard;

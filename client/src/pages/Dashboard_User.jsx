@@ -11,7 +11,7 @@ import ReportChart from '../components/ReportChart';
 import baseUrl from '../utils/baseUrl';
 import get_fixed_num from '../utils/get_fixed_num';
 
-const Dashboard = () => {
+const UserDashboard = () => {
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
     const getDashboardData = async () => {
@@ -139,4 +139,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default UserDashboard;
