@@ -51,6 +51,9 @@ const Customers = () => {
                                 Mobile
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
+                                Status
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
                                 Action
                             </th>
                         </tr>
@@ -65,10 +68,11 @@ const Customers = () => {
                                 <td className="px-6 py-3 text-center">{i+1}</td>
                                 <td className="px-6 py-3 text-center">{customer?.name}</td>
                                 <td className="px-6 py-3 text-center">{customer?.phone}</td>
+                                <td className="px-6 py-3 text-center">{customer?.status}</td>
                                 <td className="px-6 py-3 text-center space-x-2">
                                     <button 
                                         onClick={()=>{
-                                            navigate(`/customer/${customer._id}`)
+                                            navigate(`/admin/customer/${customer._id}`)
                                         }} 
                                         className='p-1.5 bg-green-400 text-white rounded-md'
                                     >
