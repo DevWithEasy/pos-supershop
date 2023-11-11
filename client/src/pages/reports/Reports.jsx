@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import Delete_data from '../../components/Delete_data';
 import Heading from '../../components/Heading';
-import Search from '../../components/Search';
 import useUserStore from '../../store/userStore';
 import baseUrl from '../../utils/baseUrl';
 
 const Reports = () => {
     const { reports, addReports } = useUserStore()
     const [remove, setRemove] = useState(false)
+    const [query, setQuery] = useState('')
     const getReports = async () => {
         try {
             const res = await axios.get(`${baseUrl}/api/report`, {
@@ -33,10 +33,11 @@ const Reports = () => {
             className='p-4'
         >
             <Heading>All Reports</Heading>
-            <Search
-                {...{
-                    placeholder: 'Search by year or month'
-                }}
+            <input
+                type="search"
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                placeholder='Search by id, month or year'
+                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
             />
             <div className="relative overflow-x-auto space-y-3">
                 <table className="w-full text-sm text-left text-gray-500">
@@ -44,6 +45,9 @@ const Reports = () => {
                         <tr>
                             <th scope="col" className="px-6 py-3 text-center">
                                 Sl
+                            </th>
+                            <th scope="col" className="px-6 py-3 text-center">
+                                Id
                             </th>
                             <th scope="col" className="px-6 py-3 text-center">
                                 From
@@ -69,18 +73,36 @@ const Reports = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            reports.map((report, i) => <tr
+                        {reports &&
+                            reports.filter(report => report._id.toLowerCase().includes(query) || report.month.toLowerCase().includes(query) || report.month.toLowerCase().includes(query))
+                            .map((report, i) => <tr
                                 key={report._id}
                                 className='bg-white border-b cursor-pointer'
                             >
-                                <td className="px-6 py-3 text-center">{i + 1}</td>
-                                <td className="px-6 py-3 text-center">{report?.from}</td>
-                                <td className="px-6 py-3 text-center">{report?.to}</td>
-                                <td className="px-6 py-3 text-center">{report?.year}</td>
-                                <td className="px-6 py-3 text-center">{report?.month}</td>
-                                <td className="px-6 py-3 text-center">{report?.purchase}</td>
-                                <td className="px-6 py-3 text-center">{report?.sale}</td>
+                                <td className="px-6 py-3 text-center">
+                                    {i + 1}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {report?._id}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {new Date(report?.from).toLocaleDateString()}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {new Date(report?.to).toLocaleDateString()}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {report?.year}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {report?.month}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {report?.purchase}
+                                </td>
+                                <td className="px-6 py-3 text-center">
+                                    {report?.sale}
+                                </td>
                                 <td className="px-6 py-3 text-center space-x-2">
                                     <button
                                         onClick={() => {

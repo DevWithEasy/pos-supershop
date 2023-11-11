@@ -56,7 +56,7 @@ const Products = () => {
                     <tbody>
                         {
                             products.filter(product => product.name.toLowerCase().includes(query) || product.name.toLowerCase().includes(query))
-                                .map(product => <ProductListItem key={product._id} {...{ product }} />)
+                            .map(product => <ProductListItem key={product._id} {...{ product }} />)
                         }
                     </tbody>
                 </table>
