@@ -3,7 +3,7 @@ import { AiOutlinePrinter } from 'react-icons/ai';
 import { BiArrowBack } from 'react-icons/bi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
-import useUserStore from '../../../store/userStore';
+import useUserStore from '../../store/userStore';
 
 const Purchase = () => {
     const {purchases} = useUserStore()

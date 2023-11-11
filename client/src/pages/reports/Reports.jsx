@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { MdDelete } from 'react-icons/md';
-import Delete_data from '../../../components/Delete_data';
-import Heading from '../../../components/Heading';
-import Search from '../../../components/Search';
-import useUserStore from '../../../store/userStore';
-import baseUrl from '../../../utils/baseUrl';
+import Delete_data from '../../components/Delete_data';
+import Heading from '../../components/Heading';
+import Search from '../../components/Search';
+import useUserStore from '../../store/userStore';
+import baseUrl from '../../utils/baseUrl';
 
 const Reports = () => {
     const { reports, addReports } = useUserStore()

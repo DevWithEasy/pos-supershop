@@ -5,15 +5,11 @@ import baseUrl from "../../utils/baseUrl"
 import axios from "axios"
 import { CiKeyboard } from 'react-icons/ci'
 import useProductStore from "../../store/productStore"
-import { useNavigate } from "react-router-dom"
-
 export default function Find_customer_invoice({ view, setView, setPercent,subTotal,discount,total }) {
 
     const toast = useToast()
 
     const {cart,resetCart} = useProductStore()
-
-    const navigate = useNavigate()
 
     const [formView, setFormView] = useState(false)
 
@@ -72,8 +68,9 @@ export default function Find_customer_invoice({ view, setView, setPercent,subTot
                     'Not found customer',
                     'error'
                 )
-
+                setFormView(!formView)
             } else {
+                setCustomerView(!customerView)
                 setCustomer(res.data.data)
                 setPercent(res.data.data.status === 'Silver' ? 2.5 : res.data.data.status === 'Gold' ? 5 : res.data.data.status === 'Diamond' ? 10 : 0)
                 toast_alert(
@@ -104,7 +101,7 @@ export default function Find_customer_invoice({ view, setView, setPercent,subTot
             })
             if (res.data.success) {
                 resetCart()
-                navigate('/invice/new')
+                setFormView(false)
                 toast_alert(
                     toast,
                     'Invoice created successfully'
@@ -129,7 +126,7 @@ export default function Find_customer_invoice({ view, setView, setPercent,subTot
             <div
                 className="w-4/12 mx-auto mt-24 bg-white shadow-xl rounded-lg"
             >
-                {!formView ?
+                {formView ?
                     <form
                         onSubmit={(e) => handleCreateInvoice(e)}
                         className='p-4 space-y-3'

@@ -1,10 +1,10 @@
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react';
-import Heading from '../../../components/Heading';
-import baseUrl from '../../../utils/baseUrl';
-import handleChange from '../../../utils/handleChange';
-import toast_alert from '../../../utils/toast_alert';
+import Heading from '../../components/Heading';
+import baseUrl from '../../utils/baseUrl';
+import handleChange from '../../utils/handleChange';
+import toast_alert from '../../utils/toast_alert';
 
 const New_report = () => {
     const date = new Date()

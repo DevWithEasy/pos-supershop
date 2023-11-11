@@ -83,12 +83,7 @@ const SidebarAdmin = () => {
                     path: '/admin/purchases',
                     title: 'Purchases',
                     icon: <BiPurchaseTag size={16} />
-                },
-                {
-                    path: '/admin/purchases-return',
-                    title: 'Purchases Return',
-                    icon: <PiKeyReturnLight size={16} />
-                },
+                }
             ]
         },
         {
@@ -120,12 +115,12 @@ const SidebarAdmin = () => {
             title: 'Report',
             links: [
                 {
-                    path: '/report/new',
+                    path: '/admin/report/new',
                     title: 'Create Report',
                     icon: <RiAddBoxLine size={16} />
                 },
                 {
-                    path: '/reports',
+                    path: '/admin/reports',
                     title: 'Reports',
                     icon: <TbReportSearch size={16} />
                 }

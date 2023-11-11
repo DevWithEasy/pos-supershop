@@ -1,17 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { MdDelete, MdInfo } from 'react-icons/md';
+import { MdDelete, MdEditSquare, MdInfo } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import Delete_data from '../../../components/Delete_data';
-import Heading from '../../../components/Heading';
-import Search from '../../../components/Search';
-import useUserStore from '../../../store/userStore';
-import baseUrl from '../../../utils/baseUrl';
+import Delete_data from '../../components/Delete_data';
+import Heading from '../../components/Heading';
+import useUserStore from '../../store/userStore';
+import baseUrl from '../../utils/baseUrl';
 
 const Purchases = () => {
     const navigate = useNavigate()
     const {addPurchases,purchases} = useUserStore()
     const [remove,setRemove] = useState(false)
+    const [query, setQuery] = useState('')
 
     const getPurchases = async() =>{
         try {
@@ -31,12 +31,13 @@ const Purchases = () => {
         <div
             className='p-2'
         >
-            <Search
-                {...{
-                    placeholder : 'Find purchase by last 4 word'
-                }}
-            />
             <Heading>Purchase History</Heading>
+            <input
+                type="search"
+                onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                placeholder='Search by product,generic or company name'
+                className='mb-2 w-[350px] py-1 px-4 border border-gray-300 focus:outline-none placeholder:text-gray-300 placeholder:text-sm rounded-full'
+            />
             <div className="relative overflow-x-auto space-y-3">
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-blue-50">
@@ -57,8 +58,12 @@ const Purchases = () => {
                     </thead>
                     <tbody>
                         {
-                            purchases.map((purchase,i)=><tr 
+                            purchases.filter(purchase => purchase._id.toLowerCase().includes(query) || purchase._id.toLowerCase().includes(query))
+                            .map((purchase)=><tr 
                                     key={purchase._id}
+                                    onClick={()=>{
+                                        navigate(`/admin/purchase/${purchase._id}`)
+                                    }}
                                     className='bg-white border-b cursor-pointer'
                                 >
                                 <td className="px-6 py-3 text-left">{purchase?._id}</td>
@@ -67,11 +72,11 @@ const Purchases = () => {
                                 <td className="px-6 py-3 text-center space-x-2">
                                     <button 
                                         onClick={()=>{
-                                            navigate(`/admin/purchase/${purchase._id}`)
+                                            navigate(`/admin/purchase/update/${purchase._id}`)
                                         }}
                                         className='p-1.5 bg-green-400 text-white rounded-md'
                                     >
-                                        <MdInfo/>
+                                        <MdEditSquare/>
                                     </button>
                                     <button 
                                         onClick={()=>{

@@ -2,13 +2,13 @@ import { useDisclosure, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-import Heading from '../../../components/Heading';
-import Loading_request from '../../../components/Loding_request';
-import baseUrl from '../../../utils/baseUrl';
-import handleChange from '../../../utils/handleChange';
-import toast_alert from '../../../utils/toast_alert';
-import Product_Select_invoice from '../../../components/new_invoice/Product_Select_invoice';
-import handleFocus from '../../../utils/handleFocus';
+import Heading from '../../components/Heading';
+import Loading_request from '../../components/Loding_request';
+import baseUrl from '../../utils/baseUrl';
+import handleChange from '../../utils/handleChange';
+import toast_alert from '../../utils/toast_alert';
+import Product_Select_invoice from '../../components/new_invoice/Product_Select_invoice';
+import handleFocus from '../../utils/handleFocus';
 
 const New_purchase = () => {
     const toast = useToast()

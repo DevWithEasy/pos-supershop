@@ -5,10 +5,10 @@ import Home from './pages/Home'
 import Layout from './pages/Layout'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
-import New_purchase from './pages/admin/purchases/New_purchase'
-import Purchase from './pages/admin/purchases/Purchase'
-import New_report from './pages/admin/reports/New_report'
-import Reports from './pages/admin/reports/Reports'
+import New_purchase from './pages/purchases/New_purchase'
+import Purchase from './pages/purchases/Purchase'
+import New_report from './pages/reports/New_report'
+import Reports from './pages/reports/Reports'
 import Customers from './pages/customers/Customers'
 import New_customer from './pages/customers/New_customer'
 import UpdateCustomer from './pages/customers/UpdateCustomer'
@@ -20,7 +20,7 @@ import Update_product from './pages/products/Update_product'
 import New_user from './pages/users/New_user'
 import Update_user from './pages/users/Update_user'
 import Users from './pages/users/Users'
-import Purchases from './pages/admin/purchases/Purchases'
+import Purchases from './pages/purchases/Purchases'
 import Protected from './pages/Protected'
 import LayoutAdmin from './pages/LayoutAdmin'
 import Categories from './pages/categories/Categories'
@@ -29,6 +29,7 @@ import New_category from './pages/categories/New_category'
 import PrintBarCode from './pages/products/PrintBarCode'
 import New_Invoice from './pages/invoices/New_Invoice'
 import Products_Home from './pages/products/Products_Home'
+import Update_invoice from './pages/invoices/Update_invoice'
 
 function App() {
   const routes= useRoutes([
@@ -105,6 +106,14 @@ function App() {
       element : <Protected>
       <LayoutAdmin>
         <Invoice/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/invoice/update/:id',
+      element : <Protected>
+      <LayoutAdmin>
+        <Update_invoice/>
       </LayoutAdmin>
     </Protected>
     },
@@ -232,7 +241,15 @@ function App() {
     </Protected>
     },
     {
-      path : '/adminpurchase/:id',
+      path : '/admin/purchase/:id',
+      element : <Protected>
+      <LayoutAdmin>
+        <Purchase/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/purchase/update/:id',
       element : <Protected>
       <LayoutAdmin>
         <Purchase/>
