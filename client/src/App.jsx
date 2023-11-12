@@ -32,6 +32,10 @@ import UserDashboard from './pages/Dashboard_User'
 import Admin_User from './pages/Admin_User'
 import Admin_Administration from './pages/Admin_Administration'
 import AdminDashboard from './pages/Dashboard_Admin'
+import Employees from './pages/employee/Employees'
+import New_employee from './pages/employee/New_employee'
+import Update_employee from './pages/employee/Update_employee'
+import Employee from './pages/employee/Employee'
 
 function App() {
   const routes= useRoutes([
@@ -239,6 +243,38 @@ function App() {
       element : <Protected>
       <LayoutAdmin>
         <Update_user/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/employee/new',
+      element : <Protected>
+      <LayoutAdmin>
+        <New_employee/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/employees',
+      element : <Protected>
+      <LayoutAdmin>
+        <Employees/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/employee/:id',
+      element : <Protected>
+      <LayoutAdmin>
+        <Employee/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/employee/update/:id',
+      element : <Protected>
+      <LayoutAdmin>
+        <Update_employee/>
       </LayoutAdmin>
     </Protected>
     },

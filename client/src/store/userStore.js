@@ -11,6 +11,7 @@ const createUserStore = (set)=>({
     purchases : [],
     invoices : [],
     reports : [],
+    employees : [],
 
 
     addUser : (data)=>{
@@ -44,9 +45,9 @@ const createUserStore = (set)=>({
             categories : categories
         }))
     },
-    addGenerics : (generics)=>{
+    addEmployees : (employees)=>{
         set((state)=>({
-            generics : generics
+            employees : employees
         }))
     },
     addCustomers : (customers)=>{
@@ -75,8 +76,8 @@ const createUserStore = (set)=>({
                     return {products : state.products.filter(product=>product._id !== id)}
             }else if (path === 'company'){
                     return {companies : state.companies.filter(company=>company._id !== id)}
-            }else if (path === 'generic'){
-                return {generics : state.generics.filter(generic=>generic._id !== id)}
+            }else if (path === 'employee'){
+                return {employees : state.employees.filter(employee=>employee._id !== id)}
             } else if (path === 'report'){
                 return {reports : state.reports.filter(report=>report._id !== id)}
             }else if (path === 'purchase'){

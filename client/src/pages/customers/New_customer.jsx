@@ -38,7 +38,7 @@ const New_customer = () => {
                   toast,
                   res.data.message
               )
-              navigate('/customers')
+              navigate('/admin/customers')
           }
           
       } catch (error) {

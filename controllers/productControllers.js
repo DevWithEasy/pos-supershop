@@ -37,12 +37,12 @@ exports.createProduct = async (req, res, next) => {
 
     qr.toDataURL(new_product._id.toString(), { type: 'image/png', errorCorrectionLevel: 'H', size: 300 }, async (err, url) => {
       if (err) {
-        res.status(500).json({
+        return res.status(500).json({
           success: false,
           status: 500,
           message: 'Error generating QR code'
         })
-        console.log(err)
+
       } else {
         new_product.barCode = url
         const product = await new_product.save()

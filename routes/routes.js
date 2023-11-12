@@ -5,6 +5,8 @@ const customerRouter = require('./customerRoute')
 const invoiceRouter = require('./invoiceRoute')
 const purchaseRouter = require('./purchaseRoute')
 const reportRouter = require('./reportRoute')
+const employeeRouter = require('./employeeRoute')
+const attendanceRouter = require('./attendaceRoute')
 
 const routes = [
   {
@@ -34,6 +36,14 @@ const routes = [
   {
     path: "/api/report",
     handler : reportRouter
+  },
+  {
+    path: "/api/employee",
+    handler : employeeRouter
+  },
+  {
+    path: "/api/attendace",
+    handler : attendanceRouter
   },
   {
     path: "/",

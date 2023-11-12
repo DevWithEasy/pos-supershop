@@ -19,7 +19,7 @@ const SidebarAdmin = () => {
             links: [
                 {
                     path: '/admin/user',
-                    title: 'Welcom',
+                    title: 'Welcome',
                     icon: <MdAutoAwesomeMosaic size={16} />
                 },
                 {
@@ -80,26 +80,6 @@ const SidebarAdmin = () => {
             ]
         },
         {
-            title: 'Customers & Users',
-            links: [
-                {
-                    path: '/admin/customer/new',
-                    title: 'Add New Customer',
-                    icon: <RiAddBoxLine size={16} />
-                },
-                {
-                    path: '/admin/customers',
-                    title: 'Customers',
-                    icon: <PiUsersDuotone size={16} />
-                },
-                {
-                    path: '/admin/users',
-                    title: 'Users',
-                    icon: <PiUsersBold size={16} />
-                },
-            ]
-        },
-        {
             title: 'Report',
             links: [
                 {
@@ -114,6 +94,62 @@ const SidebarAdmin = () => {
                 }
             ]
         },
+        {
+            title: 'Customers',
+            links: [
+                {
+                    path: '/admin/customer/new',
+                    title: 'Add New Customer',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/customers',
+                    title: 'Customers',
+                    icon: <PiUsersDuotone size={16} />
+                }
+            ]
+        },
+        {
+            title: 'Users & Employees',
+            links: [
+                
+                {
+                    path: '/admin/users',
+                    title: 'Users',
+                    icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/employee/new',
+                    title: 'Add New Employee',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/employees',
+                    title: 'Employees',
+                    icon: <PiUsersDuotone size={16} />
+                },
+            ]
+        },
+        {
+            title: 'Attendance & Salary',
+            links: [
+                {
+                    path: '/admin/take_attendance',
+                    title: 'Take Daily Attendance',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/monthly_attendance',
+                    title: 'Monthly Attendance',
+                    icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/salary',
+                    title: 'Salary',
+                    icon: <RiAddBoxLine size={16} />
+                }
+            ]
+        }
     ]
     
     const adminData = [
@@ -122,7 +158,7 @@ const SidebarAdmin = () => {
             links: [
                 {
                     path: '/admin/administration',
-                    title: 'Welcom',
+                    title: 'Welcome',
                     icon: <MdAutoAwesomeMosaic size={16} />
                 },
                 {
@@ -188,31 +224,6 @@ const SidebarAdmin = () => {
             ]
         },
         {
-            title: 'Customers & Users',
-            links: [
-                {
-                    path: '/admin/customer/new',
-                    title: 'Add New Customer',
-                    icon: <RiAddBoxLine size={16} />
-                },
-                {
-                    path: '/admin/customers',
-                    title: 'Customers',
-                    icon: <PiUsersDuotone size={16} />
-                },
-                {
-                    path: '/admin/user/new',
-                    title: 'Add New User',
-                    icon: <RiAddBoxLine size={16} />
-                },
-                {
-                    path: '/admin/users',
-                    title: 'Users',
-                    icon: <PiUsersBold size={16} />
-                },
-            ]
-        },
-        {
             title: 'Report',
             links: [
                 {
@@ -227,19 +238,81 @@ const SidebarAdmin = () => {
                 }
             ]
         },
+        {
+            title: 'Customers',
+            links: [
+                {
+                    path: '/admin/customer/new',
+                    title: 'Add New Customer',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/customers',
+                    title: 'Customers',
+                    icon: <PiUsersDuotone size={16} />
+                }
+            ]
+        },
+        {
+            title: 'Users & Employee',
+            links: [
+                {
+                    path: '/admin/user/new',
+                    title: 'Add New User',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/users',
+                    title: 'Users',
+                    icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/employee/new',
+                    title: 'Add New Employee',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/employees',
+                    title: 'Employees',
+                    icon: <PiUsersDuotone size={16} />
+                },
+            ]
+        },
+        {
+            title: 'Attendance & Salary',
+            links: [
+                {
+                    path: '/admin/take_attendance',
+                    title: 'Take Daily Attendance',
+                    icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/monthly_attendance',
+                    title: 'Monthly Attendance',
+                    icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/salary',
+                    title: 'Salary',
+                    icon: <RiAddBoxLine size={16} />
+                }
+            ]
+        }
     ]
     const data = user.isAdmin ? adminData : userData 
 
     return (
-        <div className='relative h-screen sm:w-2/12 px-2 border-r overflow-y-auto'>
+        <div className='relative h-screen sm:w-2/12 px-2 pb-5 border-r overflow-y-auto'>
             <Link 
                 to='/' 
                 className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
                 <span className='text-2xl sm:text-4xl'>POS</span>
             </Link>
             {
-                data.map((d,i)=><div key={i}>
-                    <p className='py-2 border-b'>{d.title}</p>
+                data.map((d,i)=><div 
+                    key={i}
+                >
+                    <p className='py-2 border-b font-semibold'>{d.title}</p>
                     <div
                         className='pl-2 py-2'
                     >
@@ -248,7 +321,7 @@ const SidebarAdmin = () => {
                                 <NavLink 
                                     key={i}
                                     to={link.path}
-                                    className={`w-full p-2 flex items-center space-x-2`}
+                                    className={`w-full p-2 flex items-center space-x-2 hover:bg-sky-50 hover:text-sky-500 hover:rounded-md transition-all duration-300`}
                                 >
                                     {link.icon}
                                     <span>{link.title}</span>
