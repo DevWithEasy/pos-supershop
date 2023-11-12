@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Heading from '../../components/Heading';
 import EmployeeCard from '../../components/employee/EmployeeCard';
@@ -22,7 +22,7 @@ const Employee = () => {
                 <div
                     className='w-1/2 flex justify-center'
                 >
-                    <EmployeeCard {...{ employee }} />
+                    <EmployeeCard {...{ employee}} />
                 </div>
             </div>
         </div>

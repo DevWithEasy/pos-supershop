@@ -1,43 +1,10 @@
-import html2canvas from 'html2canvas';
-import React, { useEffect, useRef, useState } from 'react';
 import baseUrl from '../../utils/baseUrl';
 import getID from '../../utils/getID';
 
 const EmployeeCard = ({ employee }) => {
-    const divToCaptureRef = useRef(null)
-    const [downloadLink, setDownloadLink] = useState(null)
-    const captureAndDownloadImage = () => {
-        if (divToCaptureRef.current) {
-            html2canvas(divToCaptureRef.current).then((canvas) => {
-                // Convert canvas to data URL
-                const imgData = canvas.toDataURL('image/png');
 
-                // Create a temporary download link
-                const link = document.createElement('a');
-                link.href = imgData;
-                link.download = 'generated_image.png';
-
-                // Set the download link in the state
-                setDownloadLink(link);
-            });
-        }
-    };
-    useEffect(() => {
-        if (downloadLink) {
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-
-            // Clean up the download link
-            setDownloadLink(null);
-        }
-    }, [downloadLink]);
-    
-    
     return (
         <div
-            ref={divToCaptureRef}
-            onClick={captureAndDownloadImage}
             className='bg-white w-[85.6mm] h-[53.98mm] p-3 shadow-xl rounded-lg'
         >
             <div

@@ -42,7 +42,7 @@ const routes = [
     handler : employeeRouter
   },
   {
-    path: "/api/attendace",
+    path: "/api/attendance",
     handler : attendanceRouter
   },
   {

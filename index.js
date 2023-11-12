@@ -7,6 +7,7 @@ const applyMiddleware = require('./middlewares/middlewares')
 const sheduleTask = require('./utils/sheduleTask')
 const app = express()
 const path = require('path')
+const today = require('./utils/today')
 
 //serve client side file path
 app.use(express.static(path.join(__dirname,'public')))
@@ -30,6 +31,7 @@ sheduleTask()
 
 //errorHandling Configuration
 errorHandler(app)
+
 
 const port = process.env.PORT || 8080
 

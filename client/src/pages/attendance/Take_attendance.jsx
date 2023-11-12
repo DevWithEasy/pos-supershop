@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import baseUrl from '../../utils/baseUrl';
-import BarcodeScanner from '../../components/new_invoice/Scanner';
+import { useToast } from '@chakra-ui/react';
+import Scanner_Attendance from '../../components/attendance/Scanner_attendance';
+import Heading from '../../components/Heading';
+import axios from 'axios'
 
 const Take_attendance = () => {
+    const toast = useToast()
     const [scaneSearch, setScaneSearch] = useState('')
     const audioRef = useRef(null)
 
@@ -15,16 +19,20 @@ const Take_attendance = () => {
                 isClosable: true,
             })
         } else {
-            audioRef.current.play();
+            if(audioRef.current){
+                audioRef?.current?.play();
+            }
         }
+        console.log(result)
 
         try {
-            if (result === scaneSearch) {
-                return setScaneSearch('')
-            }
-            const res = await axios.get(`${baseUrl}/api/employee/find/${result}`)
+            const res = await axios.post(`${baseUrl}/api/attendance/create/${result}`,{},{
+                headers : {
+                    authorization : localStorage.getItem('token')
+                }
+            })
             if (res.data.success) {
-                
+                console.log(res.data)
             }
         } catch (error) {
             console.log(error)
@@ -32,11 +40,28 @@ const Take_attendance = () => {
 
     }
     return (
-        <div>
+        <div
+            className='p-2'
+        >
+            <Heading>Taking Daily Attendance</Heading>
             <div>
-                <div>
-                    <BarcodeScanner {...{ handleScanSearch,setScaneSearch,audioRef }}/>
+                <h2
+                    className='text-3xl font-bold text-center p-2 text-sky-500'
+                >
+                    Auto Attendence By Employee ID Card
+                </h2>
+            <div
+                className='flex space-x-4'
+            >
+                <div
+                    className='w-4/12'
+                >
+                    <Scanner_Attendance {...{ handleScanSearch,setScaneSearch,audioRef }}/>
                 </div>
+                <div>
+                    We are waiting
+                </div>
+            </div>
             </div>
         </div>
     );
