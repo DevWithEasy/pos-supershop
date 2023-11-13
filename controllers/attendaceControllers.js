@@ -1,6 +1,8 @@
 const Attendance = require("../models/Attendance")
 const Employee = require("../models/Employee")
 const today = require("../utils/today")
+const todayDayName = require("../utils/todayDayName")
+const moment = require('moment-timezone');
 
 exports.createAttendance = async (req, res, next) => {
     try {
@@ -40,8 +42,8 @@ exports.createAttendance = async (req, res, next) => {
         const findAttendance = await Attendance.find({
             employee: req.params.id,
             date: {
-                $gt : today('gt'),
-                $lt : today('lt')
+                $gt : today('','gt'),
+                $lt : today('','lt')
             }
         })
 
@@ -70,6 +72,76 @@ exports.createAttendance = async (req, res, next) => {
             })
         }
 
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        })
+    }
+}
+
+exports.attendanceClosed = async (req, res, next) => {
+    try {
+        const day = todayDayName()
+
+        const employees = await Employee.find({user : req.user})
+
+        employees.forEach(async (employee) =>{
+            const findAttendance = await Attendance.find({
+                employee: employee._id,
+                date: {
+                    $gt : today('','gt'),
+                    $lt : today('','lt')
+                }
+            })
+            const localTime = today('','');
+            if (findAttendance.length > 0) {
+                return 
+            }else{
+                const new_Attendance = new Attendance({
+                    date : localTime,
+                    status : day === 'Friday' ? 'H' : 'A',
+                    employee : employee._id
+                })
+    
+                await new_Attendance.save()
+
+            }
+        })
+
+        res.status(200).json({
+            success: true,
+            status: 200,
+            message: 'Today attendance closed.',
+            data: {}
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        })
+    }
+}
+
+exports.getAttendanceUpdate = async (req, res, next) => {
+    try {
+        const employees = await Employee.find({user : req.user})
+
+        let data = []
+
+        employees.forEach(employee=>{
+
+        })
+        console.log(req.query.date)
+
+        // res.status(200).json({
+        //     success: true,
+        //     status: 200,
+        //     message: '',
+        //     data: {}
+        // })
     } catch (err) {
         res.status(500).json({
             success: false,

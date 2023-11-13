@@ -12,32 +12,32 @@ const Update_Attendance = () => {
     const [employees,setEmployees] = useState([])
     const [date,setDate] = useState('')
 
-    // const getAllEmployee = async () => {
-    //     try {
-    //         setLoading(true)
-    //         const res = await axios.get(`${baseUrl}/api/employee/attendance`, {
-    //             headers: {
-    //                 authorization: localStorage.getItem('token')
-    //             }
-    //         })
-    //         if (res.data.success) {
-    //             setLoading(false)
-    //             setEmployees(res.data.data)
-    //         }
+    const getAllEmployee = async (date) => {
+        try {
+            setLoading(true)
+            const res = await axios.get(`${baseUrl}/api/attendance/update?date=${date}`, {
+                headers: {
+                    authorization: localStorage.getItem('token')
+                }
+            })
+            if (res.data.success) {
+                setLoading(false)
+                setEmployees(res.data.data)
+            }
 
-    //     } catch (error) {
-    //         setLoading(false)
-    //         toast_alert(
-    //             toast,
-    //             error?.response?.data?.message,
-    //             'error'
-    //         )
-    //     }
-    // }
+        } catch (error) {
+            setLoading(false)
+            toast_alert(
+                toast,
+                error?.response?.data?.message,
+                'error'
+            )
+        }
+    }
 
-    // useEffect(() => {
-    //     getAllEmployee()
-    // }, [])
+    useEffect(() => {
+        getAllEmployee(date)
+    }, [date])
 
 
     return (
@@ -49,17 +49,19 @@ const Update_Attendance = () => {
                 <input
                     type='date'
                     onChange={(e)=>setDate(e.target.value)}
-                    className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
+                    className='w-1/4 p-2 rounded-md border border-gray-300 focus:outline-sky-500'
                 />
                 <table
                     className='w-1/2'
                 >
-                    <thead>
+                    <thead
+                        className='bg-slate-200'
+                    >
                         <tr>
-                            <td>ID No</td>
-                            <td>Name</td>
-                            <td>Action</td>
-                            <td>Status</td>
+                            <td className='px-4 py-2'>ID No</td>
+                            <td className='px-4 py-2'>Name</td>
+                            <td className='px-4 py-2'>Action</td>
+                            <td className='px-4 py-2'>Status</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,12 +69,51 @@ const Update_Attendance = () => {
                             employees.map(employee=>
                                 <tr
                                     key={employee._id}
-                                    className=''
+                                    className='bg-white border-b'
                                 >
-                                    <td>{getID(employee?.IDNo)}</td>
-                                    <td>{employee?.name}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td
+                                        className='px-4 py-2'
+                                    >
+                                        {getID(employee?.IDNo)}
+                                    </td>
+                                    <td
+                                        className='px-4 py-2'
+                                    >
+                                        {employee?.name}
+                                    </td>
+                                    <td
+                                        className='px-4 py-2 space-x-2'
+                                    >
+                                        <button
+                                            onClick={()=>{}}
+                                            className='h-7 w-7 bg-sky-50 text-sky-500 rounded-full'
+                                        >
+                                            P
+                                        </button>
+                                        <button
+                                            onClick={()=>{}}
+                                            className='h-7 w-7 bg-red-50 text-red-500 rounded-full'
+                                        >
+                                            A
+                                        </button>
+                                        <button
+                                            onClick={()=>{}}
+                                            className='h-7 w-7 bg-yellow-50 text-yellow-500 rounded-full'
+                                        >
+                                            L
+                                        </button>
+                                        <button
+                                            onClick={()=>{}}
+                                            className='h-7 w-7 bg-green-50 text-green-500 rounded-full'
+                                        >
+                                            H
+                                        </button>
+                                    </td>
+                                    <td
+                                        className='px-4 py-2'
+                                    >
+
+                                    </td>
                                 </tr>
                             )
                         }

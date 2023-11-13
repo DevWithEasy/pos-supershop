@@ -1,14 +1,14 @@
 import React from 'react';
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome,AiOutlineEdit } from 'react-icons/ai';
 import { BiCategoryAlt, BiPurchaseTag } from 'react-icons/bi';
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
-import { PiBarcode, PiKeyReturnLight, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
+import { PiBarcode, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
 import { RiAddBoxLine, RiProductHuntLine } from 'react-icons/ri';
 import { RxDashboard, } from 'react-icons/rx';
 import { TbReportSearch } from 'react-icons/tb';
 import { Link, NavLink } from 'react-router-dom';
 import useUserStore from '../store/userStore';
-import { MdAutoAwesomeMosaic } from 'react-icons/md';
+import { MdAutoAwesomeMosaic, MdEditSquare } from 'react-icons/md';
 
 const SidebarAdmin = () => {
     const {user} = useUserStore();
@@ -135,8 +135,13 @@ const SidebarAdmin = () => {
             links: [
                 {
                     path: '/admin/take_attendance',
-                    title: 'Take Daily Attendance',
+                    title: 'Take Attendance',
                     icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/attendance/update',
+                    title: 'Update Attendance',
+                    icon: <AiOutlineEdit size={16} />
                 },
                 {
                     path: '/admin/monthly_attendance',
@@ -283,8 +288,13 @@ const SidebarAdmin = () => {
             links: [
                 {
                     path: '/admin/take_attendance',
-                    title: 'Take Daily Attendance',
+                    title: 'Take Attendance',
                     icon: <RiAddBoxLine size={16} />
+                },
+                {
+                    path: '/admin/attendance/update',
+                    title: 'Update Attendance',
+                    icon: <AiOutlineEdit size={16} />
                 },
                 {
                     path: '/admin/monthly_attendance',

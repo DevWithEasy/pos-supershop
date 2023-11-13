@@ -38,6 +38,7 @@ import Update_employee from './pages/employee/Update_employee'
 import Employee from './pages/employee/Employee'
 import Take_attendance from './pages/attendance/Take_attendance'
 import Update_Attendance from './pages/attendance/Update_Attendance'
+import Monthly_attendance from './pages/attendance/Monthly_attendance'
 
 function App() {
   const routes= useRoutes([
@@ -297,10 +298,18 @@ function App() {
     </Protected>
     },
     {
-      path : '/admin/take_attendance/update',
+      path : '/admin/attendance/update',
       element : <Protected>
       <LayoutAdmin>
         <Update_Attendance/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/monthly_attendance',
+      element : <Protected>
+      <LayoutAdmin>
+        <Monthly_attendance/>
       </LayoutAdmin>
     </Protected>
     },
