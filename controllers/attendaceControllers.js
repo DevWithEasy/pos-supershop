@@ -5,7 +5,17 @@ const today = require("../utils/today")
 exports.createAttendance = async (req, res, next) => {
     try {
 
-        const employee = await Employee.findById(req.params.id)
+        const {status} = req.query
+
+        if(!status){
+            return res.status(500).json({
+                success: false,
+                status: 500,
+                message: 'Plase send query.'
+            })
+        }
+
+        const employee = await Employee.findById(req.params.id).populate('user')
 
         if(!employee){
             res.status(200).json({
@@ -34,30 +44,31 @@ exports.createAttendance = async (req, res, next) => {
                 $lt : today('lt')
             }
         })
-        console.log(findAttendance)
 
-        // if (findAttendance.lenth > 0) {
-        //     return res.status(200).json({
-        //         success: true,
-        //         status: 200,
-        //         message: 'Attendance already Done.',
-        //         code : 'Already Done',
-        //         data: {}
-        //     })
-        // }else{
-        //     const new_Attendance = new Attendance({
-        //         status : 'present',
-        //         employee : req.params.id
-        //     })
-        //     await new_Attendance.save()
-        //     res.status(200).json({
-        //         success: true,
-        //         status: 200,
-        //         message: 'Attendance Confirmed.',
-        //         code : 'Done',
-        //         data: employee
-        //     })
-        // }
+        if (findAttendance.length > 0) {
+            return res.status(200).json({
+                success: true,
+                status: 200,
+                message: 'Attendance already Done.',
+                code : 'Already Done',
+                data: employee
+            })
+        }else{
+            const new_Attendance = new Attendance({
+                status : status,
+                employee : req.params.id
+            })
+
+            await new_Attendance.save()
+            
+            res.status(200).json({
+                success: true,
+                status: 200,
+                message: 'Attendance Confirmed.',
+                code : 'Done',
+                data: employee
+            })
+        }
 
     } catch (err) {
         res.status(500).json({

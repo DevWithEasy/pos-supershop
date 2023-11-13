@@ -36,7 +36,7 @@ const EmployeeCard = ({ employee }) => {
                     className='w-7/12 pl-2 pb-2 py-1 flex flex-col'
                 >
                     <p
-                        className='text-xl font-semibold'
+                        className='text-xl font-semibold font-cardo'
                     >
                         {employee?.name}
                     </p>

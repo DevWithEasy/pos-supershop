@@ -1,16 +1,15 @@
 import { useZxing } from "react-zxing";
 import audioFile from './../../assets/store-scanner-beep.mp3';
 
-const Scanner_Attendance = ({ handleScanSearch,setScaneSearch,audioRef }) => {
+const Scanner_Attendance = ({setScaneSearch,audioRef }) => {
     const { ref } = useZxing({
         onDecodeResult(result) {
             setScaneSearch(result.getText())
-            handleScanSearch(result.getText());
         },
     });
     return (
         <div
-            className='p-2 z-10 overflow-hidden rounded-md'
+            className='z-10 overflow-hidden rounded-md'
         >
             <video
                 ref={ref}
