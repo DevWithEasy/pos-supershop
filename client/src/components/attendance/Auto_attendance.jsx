@@ -14,6 +14,8 @@ const Auto_attendance = () => {
     const [message, setMessage] = useState('')
     const [employee, setEmployee] = useState({})
 
+    const image = code === 'Done' ? done : code === 'Already Done' ? alreadyDone : failed
+
     const handleScanSearch = async (result) => {
         if (!result) return
 
@@ -40,9 +42,16 @@ const Auto_attendance = () => {
                 setEmployee(res.data.data)
                 setCode(res.data.code)
                 setMessage(res.data.message)
+
                 setTimeout(() => {
                     setScaneSearch('')
                 }, 1000)
+                
+                setTimeout(() => {
+                    setCode('')
+                    setMessage('')
+                    setEmployee({})
+                }, 5000)
             }
         } catch (error) {
             console.log(error)
@@ -78,23 +87,11 @@ const Auto_attendance = () => {
                             <div
                                 className='w-4/12 flex flex-col justify-center items-center'
                             >
-                                {code === 'Done' ?
-                                    <img
-                                        src={done}
-                                    />
-                                    :
-                                    code === 'Already Done' ?
-                                        <img
-                                            src={alreadyDone}
-                                            className='p-10'
-                                        />
-                                        :
-                                        <img
-                                            src={failed}
-                                        />
-                                }
+                                <img
+                                    src={image}
+                                />
                                 <p
-                                    className=' border border-double bg-white p-2'
+                                    className=' border border-double bg-white p-2 rounded'
                                 >
                                     {message}
                                 </p>

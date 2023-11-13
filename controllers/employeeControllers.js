@@ -70,6 +70,24 @@ exports.getAllEmployee = async (req, res, next) => {
     }
 }
 
+exports.getAllEmployeeAdttendance = async (req, res, next) => {
+    try {
+        const employees = await Employee.find({user : req.user}).populate('user', 'name address')
+        res.status(200).json({
+            success: true,
+            status: 200,
+            message: '',
+            data: employees
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        })
+    }
+}
+
 exports.employeeUpdate = async (req, res, next) => {
     try {
 

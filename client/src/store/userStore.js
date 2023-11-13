@@ -13,7 +13,6 @@ const createUserStore = (set)=>({
     reports : [],
     employees : [],
 
-
     addUser : (data)=>{
         set((state)=>({
             isAuth : true,

@@ -18,7 +18,7 @@ exports.createAttendance = async (req, res, next) => {
         const employee = await Employee.findById(req.params.id).populate('user')
 
         if(!employee){
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 status: 200,
                 message: 'Wrong QR user ID.Not match this system.Please contact Administration',
@@ -60,7 +60,7 @@ exports.createAttendance = async (req, res, next) => {
             })
 
             await new_Attendance.save()
-            
+
             res.status(200).json({
                 success: true,
                 status: 200,

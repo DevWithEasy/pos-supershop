@@ -37,6 +37,7 @@ import New_employee from './pages/employee/New_employee'
 import Update_employee from './pages/employee/Update_employee'
 import Employee from './pages/employee/Employee'
 import Take_attendance from './pages/attendance/Take_attendance'
+import Manual_attendance from './components/attendance/Manual_attendance'
 
 function App() {
   const routes= useRoutes([
@@ -292,6 +293,14 @@ function App() {
       element : <Protected>
       <LayoutAdmin>
         <Take_attendance/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/take_attendance/manual',
+      element : <Protected>
+      <LayoutAdmin>
+        <Manual_attendance/>
       </LayoutAdmin>
     </Protected>
     },
