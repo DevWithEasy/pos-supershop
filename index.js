@@ -31,7 +31,7 @@ sheduleTask()
 
 //errorHandling Configuration
 errorHandler(app)
-todayDayName()
+
 
 const port = process.env.PORT || 8080
 
