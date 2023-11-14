@@ -2,6 +2,8 @@ const Employee = require("../models/Employee")
 const createError = require("../utils/createError")
 const qr = require('qrcode');
 const fs = require('fs');
+const today = require("../utils/today");
+const Attendance = require("../models/Attendance");
 
 exports.createEmployee = async (req, res, next) => {
     try {
@@ -9,18 +11,18 @@ exports.createEmployee = async (req, res, next) => {
             return createError(400, 'File not Found.')
         }
         const employees = await Employee.countDocuments()
-        
+
         const new_employee = new Employee({
             ...req.body,
             image: req.file.filename,
-            user : req.user,
-            IDNo : employees+1
+            user: req.user,
+            IDNo: employees + 1
         })
 
         qr.toDataURL(new_employee._id.toString(), { type: 'image/png', errorCorrectionLevel: 'H', size: 300 }, async (err, url) => {
             if (err) {
-                fs.unlink(`public/image/${req.file.filename}`,(err)=>{
-                    if(err) return
+                fs.unlink(`public/image/${req.file.filename}`, (err) => {
+                    if (err) return
                 })
                 return res.status(500).json({
                     success: false,
@@ -29,8 +31,33 @@ exports.createEmployee = async (req, res, next) => {
                 })
 
             } else {
+
                 new_employee.barCode = url
                 const employee = await new_employee.save()
+
+                const date = new Date(req.body.joinDate)
+
+                for (let i = 1; i <= date.getDate(); i++) {
+                    
+                    const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
+
+                    if (date.getDate() === i) {
+                        const new_Attendance = new Attendance({
+                            date: today(dateString, 'cu'),
+                            status: 'P',
+                            employee: new_employee._id
+                        })
+                        new_Attendance.save()
+                    } else {
+                        const new_Attendance = new Attendance({
+                            date: today(dateString, 'cu'),
+                            status: 'A',
+                            employee: new_employee._id
+                        })
+                        new_Attendance.save()
+                    }
+                }
+
                 res.status(200).json({
                     success: true,
                     status: 200,
@@ -39,6 +66,7 @@ exports.createEmployee = async (req, res, next) => {
                 })
             }
         })
+
 
     } catch (err) {
         fs.unlink(`public/image/${req.file.filename}`,(err)=>{
@@ -72,7 +100,7 @@ exports.getAllEmployee = async (req, res, next) => {
 
 exports.getAllEmployeeAdttendance = async (req, res, next) => {
     try {
-        const employees = await Employee.find({user : req.user}).populate('user', 'name address')
+        const employees = await Employee.find({ user: req.user }).populate('user', 'name address')
         res.status(200).json({
             success: true,
             status: 200,
@@ -110,8 +138,8 @@ exports.employeeDelete = async (req, res, next) => {
     try {
         const employee = await Employee.findById(req.params.id)
         await Employee.findByIdAndDelete(req.params.id)
-        fs.unlink(`public/image/${employee.image}`,(err)=>{
-            if(err) return
+        fs.unlink(`public/image/${employee.image}`, (err) => {
+            if (err) return
         })
         res.status(200).json({
             success: true,

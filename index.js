@@ -8,6 +8,7 @@ const sheduleTask = require('./utils/sheduleTask')
 const app = express()
 const path = require('path')
 const todayDayName = require('./utils/todayDayName')
+const todayUTC = require('./utils/todayUTC')
 
 //serve client side file path
 app.use(express.static(path.join(__dirname,'public')))
@@ -31,7 +32,6 @@ sheduleTask()
 
 //errorHandling Configuration
 errorHandler(app)
-
 
 const port = process.env.PORT || 8080
 

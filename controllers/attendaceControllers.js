@@ -202,6 +202,24 @@ exports.updateAttendance = async (req, res, next) => {
     }
 }
 
+exports.getMonthAttendance = async (req, res, next) => {
+    try {
+
+        res.status(200).json({
+            success: true,
+            status: 200,
+            message: '',
+            data: {}
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        })
+    }
+}
+
 exports.controller = async (req, res, next) => {
     try {
 

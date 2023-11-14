@@ -6,9 +6,8 @@ router.post('/create/:id',verifyToken,createAttendance)
     .post('/closed', verifyToken, attendanceClosed)
     .get('/update', verifyToken,getAttendanceUpdate)
     .put('/update', verifyToken,updateAttendance)
-    .put('/update/:id', verifyToken)
     .delete('/delete/:id', verifyToken)
-    .get('/:phone', verifyToken)
+    .get('/monthly', verifyToken)
     .get('/',)
 
 module.exports = router
