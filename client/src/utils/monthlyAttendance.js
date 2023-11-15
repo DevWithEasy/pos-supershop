@@ -59,6 +59,24 @@ class MonthlyAttendance {
 
         return attendances
     }
+    workedDay(){
+        return this.attendances.length
+    }
+    presentDay(){
+        return this.attendances.filter(attendance=>attendance.status === 'P').length
+    }
+    absentDay(){
+        return this.attendances.filter(attendance=>attendance.status === 'A').length
+    }
+    leaveDay(){
+        return this.attendances.filter(attendance=>attendance.status === 'L').length
+    }
+    hodilayDay(){
+        return this.attendances.filter(attendance=>attendance.status === 'H').length
+    }
+    daySummary(){
+        return `P-(${this.presentDay()}),A-(${this.absentDay()}),H-(${this.hodilayDay()}),L-(${this.leaveDay()}) of ${this.attendances.length} days of ${this.days()}`
+    }
 
 }
 export default MonthlyAttendance

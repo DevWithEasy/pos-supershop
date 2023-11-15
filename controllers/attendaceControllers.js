@@ -158,7 +158,6 @@ exports.getAttendanceUpdate = async (req, res, next) => {
 
 
 exports.updateAttendance = async (req, res, next) => {
-    console.log(req.query)
     try {
 
         const findAttendance = await Attendance.findOne({
