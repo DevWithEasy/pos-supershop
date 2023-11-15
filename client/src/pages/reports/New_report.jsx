@@ -6,23 +6,16 @@ import baseUrl from '../../utils/baseUrl';
 import handleChange from '../../utils/handleChange';
 import toast_alert from '../../utils/toast_alert';
 import dayDifference from '../../utils/dayDiiference';
+import month from '../../utils/Month';
 
 const New_report = () => {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth()
-    const days = new Date(date.getFullYear(), month + 1, 0).getDate()
-    const start = `${year}-${String(month + 1).padStart(2, '0')}-01`
-    const end = `${year}-${String(month + 1).padStart(2, '0')}-${days}`
-    const month_name = date.toLocaleString('default', { month: 'long' });
-
     const toast = useToast()
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState({})
     const [value, setValue] = useState({
         reportType: 'daily',
-        start: start,
-        end: end
+        start: month('','first'),
+        end: month('','last')
     })
     const generateReport = async (e) => {
         e.preventDefault()
@@ -43,7 +36,7 @@ const New_report = () => {
                     from: value.start,
                     to: value.end,
                     year: year,
-                    month: month_name,
+                    month: month('','name'),
                     purchase: res.data?.data?.purchase?.value,
                     sale: res.data?.data?.invoice?.value
                 })

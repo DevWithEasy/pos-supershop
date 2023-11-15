@@ -37,25 +37,16 @@ exports.createEmployee = async (req, res, next) => {
 
                 const date = new Date(req.body.joinDate)
 
-                for (let i = 1; i <= date.getDate(); i++) {
+                for (let i = 1; i < date.getDate(); i++) {
                     
                     const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
 
-                    if (date.getDate() === i) {
-                        const new_Attendance = new Attendance({
-                            date: today(dateString, 'cu'),
-                            status: 'P',
-                            employee: new_employee._id
-                        })
-                        new_Attendance.save()
-                    } else {
-                        const new_Attendance = new Attendance({
-                            date: today(dateString, 'cu'),
-                            status: 'A',
-                            employee: new_employee._id
-                        })
-                        new_Attendance.save()
-                    }
+                    const new_Attendance = new Attendance({
+                        date: today(dateString, 'cu'),
+                        status: 'A',
+                        employee: new_employee._id
+                    })
+                    new_Attendance.save()
                 }
 
                 res.status(200).json({

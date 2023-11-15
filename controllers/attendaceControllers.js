@@ -101,7 +101,7 @@ exports.attendanceClosed = async (req, res, next) => {
             } else {
                 const new_Attendance = new Attendance({
                     date: today('', 'cu'),
-                    status: day === 'Tuesday' ? 'H' : 'A',
+                    status: day === 'Friday' ? 'H' : 'A',
                     employee: employee._id
                 })
 
@@ -158,6 +158,7 @@ exports.getAttendanceUpdate = async (req, res, next) => {
 
 
 exports.updateAttendance = async (req, res, next) => {
+    console.log(req.query)
     try {
 
         const findAttendance = await Attendance.findOne({
@@ -204,12 +205,21 @@ exports.updateAttendance = async (req, res, next) => {
 
 exports.getMonthAttendance = async (req, res, next) => {
     try {
+        const query = {
+            employee : req.body.id,
+            date : {
+                $gt : today(req.body.start,'gt'),
+                $lt : today(req.body.end,'lt')
+            }
+        }
+
+        const attendances = await Attendance.find(query).select('date status').sort({createdAt : -1})
 
         res.status(200).json({
             success: true,
             status: 200,
             message: '',
-            data: {}
+            data: attendances
         })
     } catch (err) {
         res.status(500).json({
