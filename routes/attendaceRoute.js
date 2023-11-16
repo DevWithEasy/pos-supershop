@@ -1,4 +1,4 @@
-const { createAttendance, getAttendanceUpdate, attendanceClosed, updateAttendance, getMonthAttendance } = require('../controllers/attendaceControllers')
+const { createAttendance, getAttendanceUpdate, attendanceClosed, updateAttendance, getMonthAttendance, getMonthlySalary } = require('../controllers/attendaceControllers')
 const verifyToken = require('../utils/verifyToken')
 const router = require('express').Router()
 
@@ -8,6 +8,6 @@ router.post('/create/:id',verifyToken,createAttendance)
     .put('/update', verifyToken,updateAttendance)
     .delete('/delete/:id', verifyToken)
     .post('/monthly', verifyToken,getMonthAttendance)
-    .get('/',)
+    .post('/salary',verifyToken,getMonthlySalary)
 
 module.exports = router

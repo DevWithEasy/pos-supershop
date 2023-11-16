@@ -104,10 +104,9 @@ const Monthly_attendance = () => {
         getAllEmployee()
     }, [])
 
-    
     return (
         <div
-            className='p-2'
+            className='p-1'
         >
             <Heading>Monthly Attendance</Heading>
             <div
@@ -173,6 +172,100 @@ const Monthly_attendance = () => {
                             {loading ? 'Finding...' : 'Find'}
                         </button>
                     </form>
+                    <div
+                        className='w-8/12 p-2 mx-auto bg-white border rounded-md text-sm'
+                    >
+                        <table
+                            className='w-full'
+                        >
+                            <tbody>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                        className='p-1'
+                                    >
+                                        Total Days
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.days()}
+                                    </td>
+                                </tr>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                    className='p-1'
+                                    >
+                                        Total work days
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.workedDay()}
+                                    </td>
+                                </tr>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                    className='p-1'
+                                    >
+                                        Total present
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.presentDay()}
+                                    </td>
+                                </tr>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                    className='p-1'
+                                    >
+                                        Total absent
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.absentDay()}
+                                    </td>
+                                </tr>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                    className='p-1'
+                                    >
+                                        Total leave
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.leaveDay()}
+                                    </td>
+                                </tr>
+                                <tr
+                                    className='border-b'
+                                >
+                                    <td
+                                    className='p-1'
+                                    >
+                                        Total Holiday
+                                    </td>
+                                    <td
+                                    className='p-1'
+                                    >
+                                        {monthlyAttendance.holiDay()}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div
                     className='w-8/12 px-4'

@@ -229,6 +229,49 @@ exports.getMonthAttendance = async (req, res, next) => {
     }
 }
 
+exports.getMonthlySalary = async (req, res, next) => {
+    try {
+        const employees = await Employee.find({user : req.user}).select('name IDNo salary')
+
+        const data = await Promise.all(
+            employees.map(async(employee)=>{
+                const query = {
+                    employee : employee._id,
+                    date : {
+                        $gt : today(req.body.start,'gt'),
+                        $lt : today(req.body.end,'lt')
+                    }
+                }
+        
+                const attendances = await Attendance.find(query).select('date status').sort({createdAt : -1})
+    
+                return ({
+                    ...employee._doc,
+                    attendance : {
+                        P : attendances.filter(attendance=> attendance.status === 'P').length,
+                        A : attendances.filter(attendance=> attendance.status === 'A').length,
+                        L : attendances.filter(attendance=> attendance.status === 'L').length,
+                        H : attendances.filter(attendance=> attendance.status === 'H').length
+                    }
+                })
+            })
+        )
+
+        res.status(200).json({
+            success: true,
+            status: 200,
+            message: '',
+            data: data
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        })
+    }
+}
+
 exports.controller = async (req, res, next) => {
     try {
 

@@ -39,6 +39,7 @@ import Employee from './pages/employee/Employee'
 import Take_attendance from './pages/attendance/Take_attendance'
 import Update_Attendance from './pages/attendance/Update_Attendance'
 import Monthly_attendance from './pages/attendance/Monthly_attendance'
+import Salary from './pages/attendance/Salary'
 
 function App() {
   const routes= useRoutes([
@@ -310,6 +311,14 @@ function App() {
       element : <Protected>
       <LayoutAdmin>
         <Monthly_attendance/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/salary',
+      element : <Protected>
+      <LayoutAdmin>
+        <Salary/>
       </LayoutAdmin>
     </Protected>
     },

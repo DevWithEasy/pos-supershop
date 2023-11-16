@@ -71,11 +71,11 @@ class MonthlyAttendance {
     leaveDay(){
         return this.attendances.filter(attendance=>attendance.status === 'L').length
     }
-    hodilayDay(){
+    holiDay(){
         return this.attendances.filter(attendance=>attendance.status === 'H').length
     }
     daySummary(){
-        return `P-(${this.presentDay()}),A-(${this.absentDay()}),H-(${this.hodilayDay()}),L-(${this.leaveDay()}) of ${this.attendances.length} days of ${this.days()}`
+        return `P-(${this.presentDay()}),A-(${this.absentDay()}),H-(${this.holiDay()}),L-(${this.leaveDay()}) of ${this.attendances.length} days of ${this.days()}`
     }
 
 }
