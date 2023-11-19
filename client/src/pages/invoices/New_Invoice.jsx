@@ -59,7 +59,11 @@ const New_Invoice = () => {
             if (result === scaneSearch) {
                 return setScaneSearch('')
             }
-            const res = await axios.get(`${baseUrl}/api/product/find/${result}`)
+            const res = await axios.get(`${baseUrl}/api/product/find/${result}`,{
+                headers :{
+                    authorization : localStorage.getItem('token')
+                }
+            })
             if (res.data.success) {
                 setFindProduct(res.data.data)
                 set_id(res.data.data._id)
@@ -78,7 +82,11 @@ const New_Invoice = () => {
         if (query.length < 3) return
 
         try {
-            const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`)
+            const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`,{
+                headers :{
+                    authorization : localStorage.getItem('token')
+                }
+            })
 
             if (res.data.success) {
                 setFind(res.data.data)

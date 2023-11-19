@@ -10,7 +10,11 @@ const Products = () => {
     const [query, setQuery] = useState('')
     const getProducts = async () => {
         try {
-            const res = await axios.get(`${baseUrl}/api/product/`)
+            const res = await axios.get(`${baseUrl}/api/product/`,{
+                headers: {
+                    authorization : localStorage.getItem('token')
+                }
+            })
 
             addProducts(res.data.data)
 

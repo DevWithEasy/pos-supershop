@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineHome,AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlineEdit } from 'react-icons/ai';
 import { BiCategoryAlt, BiPurchaseTag } from 'react-icons/bi';
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
 import { PiBarcode, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
@@ -11,7 +11,7 @@ import useUserStore from '../store/userStore';
 import { MdAutoAwesomeMosaic, MdEditSquare } from 'react-icons/md';
 
 const SidebarAdmin = () => {
-    const {user} = useUserStore();
+    const { user } = useUserStore();
 
     const userData = [
         {
@@ -112,7 +112,7 @@ const SidebarAdmin = () => {
         {
             title: 'Users & Employees',
             links: [
-                
+
                 {
                     path: '/admin/users',
                     title: 'Users',
@@ -156,7 +156,7 @@ const SidebarAdmin = () => {
             ]
         }
     ]
-    
+
     const adminData = [
         {
             title: 'Main',
@@ -309,17 +309,17 @@ const SidebarAdmin = () => {
             ]
         }
     ]
-    const data = user.isAdmin ? adminData : userData 
+    const data = user.isAdmin ? adminData : userData
 
     return (
         <div className='relative h-screen sm:w-2/12 px-2 pb-5 border-r overflow-y-auto'>
-            <Link 
-                to='/' 
+            <Link
+                to='/'
                 className='flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 mx-auto my-3 bg-blue-500 text-white rounded-full'>
                 <span className='text-2xl sm:text-4xl'>POS</span>
             </Link>
             {
-                data.map((d,i)=><div 
+                data.map((d, i) => <div
                     key={i}
                 >
                     <p className='py-2 border-b font-semibold'>{d.title}</p>
@@ -327,8 +327,8 @@ const SidebarAdmin = () => {
                         className='pl-2 py-2'
                     >
                         {
-                            d.links.map((link,i)=>
-                                <NavLink 
+                            d.links.map((link, i) =>
+                                <NavLink
                                     key={i}
                                     to={link.path}
                                     className={`w-full p-2 flex items-center space-x-2 hover:bg-sky-50 hover:text-sky-500 hover:rounded-md transition-all duration-300`}

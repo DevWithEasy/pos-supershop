@@ -139,7 +139,7 @@ exports.getProducts = async (req, res, next) => {
 
   try {
 
-    const products = await Product.find({})
+    const products = await Product.find({user : req.user})
       .populate('category', 'name')
 
     res.status(200).json({
@@ -158,28 +158,6 @@ exports.getProducts = async (req, res, next) => {
 }
 
 
-exports.getProductsByGeneric = async (req, res, next) => {
-
-  try {
-    const products = await Product.find({
-      category: req.param.id
-    })
-
-    res.status(200).json({
-      success: true,
-      status: 200,
-      message: 'Products retrieved successfully.',
-      data: products
-    })
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      status: 500,
-      message: err.message
-    })
-  }
-}
-
 exports.getProductsBySearch = async (req, res, next) => {
 
   try {
@@ -189,8 +167,9 @@ exports.getProductsBySearch = async (req, res, next) => {
           { name: { $regex: req.query.q, $options: "i" } },
           { email: { $regex: req.query.q, $options: "i" } },
         ],
+        user : req.user
       }
-      : {}
+      : {user : req.user}
     const products = await Product.find(keyword).limit(5)
 
     res.status(200).json({
@@ -198,30 +177,6 @@ exports.getProductsBySearch = async (req, res, next) => {
       status: 200,
       message: 'Products retrieved successfully.',
       data: products
-    })
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      status: 500,
-      message: err.message
-    })
-  }
-}
-
-exports.findGenericBrand = async (req, res, next) => {
-
-  try {
-    const generics = await Generic.find({})
-    const companies = await Category.find({})
-
-    res.status(200).json({
-      success: true,
-      status: 200,
-      message: 'Products retrieved successfully.',
-      data: {
-        generics,
-        companies
-      }
     })
   } catch (err) {
     res.status(500).json({
