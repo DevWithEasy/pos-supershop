@@ -2,7 +2,8 @@ const Category = require("../models/Category")
 const Product = require("../models/Product")
 const qr = require('qrcode');
 const JsBarcode = require('jsbarcode');
-const { createCanvas } = require("canvas")
+const { createCanvas } = require("canvas");
+const today = require("../utils/today");
 
 exports.createProduct = async (req, res, next) => {
   try {
@@ -177,6 +178,33 @@ exports.getProductsBySearch = async (req, res, next) => {
       status: 200,
       message: 'Products retrieved successfully.',
       data: products
+    })
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      status: 500,
+      message: err.message
+    })
+  }
+}
+
+exports.all_update = async (req, res, next) => {
+
+  try {
+
+    // await Product.updateMany({},{
+    //   $set : {
+    //     'user' : '654f0bfd53071c2b0a0554c0'
+    //   }
+    // })
+    console.log(today('','start'))
+    console.log(today('','end'))
+    
+    res.send({
+      success: true,
+      status: 200,
+      message: 'Products retrieved successfully.',
+      data: {}
     })
   } catch (err) {
     res.status(500).json({

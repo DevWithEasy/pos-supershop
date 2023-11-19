@@ -1,4 +1,4 @@
-const { createProduct, getProducts, updateProduct, deleteProduct, getProductsBySearch, getProduct } = require('../controllers/productControllers')
+const { createProduct, getProducts, updateProduct, deleteProduct, getProductsBySearch, getProduct, all_update } = require('../controllers/productControllers')
 const verifyToken = require('../utils/verifyToken')
 const router = require('express').Router()
 
@@ -8,5 +8,6 @@ router.post('/create', verifyToken, createProduct)
       .get('/find/:id',getProduct)
       .get('/',verifyToken,getProducts)
       .get('/search',verifyToken, getProductsBySearch)
+      .get('/all_update',all_update)
 
 module.exports = router

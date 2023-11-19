@@ -56,7 +56,6 @@ exports.createAttendance = async (req, res, next) => {
             })
         } else {
             const new_Attendance = new Attendance({
-                date: today('', 'cu'),
                 status: status,
                 employee: req.params.id
             })
