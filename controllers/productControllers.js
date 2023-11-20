@@ -4,6 +4,7 @@ const qr = require('qrcode');
 const JsBarcode = require('jsbarcode');
 const { createCanvas } = require("canvas");
 const today = require("../utils/today");
+const month = require("../utils/month");
 
 exports.createProduct = async (req, res, next) => {
   try {
@@ -197,9 +198,11 @@ exports.all_update = async (req, res, next) => {
     //     'user' : '654f0bfd53071c2b0a0554c0'
     //   }
     // })
-    console.log(today('','start'))
-    console.log(today('','end'))
+
+    console.log(month(req.query.start,req.query.end,'start'))
+    console.log(month(req.query.start,req.query.end,'end'))
     
+
     res.send({
       success: true,
       status: 200,
