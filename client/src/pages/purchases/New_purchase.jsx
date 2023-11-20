@@ -47,7 +47,11 @@ const New_purchase = () => {
         if (query.length < 3) return
 
         try {
-            const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`)
+            const res = await axios.get(`${baseUrl}/api/product/search?q=${search}`,{
+                headers : {
+                    authorization : localStorage.getItem('token')
+                }
+            })
 
             if (res.data.success) {
                 setFind(res.data.data)

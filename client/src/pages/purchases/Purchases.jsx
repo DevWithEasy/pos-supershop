@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { MdDelete, MdEditSquare, MdInfo } from 'react-icons/md';
+import { MdDelete, MdEditSquare, MdInfo, MdInfoOutline } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import Delete_data from '../../components/Delete_data';
 import Heading from '../../components/Heading';
@@ -9,14 +9,14 @@ import baseUrl from '../../utils/baseUrl';
 
 const Purchases = () => {
     const navigate = useNavigate()
-    const {addPurchases,purchases} = useUserStore()
-    const [remove,setRemove] = useState(false)
+    const { addPurchases, purchases } = useUserStore()
+    const [remove, setRemove] = useState(false)
     const [query, setQuery] = useState('')
 
-    const getPurchases = async() =>{
+    const getPurchases = async () => {
         try {
             const res = await axios.get(`${baseUrl}/api/purchase`)
-            if(res.status === 200){
+            if (res.status === 200) {
                 addPurchases(res.data.data)
             }
         } catch (error) {
@@ -24,9 +24,9 @@ const Purchases = () => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPurchases()
-    },[])
+    }, [])
     return (
         <div
             className='p-2'
@@ -59,41 +59,46 @@ const Purchases = () => {
                     <tbody>
                         {
                             purchases.filter(purchase => purchase._id.toLowerCase().includes(query) || purchase._id.toLowerCase().includes(query))
-                            .map((purchase)=><tr 
+                                .map((purchase) => <tr
                                     key={purchase._id}
-                                    onClick={()=>{
-                                        navigate(`/admin/purchase/${purchase._id}`)
-                                    }}
                                     className='bg-white border-b cursor-pointer'
                                 >
-                                <td className="px-6 py-3 text-left">{purchase?._id}</td>
-                                <td className="px-6 py-3 text-center">{purchase?.user?.name}</td>
-                                <td className="px-6 py-3 text-center">{purchase?.total}</td>
-                                <td className="px-6 py-3 text-center space-x-2">
-                                    <button 
-                                        onClick={()=>{
-                                            navigate(`/admin/purchase/update/${purchase._id}`)
-                                        }}
-                                        className='p-1.5 bg-green-400 text-white rounded-md'
-                                    >
-                                        <MdEditSquare/>
-                                    </button>
-                                    <button 
-                                        onClick={()=>{
-                                            setRemove(true)
-                                        }}
-                                        className='p-1.5 bg-red-500 text-white rounded-md'
-                                    >
-                                        <MdDelete/>
-                                    </button>
-                                    {remove && <Delete_data {...{
-                                        id : purchase._id,
-                                        path : 'purchase', 
-                                        remove, 
-                                        setRemove
-                                    }}/>}
-                                </td>
-                            </tr>)
+                                    <td className="px-6 py-3 text-left">{purchase?._id}</td>
+                                    <td className="px-6 py-3 text-center">{purchase?.user?.name}</td>
+                                    <td className="px-6 py-3 text-center">{purchase?.total}</td>
+                                    <td className="px-6 py-3 text-center space-x-2">
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/admin/purchase/${purchase._id}`)
+                                            }}
+                                            className='p-1.5 bg-blue-400 text-white rounded-md'
+                                        >
+                                            <MdInfoOutline />
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                navigate(`/admin/purchase/update/${purchase._id}`)
+                                            }}
+                                            className='p-1.5 bg-green-400 text-white rounded-md'
+                                        >
+                                            <MdEditSquare />
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setRemove(true)
+                                            }}
+                                            className='p-1.5 bg-red-500 text-white rounded-md'
+                                        >
+                                            <MdDelete />
+                                        </button>
+                                        {remove && <Delete_data {...{
+                                            id: purchase._id,
+                                            path: 'purchase',
+                                            remove,
+                                            setRemove
+                                        }} />}
+                                    </td>
+                                </tr>)
                         }
                     </tbody>
                 </table>

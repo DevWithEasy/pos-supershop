@@ -35,7 +35,7 @@ const New_report = () => {
                     reportType : value.reportType,
                     from: value.start,
                     to: value.end,
-                    year: year,
+                    year: new Date(value.start).getFullYear(),
                     month: month('','name'),
                     purchase: res.data?.data?.purchase?.value,
                     sale: res.data?.data?.invoice?.value

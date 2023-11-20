@@ -1,19 +1,20 @@
 const Invoice = require("../models/Invoice")
 const Purchase = require("../models/Purchase")
 const Report = require("../models/Report")
+const month = require("../utils/month")
 
 exports.generateReport=async(req,res,next)=>{
     try{
 
-        const start = `${req.body.start}T00:00:00.000Z`
-        const end = `${req.body.end}T23:59:59.999Z`
+        const start = month(req.body.start,req.body.end,'start')
+        const end = month(req.body.start,req.body.end,'end')
     
         const purchases = await Purchase.aggregate([
             {
                 $match: {
                     createdAt: {
-                    $gte: new Date(start),
-                    $lte: new Date(end),
+                    $gte: start,
+                    $lte: end,
                     },
                 },
             },
@@ -31,8 +32,8 @@ exports.generateReport=async(req,res,next)=>{
             {
                 $match: {
                     createdAt: {
-                    $gte: new Date(start),
-                    $lte: new Date(end),
+                    $gte: start,
+                    $lte: end,
                 },
                 },
             },

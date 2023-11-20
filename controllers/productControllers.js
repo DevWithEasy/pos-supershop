@@ -9,7 +9,8 @@ const month = require("../utils/month");
 exports.createProduct = async (req, res, next) => {
   try {
     const new_product = new Product({
-      ...req.body
+      ...req.body,
+      user : req.user
     })
 
     // const standardWidth = 2;
