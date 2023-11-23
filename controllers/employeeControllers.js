@@ -4,6 +4,7 @@ const qr = require('qrcode');
 const fs = require('fs');
 const today = require("../utils/today");
 const Attendance = require("../models/Attendance");
+const padStart = require("../utils/padStart");
 
 exports.createEmployee = async (req, res, next) => {
     try {
@@ -38,11 +39,11 @@ exports.createEmployee = async (req, res, next) => {
                 const date = new Date(req.body.joinDate)
 
                 for (let i = 1; i < date.getDate(); i++) {
-                    
-                    const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`
+
+                    const dateString = new Date(date.getFullYear(),padStart(date.getMonth()),padStart(i),0,0,0,1)
 
                     const new_Attendance = new Attendance({
-                        date: today(dateString, 'cu'),
+                        date : dateString,
                         status: 'A',
                         employee: new_employee._id
                     })

@@ -7,7 +7,7 @@ class MonthlyAttendance {
         return new Date(this.date).getFullYear()
     }
     month(){
-        return new Date(this.date).getMonth()+ 1
+        return new Date(this.date).getMonth()
     }
     days() {
         const date = new Date(this.date)
@@ -22,7 +22,7 @@ class MonthlyAttendance {
         return days
     }
     findDate(day){
-        return `${this.year()}-${String(this.month()).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+        return `${this.year()}-${String(this.month()+1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
     }
     monthName(){
         const monthNames = [
@@ -41,10 +41,14 @@ class MonthlyAttendance {
         const attendances = []
 
         const newAttendanceArray = []
-
+        
         this.attendances.forEach(attendance => {
             const day = new Date(attendance.date).getDate()
             newAttendanceArray.push({ ...attendance, day })
+        })
+
+        newAttendanceArray.sort((a,b)=>{
+            return b.day - a.day
         })
 
         this.daysArray().forEach(day => {
@@ -56,7 +60,7 @@ class MonthlyAttendance {
                 attendances.push({ day,name, attendance: {} })
             }
         })
-
+        
         return attendances
     }
     workedDay(){

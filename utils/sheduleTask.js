@@ -5,6 +5,7 @@ const today = require('./today')
 const Attendance = require('../models/Attendance')
 const Employee = require('../models/Employee')
 const todayDayName = require('./todayDayName')
+const padStart = require('./padStart')
 
 const sheduleTask = () => {
 
@@ -24,8 +25,9 @@ const sheduleTask = () => {
                 startYear
 
 
-    const startCount = `${startYear}-${startMonth}-${startDate}`
-    const endCount = `${endYear}-${endMonth}-01`
+    const startCount = new Date(startYear,startMonth,startDate,0,0,0,0)
+
+    const endCount = new Date(endYear,endMonth,padStart(1),23,59,59,999)
 
     //auto customer status check daily 12 am
     cron.schedule('59 59 23 * * *', async () => {
@@ -33,8 +35,8 @@ const sheduleTask = () => {
             {
                 $match: {
                     createdAt: {
-                        $gte: new Date(endCount),
-                        $lte: new Date(startCount),
+                        $gte: endCount,
+                        $lte: startCount,
                     },
                 }
             },
@@ -65,25 +67,24 @@ const sheduleTask = () => {
     })
 
     //auto attendence cloased daily 9 am
-    cron.schedule('59 59 08 * * *', async () => {
+    cron.schedule('00 00 09 * * *', async () => {
         const day = todayDayName()
 
         const employees = await Employee.find({})
-
+        
         employees.forEach(async (employee) => {
             const findAttendance = await Attendance.findOne({
                 employee: employee._id,
                 date: {
-                    $gt: today('', 'gt'),
-                    $lt: today('', 'lt')
+                    $gt: today('', 'start'),
+                    $lt: today('', 'end')
                 }
             })
-
+            
             if (findAttendance) {
                 return
             } else {
                 const new_Attendance = new Attendance({
-                    date: today('', 'cu'),
                     status: day === 'Friday' ? 'H' : 'A',
                     employee: employee._id
                 })

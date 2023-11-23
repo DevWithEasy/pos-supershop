@@ -1,5 +1,6 @@
 const Attendance = require("../models/Attendance")
 const Employee = require("../models/Employee")
+const month = require("../utils/month")
 const today = require("../utils/today")
 const todayDayName = require("../utils/todayDayName")
 
@@ -41,8 +42,8 @@ exports.createAttendance = async (req, res, next) => {
         const findAttendance = await Attendance.findOne({
             employee: req.params.id,
             date: {
-                $gt: today('', 'gt'),
-                $lt: today('', 'lt')
+                $gt: today('', 'start'),
+                $lt: today('', 'end')
             }
         })
 
@@ -131,8 +132,8 @@ exports.getAttendanceUpdate = async (req, res, next) => {
             const findAttendance = await Attendance.findOne({
                 employee: employee._id,
                 date: {
-                    $gt: today(req.query.date, 'gt'),
-                    $lt: today(req.query.date, 'lt')
+                    $gt: today(req.query.date, 'start'),
+                    $lt: today(req.query.date, 'end')
                 }
             }).select('status')
 
@@ -155,15 +156,13 @@ exports.getAttendanceUpdate = async (req, res, next) => {
     }
 };
 
-
 exports.updateAttendance = async (req, res, next) => {
     try {
-
         const findAttendance = await Attendance.findOne({
             employee: req.query.employee,
             date: {
-                $gt: today(req.query.date, 'gt'),
-                $lt: today(req.query.date, 'lt')
+                $gt: today(req.query.date, 'start'),
+                $lt: today(req.query.date, 'end')
             }
         })
 
@@ -206,8 +205,8 @@ exports.getMonthAttendance = async (req, res, next) => {
         const query = {
             employee : req.body.id,
             date : {
-                $gt : today(req.body.start,'gt'),
-                $lt : today(req.body.end,'lt')
+                $gt : month(req.body.start,req.body.end,'start'),
+                $lt : month(req.body.start,req.body.end,'end')
             }
         }
 
@@ -237,8 +236,8 @@ exports.getMonthlySalary = async (req, res, next) => {
                 const query = {
                     employee : employee._id,
                     date : {
-                        $gt : today(req.body.start,'gt'),
-                        $lt : today(req.body.end,'lt')
+                        $gt : today(req.body.start,'start'),
+                        $lt : today(req.body.end,'end')
                     }
                 }
         

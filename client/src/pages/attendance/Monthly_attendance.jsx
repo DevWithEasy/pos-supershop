@@ -24,6 +24,8 @@ const Monthly_attendance = () => {
     const monthlyAttendance = new MonthlyAttendance(value.start,attendances)
     const daysAttendance = monthlyAttendance.daysAttendance()
 
+    // console.log(monthlyAttendance)
+
     const getAllEmployee = async () => {
         try {
             const res = await axios.get(`${baseUrl}/api/employee/`, {

@@ -14,7 +14,9 @@ const month = (startDate,endDate,query) => {
     if (query === 'start') {
         return new Date(startYear,startMonth,startDay, 0, 0, 0, 0);
     } else if (query === 'end') {
-        return new Date(endYear,endMonth,endDay, 23, 59, 59, 999);
+        return new Date(endYear,endMonth,endDay, 17, 59, 59, 999);
+    }else if(query === 'post-start'){
+        return new Date(startYear,startMonth,startDay, 0, 0, 1, 0);
     }
     
 }
