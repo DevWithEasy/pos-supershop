@@ -1,6 +1,7 @@
 const Attendance = require("../models/Attendance")
 const Employee = require("../models/Employee")
 const month = require("../utils/month")
+const padStart = require("../utils/padStart")
 const today = require("../utils/today")
 const todayDayName = require("../utils/todayDayName")
 
@@ -157,6 +158,8 @@ exports.getAttendanceUpdate = async (req, res, next) => {
 };
 
 exports.updateAttendance = async (req, res, next) => {
+    const date = new Date(req.query.date)
+    const dateString = new Date(date.getFullYear(),padStart(date.getMonth()),padStart(date.getDate()),0,0,0,1)
     try {
         const findAttendance = await Attendance.findOne({
             employee: req.query.employee,
@@ -165,6 +168,24 @@ exports.updateAttendance = async (req, res, next) => {
                 $lt: today(req.query.date, 'end')
             }
         })
+        
+        if (!findAttendance && req.query.create ==='true') {
+
+            const new_Attendance = new Attendance({
+                date : dateString,
+                status: req.query.status,
+                employee: req.query.employee
+            })
+
+            const attendance = await new_Attendance.save()
+
+            return res.status(200).json({
+                success: true,
+                status: 200,
+                message: 'Attendance Confirmed.',
+                data: attendance
+            })
+        }
 
         if (!findAttendance) {
             return res.status(404).json({

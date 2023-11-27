@@ -14,7 +14,7 @@ const Monthly_attendance = () => {
     const toast = useToast()
     const [loading, setLoading] = useState(false)
     const [attendances, setAttendances] = useState([])
-
+    const [new_attendance, setNew_attendance] = useState(true)
     const [value, setValue] = useState({
         id: '',
         start: month('', 'first'),
@@ -82,7 +82,7 @@ const Monthly_attendance = () => {
     
     const updateAttendance= async(employeeId,attendanceId,date,status) => {
         try {
-            const res = await axios.put(`${baseUrl}/api/attendance/update?date=${date}&employee=${employeeId}&attendance=${attendanceId}&status=${status}`,{}, {
+            const res = await axios.put(`${baseUrl}/api/attendance/update?date=${date}&employee=${employeeId}&attendance=${attendanceId}&status=${status}&create=${new_attendance}`,{}, {
                 headers: {
                     authorization: localStorage.getItem('token')}
             })
