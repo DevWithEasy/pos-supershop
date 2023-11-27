@@ -14,7 +14,7 @@ const Monthly_attendance = () => {
     const toast = useToast()
     const [loading, setLoading] = useState(false)
     const [attendances, setAttendances] = useState([])
-    const [new_attendance, setNew_attendance] = useState(true)
+    const [new_attendance, setNew_attendance] = useState(false)
     const [value, setValue] = useState({
         id: '',
         start: month('', 'first'),
@@ -91,7 +91,12 @@ const Monthly_attendance = () => {
                     toast,
                     res.data.message,
                 )
-                setAttendances(attendances.map(attendance => attendance._id ===attendanceId ? {...attendance,status :res.data.data.status} : attendance))
+                if(new_attendance){
+                    setAttendances([...attendances,res.data.data])
+                }else{
+                    setAttendances(attendances.map(attendance => attendance._id ===attendanceId ? {...attendance,status :res.data.data.status} : attendance))
+                }
+                
             }
         } catch (error) {
             toast_alert(
@@ -273,10 +278,16 @@ const Monthly_attendance = () => {
                     className='w-8/12 px-4'
                 >
                     <h2
-                        className='p-2 text-xl text-center'
+                        className='relative p-2 text-xl text-center'
                     >
                         {monthlyAttendance.monthName()}-
                         {monthlyAttendance.year()}
+                        <button
+                            onClick={()=>setNew_attendance(!new_attendance)}
+                            className={`absolute right-0 p-2 text-xs text-white rounded ${new_attendance ? 'bg-green-500' : 'bg-red-500'}`}
+                        >
+                            {new_attendance ? 'Enable' : 'Disable'} new attendance
+                        </button>
                     </h2>
                     {daysAttendance.length > 0 &&
                         <div
