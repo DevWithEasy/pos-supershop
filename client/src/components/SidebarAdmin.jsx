@@ -9,6 +9,7 @@ import { TbReportSearch } from 'react-icons/tb';
 import { Link, NavLink } from 'react-router-dom';
 import useUserStore from '../store/userStore';
 import { MdAutoAwesomeMosaic, MdEditSquare } from 'react-icons/md';
+import { FaRegAddressBook } from "react-icons/fa";
 
 const SidebarAdmin = () => {
     const { user } = useUserStore();
@@ -147,6 +148,11 @@ const SidebarAdmin = () => {
                     path: '/admin/monthly_attendance',
                     title: 'Monthly Attendance',
                     icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/monthly_attendance_book',
+                    title: 'Attendance Book',
+                    icon: <FaRegAddressBook size={16} />
                 },
                 {
                     path: '/admin/salary',
@@ -300,6 +306,11 @@ const SidebarAdmin = () => {
                     path: '/admin/monthly_attendance',
                     title: 'Monthly Attendance',
                     icon: <PiUsersBold size={16} />
+                },
+                {
+                    path: '/admin/monthly_attendance_book',
+                    title: 'Attendance Book',
+                    icon: <FaRegAddressBook size={16} />
                 },
                 {
                     path: '/admin/salary',

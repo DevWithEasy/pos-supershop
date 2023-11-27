@@ -159,7 +159,7 @@ exports.getAttendanceUpdate = async (req, res, next) => {
 
 exports.updateAttendance = async (req, res, next) => {
     const date = new Date(req.query.date)
-    const dateString = new Date(date.getFullYear(),padStart(date.getMonth()),padStart(date.getDate()),0,0,0,1)
+    const dateString = new Date(date.getFullYear(), padStart(date.getMonth()), padStart(date.getDate()), 0, 0, 0, 1)
     try {
         const findAttendance = await Attendance.findOne({
             employee: req.query.employee,
@@ -168,11 +168,11 @@ exports.updateAttendance = async (req, res, next) => {
                 $lt: today(req.query.date, 'end')
             }
         })
-        
-        if (!findAttendance && req.query.create ==='true') {
+
+        if (!findAttendance && req.query.create === 'true') {
 
             const new_Attendance = new Attendance({
-                date : dateString,
+                date: dateString,
                 status: req.query.status,
                 employee: req.query.employee
             })
@@ -224,14 +224,14 @@ exports.updateAttendance = async (req, res, next) => {
 exports.getMonthAttendance = async (req, res, next) => {
     try {
         const query = {
-            employee : req.body.id,
-            date : {
-                $gt : month(req.body.start,req.body.end,'start'),
-                $lt : month(req.body.start,req.body.end,'end')
+            employee: req.body.id,
+            date: {
+                $gt: month(req.body.start, req.body.end, 'start'),
+                $lt: month(req.body.start, req.body.end, 'end')
             }
         }
 
-        const attendances = await Attendance.find(query).select('date status').sort({createdAt : -1})
+        const attendances = await Attendance.find(query).select('date status').sort({ createdAt: -1 })
 
         res.status(200).json({
             success: true,
@@ -248,29 +248,76 @@ exports.getMonthAttendance = async (req, res, next) => {
     }
 }
 
+exports.getMonthAttendanceBook = async (req, res, next) => {
+    try {
+        const employees = await Employee.find({}).select('IDNo name salary')
+
+        // Use map to create an array of promises
+        const promises = employees.map(async (employee) => {
+            const query = {
+                employee: employee._id,
+                date: {
+                    $gt: month(req.body.start, req.body.end, 'start'),
+                    $lt: month(req.body.start, req.body.end, 'end')
+                }
+            }
+
+            const attendances = await Attendance.find(query).select('date status').sort({ createdAt: -1 })
+
+            return {
+                employee,
+                attendances,
+                attendance: {
+                    P: attendances.filter(attendance => attendance.status === 'P').length,
+                    A: attendances.filter(attendance => attendance.status === 'A').length,
+                    L: attendances.filter(attendance => attendance.status === 'L').length,
+                    H: attendances.filter(attendance => attendance.status === 'H').length
+                }
+            };
+        });
+
+        // Wait for all promises to resolve
+        const data = await Promise.all(promises);
+
+        res.status(200).json({
+            success: true,
+            status: 200,
+            message: '',
+            data: data
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            status: 500,
+            message: err.message
+        });
+    }
+};
+
+
 exports.getMonthlySalary = async (req, res, next) => {
     try {
-        const employees = await Employee.find({user : req.user}).select('name IDNo salary')
+        const employees = await Employee.find({ user: req.user }).select('name IDNo salary')
 
         const data = await Promise.all(
-            employees.map(async(employee)=>{
+            employees.map(async (employee) => {
                 const query = {
-                    employee : employee._id,
-                    date : {
-                        $gt : today(req.body.start,'start'),
-                        $lt : today(req.body.end,'end')
+                    employee: employee._id,
+                    date: {
+                        $gt: today(req.body.start, 'start'),
+                        $lt: today(req.body.end, 'end')
                     }
                 }
-        
-                const attendances = await Attendance.find(query).select('date status').sort({createdAt : -1})
-    
+
+                const attendances = await Attendance.find(query).select('date status').sort({ createdAt: -1 })
+
                 return ({
                     ...employee._doc,
-                    attendance : {
-                        P : attendances.filter(attendance=> attendance.status === 'P').length,
-                        A : attendances.filter(attendance=> attendance.status === 'A').length,
-                        L : attendances.filter(attendance=> attendance.status === 'L').length,
-                        H : attendances.filter(attendance=> attendance.status === 'H').length
+                    attendance: {
+                        P: attendances.filter(attendance => attendance.status === 'P').length,
+                        A: attendances.filter(attendance => attendance.status === 'A').length,
+                        L: attendances.filter(attendance => attendance.status === 'L').length,
+                        H: attendances.filter(attendance => attendance.status === 'H').length
                     }
                 })
             })

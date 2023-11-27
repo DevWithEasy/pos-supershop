@@ -24,7 +24,6 @@ const Monthly_attendance = () => {
     const monthlyAttendance = new MonthlyAttendance(value.start,attendances)
     const daysAttendance = monthlyAttendance.daysAttendance()
 
-    // console.log(monthlyAttendance)
 
     const getAllEmployee = async () => {
         try {
@@ -78,7 +77,6 @@ const Monthly_attendance = () => {
             )
         }
     }
-
     
     const updateAttendance= async(employeeId,attendanceId,date,status) => {
         try {

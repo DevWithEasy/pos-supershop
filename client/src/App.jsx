@@ -40,6 +40,7 @@ import Take_attendance from './pages/attendance/Take_attendance'
 import Update_Attendance from './pages/attendance/Update_Attendance'
 import Monthly_attendance from './pages/attendance/Monthly_attendance'
 import Salary from './pages/attendance/Salary'
+import Monthly_attendance_book from './pages/attendance/Monthly_attendance_book'
 
 function App() {
   const routes= useRoutes([
@@ -311,6 +312,14 @@ function App() {
       element : <Protected>
       <LayoutAdmin>
         <Monthly_attendance/>
+      </LayoutAdmin>
+    </Protected>
+    },
+    {
+      path : '/admin/monthly_attendance_book',
+      element : <Protected>
+      <LayoutAdmin>
+        <Monthly_attendance_book/>
       </LayoutAdmin>
     </Protected>
     },

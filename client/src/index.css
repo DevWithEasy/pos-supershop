@@ -10,7 +10,7 @@
 }
 
 ::-webkit-scrollbar {
-    @apply w-1
+    @apply w-[6px]
 }
 
 ::-webkit-scrollbar-thumb {
