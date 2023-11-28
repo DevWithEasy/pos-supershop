@@ -46,7 +46,7 @@ const Monthly_attendance_book = () => {
     }
 
     const updateAttendance = async (employeeId, attendanceId, date, status) => {
-        // console.log(employeeId,attendanceId,date,status)
+
         try {
             const res = await axios.put(`${baseUrl}/api/attendance/update?date=${date}&employee=${employeeId}&attendance=${attendanceId}&status=${status}&create=${new_attendance}`, {}, {
                 headers: {
@@ -60,7 +60,16 @@ const Monthly_attendance_book = () => {
                 )
                 if (new_attendance && res.data.code === 'new') {
                     const employee = data.find(e => e.employee._id == employeeId)
-                    // return setData([...attendances,res.data.data])
+
+                    const attendances = [...employee.attendances, res.data.data]
+
+                    const updateEmployee = { ...employee, attendances }
+                    
+                    const newData = data.map(e => {
+                        return e.employee._id !== employeeId ? e : updateEmployee
+                    })
+
+                    setData(newData)
                 }
                 const employee = data.find(e => e.employee._id == employeeId)
 
@@ -89,7 +98,7 @@ const Monthly_attendance_book = () => {
     //     attendance())
     return (
         <div
-            className='p-2 text-center border'
+            className='p-2'
         >
             <Heading>Monthly Attendance Book</Heading>
             <div
@@ -137,20 +146,71 @@ const Monthly_attendance_book = () => {
                         <tr
                             className='border-b bg-gray-100'
                         >
-                            <td className='p-2 text-center border'>ID</td>
-                            <td className='p-2 text-center border'>Name</td>
-                            <td className='p-2 text-center border'>Salary</td>
-                            <td className='p-2 text-center border'>P</td>
-                            <td className='p-2 text-center border'>L</td>
-                            <td className='p-2 text-center border'>H</td>
-                            <td className='p-2 text-center border'>A</td>
+                            <td className='sticky left-0 bg-gray-100 z-10 border'>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td className='p-2 text-center border-r'>
+                                                <span
+                                                    className='block w-8'
+                                                >
+                                                    ID
+                                                </span>
+                                            </td>
+                                            <td className='p-2 border-r'>
+                                                <span
+                                                    className='block w-40'
+                                                >
+                                                    Name
+                                                </span>
+                                            </td>
+                                            <td className='p-2 text-center border-r'>
+                                                <span
+                                                    className='block w-16'
+                                                >
+                                                    Salary
+                                                </span>
+                                            </td>
+                                            <td className='p-2 text-center border-r'>
+                                                <span
+                                                    className='block w-8'
+                                                >
+                                                    P
+                                                </span>
+                                            </td>
+                                            <td className='p-2 text-center border-r'>
+                                                <span
+                                                    className='block w-8'
+                                                >
+                                                    L
+                                                </span>
+                                            </td>
+                                            <td className='p-2 text-center border-r'>
+                                                <span
+                                                    className='block w-8'
+                                                >
+                                                    H
+                                                </span>
+                                            </td>
+                                            <td className='p-2 text-center'>
+                                                <span
+                                                    className='block w-8'
+                                                >
+                                                    A
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+
                             {
                                 monthlyAttendanceBook.
                                     daysWithDay()
                                     .map(day =>
                                         <td
                                             key={day.day}
-                                            className='p-2 text-center border text-sm'
+                                            className='text-center border text-sm'
                                         >
                                             <span>{day?.day}</span>
                                             <br />
@@ -167,15 +227,67 @@ const Monthly_attendance_book = () => {
                                 .map((a, i) =>
                                     <tr
                                         key={i}
-                                        className='border-b'
+                                        className='border-b hover:bg-sky-50'
                                     >
-                                        <td className='p-2 text-center border'>{getID(a?.employee?.IDNo)}</td>
-                                        <td className='p-2 text-center border'>{a?.employee?.name}</td>
-                                        <td className='p-2 text-center border'>{a?.employee?.salary}</td>
-                                        <td className='p-2 text-center border'>{a?.attendance?.P}</td>
-                                        <td className='p-2 text-center border'>{a?.attendance?.L}</td>
-                                        <td className='p-2 text-center border'>{a?.attendance?.H}</td>
-                                        <td className='p-2 text-center border'>{a?.attendance?.A}</td>
+                                        <td
+                                            className='sticky left-0 bg-white z-10'
+                                        >
+                                            <div>
+                                                <table>
+                                                    <tr>
+                                                        <td className='p-2 text-center border-r'>
+                                                            <span
+                                                                className='block w-8'
+                                                            >
+                                                                {getID(a?.employee?.IDNo)}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 border-r'>
+                                                            <span
+                                                                className='block w-40'
+                                                            >
+                                                                {a?.employee?.name}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 text-center border-r'>
+                                                            <span
+                                                                className='block w-16'
+                                                            >
+                                                                {a?.employee?.salary}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 text-center border-r'>
+                                                            <span
+                                                                className='block w-8'
+                                                            >
+                                                                {a?.attendance?.P}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 text-center border-r'>
+                                                            <span
+                                                                className='block w-8'
+                                                            >
+                                                                {a?.attendance?.L}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 text-center border-r'>
+                                                            <span
+                                                                className='block w-8'
+                                                            >
+                                                                {a?.attendance?.H}
+                                                            </span>
+                                                        </td>
+                                                        <td className='p-2 text-center'>
+                                                            <span
+                                                                className='block w-8'
+                                                            >
+                                                                {a?.attendance?.A}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
                                         {
                                             a.attendances.map(attendance =>
                                                 <td
