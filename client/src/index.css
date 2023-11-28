@@ -30,3 +30,11 @@
     scrollbar-width: thin;
     scrollbar-color: #dbeafe #f3f4f6;
 }
+
+.status {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}

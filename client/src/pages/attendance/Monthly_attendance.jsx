@@ -89,12 +89,10 @@ const Monthly_attendance = () => {
                     toast,
                     res.data.message,
                 )
-                if(new_attendance){
-                    setAttendances([...attendances,res.data.data])
-                }else{
-                    setAttendances(attendances.map(attendance => attendance._id ===attendanceId ? {...attendance,status :res.data.data.status} : attendance))
+                if(new_attendance && res.data.code === 'new'){
+                    return setAttendances([...attendances,res.data.data])
                 }
-                
+                setAttendances(attendances.map(attendance => attendance._id ===attendanceId ? {...attendance,status :res.data.data.status} : attendance))
             }
         } catch (error) {
             toast_alert(

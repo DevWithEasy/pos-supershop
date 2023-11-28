@@ -64,6 +64,7 @@ exports.createEmployee = async (req, res, next) => {
         fs.unlink(`public/image/${req.file.filename}`,(err)=>{
             if(err) return
         })
+        
         res.status(500).json({
             success: false,
             status: 500,
@@ -129,10 +130,14 @@ exports.employeeUpdate = async (req, res, next) => {
 exports.employeeDelete = async (req, res, next) => {
     try {
         const employee = await Employee.findById(req.params.id)
+
         await Employee.findByIdAndDelete(req.params.id)
+
         fs.unlink(`public/image/${employee.image}`, (err) => {
             if (err) return
         })
+        await Attendance.deleteMany({ employee : req.params.id})
+
         res.status(200).json({
             success: true,
             status: 200,

@@ -183,6 +183,7 @@ exports.updateAttendance = async (req, res, next) => {
                 success: true,
                 status: 200,
                 message: 'Attendance Confirmed.',
+                code : 'new',
                 data: attendance
             })
         }

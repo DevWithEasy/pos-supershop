@@ -58,6 +58,7 @@ const New_employee = () => {
             }
 
         } catch (error) {
+            console.log(error)
             setLoading(false)
             toast_alert(
                 toast,

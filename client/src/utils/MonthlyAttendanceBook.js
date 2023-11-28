@@ -36,10 +36,43 @@ class MonthlyAttendanceBook{
         const currentday = new Date(this.year(),this.month(),day).getDay()
         return daysOfWeek[currentday]
     }
+    findDate(day){
+        return `${this.year()}-${String(this.month()+1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+    }
     daysWithDay(){
         const data = []
         this.daysArray().forEach(day=>{
             data.push({day,name : this.dayName(day)})
+        })
+        return data
+    }
+    attendance(){
+        const data = []
+        this.attendanceData.forEach(a=>{
+            const newAttendanceArray = []
+            a.attendances.forEach(attendance => {
+                const day = new Date(attendance.date).getDate()
+                newAttendanceArray.push({ ...attendance, day })
+            })
+
+            newAttendanceArray.sort((a,b)=>{
+                return b.day - a.day
+            })
+            const attendances = []
+            this.daysArray().forEach(day => {
+                
+                const findAttendance = newAttendanceArray.find(attendance => attendance.day === day)
+                if (findAttendance) {
+                    attendances.push({ day, attendance: findAttendance })
+                } else {
+                    attendances.push({ day,attendance: {} })
+                }
+            })
+            data.push({
+                employee : a.employee,
+                attendance : a.attendance,
+                attendances
+            })
         })
         return data
     }
