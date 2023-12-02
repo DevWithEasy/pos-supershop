@@ -9,7 +9,7 @@ const sheduleTask = () => {
 
     autoAttendance()
 
-    dailyReport()
+    // dailyReport()
 
 }
 

@@ -6,7 +6,7 @@ const cron = require('node-cron')
 
 const dailyReport = () => {
 
-    cron.schedule('00 52 19 * * *', async () => {
+    cron.schedule('00 32 00 * * *', async () => {
         const users = await User.find({ isAdmin: false })
 
         users.forEach(async(user) => {

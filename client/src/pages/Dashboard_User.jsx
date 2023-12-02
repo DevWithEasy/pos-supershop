@@ -1,9 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineBarChart, AiOutlineLineChart, AiOutlineUserSwitch } from 'react-icons/ai';
-import { GiMedicines } from 'react-icons/gi';
+import { FaProductHunt } from "react-icons/fa";
+import { BiCategoryAlt } from "react-icons/bi";
+import { HiUsers } from "react-icons/hi2";
 import { MdOutlineSell } from 'react-icons/md';
-import { RxAvatar, RxHeart, RxHome } from 'react-icons/rx';
+import { FaUsers } from "react-icons/fa6";
+import { RxAvatar} from 'react-icons/rx';
 import { TbMoneybag } from 'react-icons/tb';
 import Dashboard_skeleton from '../components/Dashboard_skeleton';
 import Heading from '../components/Heading';
@@ -32,7 +35,7 @@ const UserDashboard = () => {
         }
     }
 
-    const { users, companies, generics, customers, current_month, product, total } = data
+    const { employees, categories, current_month, product, total } = data
 
     const benifits = (product?.stock_value + total?.sale) - total?.purchase
 
@@ -42,7 +45,7 @@ const UserDashboard = () => {
         getDashboardData()
     }, [])
 
-
+    console.log(data)
     return (
         <>
             {loading ?
@@ -55,45 +58,45 @@ const UserDashboard = () => {
                             <div
                                 className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
                             >
-                                <RxAvatar size={25} className='shrink-0 text-pink-500' />
+                                <FaUsers size={25} className='shrink-0 text-pink-500' />
                             </div>
 
                             <div>
-                                <p>Total Users : </p>
-                                <p className='text-2xl font-bold text-center'>{users}</p>
+                                <p>Total Employee : </p>
+                                <p className='text-2xl font-bold text-center'>{employees}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
                             <div
                                 className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
                             >
-                                <RxAvatar size={25} className='shrink-0 text-green-500' />
+                                <HiUsers size={25} className='shrink-0 text-green-500' />
                             </div>
                             <div>
-                                <p>Total Users : </p>
-                                <p className='text-2xl font-bold text-center'>{users}</p>
+                                <p>Total Customers : </p>
+                                <p className='text-2xl font-bold text-center'>{employees}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
                             <div
                                 className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
                             >
-                                <RxAvatar size={25} className='shrink-0 text-blue-500' />
+                                <BiCategoryAlt size={25} className='shrink-0 text-blue-500' />
                             </div>
                             <div>
-                                <p>Total Users : </p>
-                                <p className='text-2xl font-bold text-center'>{users}</p>
+                                <p>Total Category : </p>
+                                <p className='text-2xl font-bold text-center'>{categories}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
                             <div
                                 className='p-2 w-12 h-12 flex justify-center items-center bg-yellow-50 shrink-0 rounded-full'
                             >
-                                <RxAvatar size={25} className='shrink-0 text-yellow-500' />
+                                <FaProductHunt  size={25} className='shrink-0 text-yellow-500' />
                             </div>
                             <div>
-                                <p>Total Users : </p>
-                                <p className='text-2xl font-bold text-center'>{users}</p>
+                                <p>Total Products : </p>
+                                <p className='text-2xl font-bold text-center'>{product?.total_products}</p>
                             </div>
                         </div>
                     </div>
