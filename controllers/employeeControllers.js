@@ -112,11 +112,24 @@ exports.getAllEmployeeAdttendance = async (req, res, next) => {
 exports.employeeUpdate = async (req, res, next) => {
     try {
 
+        await Employee.findByIdAndUpdate(req.params.id, {
+            $set :{
+                name : req.body.name,
+                phone : req.body.phone,
+                nid : req.body.nid,
+                address : req.body.address,
+                salary : req.body.salary,
+                designation : req.body.designation
+            }
+        })
+
+        const employees = await Employee.find({user : req.body.user._id})
+
         res.status(200).json({
             success: true,
             status: 200,
-            message: '',
-            data: {}
+            message: 'Employee Updated Successfuly.',
+            data: employees
         })
     } catch (err) {
         res.status(500).json({

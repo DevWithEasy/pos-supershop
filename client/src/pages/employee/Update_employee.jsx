@@ -5,9 +5,12 @@ import { useToast } from '@chakra-ui/react';
 import toast_alert from '../../utils/toast_alert';
 import Loading_request from '../../components/Loding_request';
 import Heading from '../../components/Heading';
+import axios from 'axios'
+import baseUrl from '../../utils/baseUrl';
+import handleChange from '../../utils/handleChange';
 
 const Update_employee = () => {
-    const {employees} = useUserStore();
+    const {addEmployees,employees} = useUserStore();
     const {id} = useParams()
     const toast = useToast()
     const navigate = useNavigate()
@@ -28,7 +31,8 @@ const Update_employee = () => {
                     toast,
                     res.data.message
                 )
-                navigate('/admin/employee')
+                navigate('/admin/employees')
+                addEmployees(res.data.data)
             }
         } catch (error) {
             setLoading(false)
@@ -112,7 +116,7 @@ const Update_employee = () => {
                         className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
                     />
                 </div>
-                <div className='space-y-2'>
+                {/* <div className='space-y-2'>
                     <label htmlFor="">Joining Date :</label>
                     <input
                         type='date'
@@ -122,7 +126,7 @@ const Update_employee = () => {
                         required
                         className='w-full p-2 rounded-md border border-gray-300 focus:outline-sky-500'
                     />
-                </div>
+                </div> */}
                 <button
                     className='px-6 py-2 bg-sky-500 text-white rounded'
                 >

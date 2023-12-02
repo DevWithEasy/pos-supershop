@@ -94,8 +94,7 @@ const Monthly_attendance_book = () => {
     }
 
     const monthlyAttendanceBook = new MonthlyAttendanceBook(value.start, data)
-    // console.log(monthlyAttendanceBook.
-    //     attendance())
+    
     return (
         <div
             className='p-2'
@@ -295,7 +294,7 @@ const Monthly_attendance_book = () => {
                                                     className='p-2 text-center border'
                                                 >
                                                     <select
-                                                        onChange={(e) => updateAttendance(a.employee._id, attendance?.attendance?._id, monthlyAttendanceBook.findDate(attendance?.attendance?.day), e.target.value)}
+                                                        onChange={(e) => updateAttendance(a.employee._id, attendance?.attendance?._id, monthlyAttendanceBook.findDate(attendance?.day), e.target.value)}
                                                         value={attendance?.attendance?.status}
                                                         className={`status w-7 h-7 rounded-full text-center cursor-pointer focus:outline-none ${statusColor(attendance?.attendance?.status)}`}
                                                     >

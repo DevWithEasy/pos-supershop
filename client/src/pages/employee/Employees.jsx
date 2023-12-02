@@ -1,13 +1,14 @@
 import { useToast } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import toast_alert from '../../utils/toast_alert';
-import baseUrl from '../../utils/baseUrl';
-import useUserStore from '../../store/userStore';
 import axios from 'axios';
-import Heading from '../../components/Heading';
-import Delete_data from '../../components/Delete_data';
+import React, { useEffect, useState } from 'react';
 import { MdDelete, MdEditSquare, MdInfo } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import Delete_data from '../../components/Delete_data';
+import Heading from '../../components/Heading';
+import Loading_request from '../../components/Loding_request';
+import useUserStore from '../../store/userStore';
+import baseUrl from '../../utils/baseUrl';
+import toast_alert from '../../utils/toast_alert';
 
 const Employees = () => {
     const { addEmployees, employees } = useUserStore()
@@ -18,8 +19,8 @@ const Employees = () => {
     const [loading, setLoading] = useState(false)
 
     const getAllEmployee = async () => {
-        try {
             setLoading(true)
+        try {
             const res = await axios.get(`${baseUrl}/api/employee/`, {
                 headers: {
                     authorization: localStorage.getItem('token')
@@ -142,7 +143,9 @@ const Employees = () => {
                     </tbody>
                 </table>
             </div>
-
+            {loading &&
+                <Loading_request/>
+            }
         </div>
     );
 };

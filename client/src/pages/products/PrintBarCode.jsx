@@ -48,8 +48,14 @@ const PrintBarCode = () => {
                         {
                             products.filter(product => product.name.toLowerCase().includes(query) || product.company.name.toLowerCase().includes(query) || product.generic.name.toLowerCase().includes(query))
                                 .map(product =>
-                                    <tr key={product._id} >
-                                        <td>{product?.name}</td>
+                                    <tr key={product._id} 
+                                        className='bg-white border-b'
+                                    >
+                                        <td
+                                            className='p-2'
+                                        >
+                                            {product?.name}
+                                        </td>
                                         <td className='flex justify-center'>
                                             <a
                                                 href={product?.barCode}
