@@ -43,7 +43,7 @@ exports.createPurchase=async(req,res,next)=>{
 exports.getAllPurchase=async(req,res,next)=>{
     try{
 
-        const purchases = await Purchase.find({}).populate('user' , '-_id -password')
+        const purchases = await Purchase.find({user : req.user}).populate('user' , '-_id -password')
 
         res.status(200).json({
             success : true,

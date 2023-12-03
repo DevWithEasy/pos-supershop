@@ -12,6 +12,10 @@ const today = (date, query) => {
         return new Date(year,month,day, 0, 0, 0, 0);
     } else if (query === 'end') {
         return new Date(year,month,day, 23, 59, 59, 999);
+    }else if(query === 'name'){
+        return currentDate.toLocaleString('default', { month: 'long' })
+    }else if(query === 'year'){
+        return year
     }
 }
 

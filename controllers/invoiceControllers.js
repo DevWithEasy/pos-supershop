@@ -72,7 +72,7 @@ exports.createInvoice = async (req, res, next) => {
 exports.getInvoices = async (req, res, next) => {
 
   try {
-    const invoices = await Invoice.find({}).populate('customer', '-_id name phone')
+    const invoices = await Invoice.find({user : req.user}).populate('customer', '-_id name phone')
     res.status(200).json({
       success: true,
       status: 200,

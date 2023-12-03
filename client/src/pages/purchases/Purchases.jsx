@@ -15,7 +15,11 @@ const Purchases = () => {
 
     const getPurchases = async () => {
         try {
-            const res = await axios.get(`${baseUrl}/api/purchase`)
+            const res = await axios.get(`${baseUrl}/api/purchase`,{
+                headers : {
+                    authorization : localStorage.getItem('token')
+                }
+            })
             if (res.status === 200) {
                 addPurchases(res.data.data)
             }
