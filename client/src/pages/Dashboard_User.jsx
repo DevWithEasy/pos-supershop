@@ -45,7 +45,7 @@ const UserDashboard = () => {
         getDashboardData()
     }, [])
 
-    console.log(data)
+    console.log(data) 
     return (
         <>
             {loading ?
@@ -63,7 +63,7 @@ const UserDashboard = () => {
 
                             <div>
                                 <p>Total Employee : </p>
-                                <p className='text-2xl font-bold text-center'>{employees}</p>
+                                <p className='text-2xl font-bold text-center text-pink-500'>{employees}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
@@ -74,7 +74,7 @@ const UserDashboard = () => {
                             </div>
                             <div>
                                 <p>Total Customers : </p>
-                                <p className='text-2xl font-bold text-center'>{employees}</p>
+                                <p className='text-2xl font-bold text-center text-green-500'>{employees}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
@@ -85,7 +85,7 @@ const UserDashboard = () => {
                             </div>
                             <div>
                                 <p>Total Category : </p>
-                                <p className='text-2xl font-bold text-center'>{categories}</p>
+                                <p className='text-2xl font-bold text-center text-blue-500'>{categories}</p>
                             </div>
                         </div>
                         <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
@@ -96,7 +96,62 @@ const UserDashboard = () => {
                             </div>
                             <div>
                                 <p>Total Products : </p>
-                                <p className='text-2xl font-bold text-center'>{product?.total_products}</p>
+                                <p className='text-2xl font-bold text-center text-yellow-500'>{product?.total_products}</p>
+                            </div>
+                        </div>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
+                            >
+                                <TbMoneybag  size={25} className='shrink-0 text-blue-500' />
+                            </div>
+                            <div>
+                                <p>Total Purchase(Month) : </p>
+                                <p className='text-2xl font-bold text-center text-blue-500'>{current_month?.purchase}</p>
+                            </div>
+                        </div>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
+                            >
+                                <MdOutlineSell  size={25} className='shrink-0 text-green-500' />
+                            </div>
+                            <div>
+                                <p>Total sale(Month) : </p>
+                                <p className='text-2xl font-bold text-center text-green-500'>{current_month?.sale}</p>
+                            </div>
+                        </div>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-yellow-50 shrink-0 rounded-full'
+                            >
+                                <AiOutlineBarChart  size={25} className='shrink-0 text-yellow-500' />
+                            </div>
+                            <div>
+                                <p>Total Stock : </p>
+                                <p className='text-2xl font-bold text-center text-yellow-500'>{product?.stock_value}</p>
+                            </div>
+                        </div>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
+                            >
+                                <TbMoneybag  size={25} className='shrink-0 text-pink-500' />
+                            </div>
+                            <div>
+                                <p>Total Purchases : </p>
+                                <p className='text-2xl font-bold text-center text-pink-500'>{total?.purchase}</p>
+                            </div>
+                        </div>
+                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+                            <div
+                                className='p-2 w-12 h-12 flex justify-center items-center bg-red-50 shrink-0 rounded-full'
+                            >
+                                <MdOutlineSell  size={25} className='shrink-0 text-red-500' />
+                            </div>
+                            <div>
+                                <p>Total Sales : </p>
+                                <p className='text-2xl font-bold text-center text-red-500'>{total?.sale}</p>
                             </div>
                         </div>
                     </div>

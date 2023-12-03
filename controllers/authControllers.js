@@ -320,7 +320,14 @@ exports.getDashboardData = async (req, res, next) => {
     ])
 
     //monthly reports
-    const reports = await Report.find({})
+    const reports = await Report.find({
+        reportType : 'daily',
+        user : req.user,
+        from: {
+          $gte: month(start,end,'start'),
+          $lte: month(start,end,'end'),
+        },
+    })
 
 
 
@@ -333,31 +340,16 @@ exports.getDashboardData = async (req, res, next) => {
         categories,
         customers,
         current_month: {
-          sale: sale_current[0]?.value || 0,
-          purchase: purchase_current[0]?.value || 0
+          sale: !sale_current[0] ? 0 : sale_current[0].value,
+          purchase: !purchase_current[0] ? 0 : purchase_current[0].value
         },
         product: products[0],
         total: {
-          sale: sale[0]?.value || 0,
-          purchase: purchase[0]?.value || 0
+          sale: !sale[0]? 0 : sale[0].value,
+          purchase: !purchase[0]? 0 : purchase[0]?.value
         },
         reports
       }
-    })
-    console.log({
-      employees,
-      categories,
-      customers,
-      current_month: {
-        sale: sale_current[0]?.value,
-        purchase: purchase_current[0]?.value
-      },
-      product: products[0],
-      total: {
-        sale: sale[0]?.value,
-        purchase: purchase[0]?.value
-      },
-      reports
     })
 
   } catch (err) {
