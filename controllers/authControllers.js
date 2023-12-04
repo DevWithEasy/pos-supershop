@@ -360,3 +360,286 @@ exports.getDashboardData = async (req, res, next) => {
     })
   }
 }
+
+exports.getOutletData = async (req, res, next) => {
+  const user = new mongoose.Types.ObjectId(req.params.id)
+  const date = new Date()
+  const year = date.getFullYear()
+  const c_month = date.getMonth()
+  const days = new Date(date.getFullYear(), c_month + 1, 0).getDate()
+  const start = `${year}-${String(c_month + 1).padStart(2, '0')}-01`
+  const end = `${year}-${String(c_month + 1).padStart(2, '0')}-${days}`
+  
+  try {
+    const employees = await Employee.find({user : user}).countDocuments()
+    const categories = await Category.find().countDocuments()
+    const customers = await Customer.find().countDocuments()
+
+    const filter = {
+      $match: {
+        user : user,
+        createdAt: {
+          $gte: month(start,end,'start'),
+          $lte: month(start,end,'end'),
+        },
+      },
+    }
+
+    //cuurent month purchase value
+    const purchase_current = await Purchase.aggregate([
+      filter,
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //curremt month sale value
+    const sale_current = await Invoice.aggregate([
+      filter,
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //get dashboard stock value price
+    const products = await Product.aggregate([
+      {
+        $match: {
+          user : user
+        }
+      },
+      {
+        $project: {
+          total_price: { $multiply: ['$price', '$quantity'] }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          stock_value: {
+            $sum: '$total_price'
+          },
+          total_products: {
+            $sum: 1
+          }
+        }
+      }
+    ])
+
+    //total purchase value price
+    const purchase = await Purchase.aggregate([
+      {
+        $match: {
+          user : user
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //total sales value price
+    const sale = await Invoice.aggregate([
+      {
+        $match: {
+          user : user
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //monthly reports
+    const reports = await Report.find({
+        reportType : 'daily',
+        user : req.user,
+        from: {
+          $gte: month(start,end,'start'),
+          $lte: month(start,end,'end'),
+        },
+    })
+
+
+
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Successfully Signup.',
+      data: {
+        employees,
+        categories,
+        customers,
+        current_month: {
+          sale: !sale_current[0] ? 0 : sale_current[0].value,
+          purchase: !purchase_current[0] ? 0 : purchase_current[0].value
+        },
+        product: products[0],
+        total: {
+          sale: !sale[0]? 0 : sale[0].value,
+          purchase: !purchase[0]? 0 : purchase[0]?.value
+        },
+        reports
+      }
+    })
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      status: 500,
+      message: err.message
+    })
+  }
+}
+
+exports.getAdminDashboardData = async (req, res, next) => {
+  const date = new Date()
+  const year = date.getFullYear()
+  const c_month = date.getMonth()
+  const days = new Date(date.getFullYear(), c_month + 1, 0).getDate()
+  const start = `${year}-${String(c_month + 1).padStart(2, '0')}-01`
+  const end = `${year}-${String(c_month + 1).padStart(2, '0')}-${days}`
+  
+  try {
+    const employees = await Employee.find({}).countDocuments()
+    const categories = await Category.find().countDocuments()
+    const customers = await Customer.find().countDocuments()
+    const outlets = await User.find({isAdmin : false}).select('name address')
+
+    const filter = {
+      $match: {
+        createdAt: {
+          $gte: month(start,end,'start'),
+          $lte: month(start,end,'end'),
+        },
+      },
+    }
+
+    //cuurent month purchase value
+    const purchase_current = await Purchase.aggregate([
+      filter,
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //curremt month sale value
+    const sale_current = await Invoice.aggregate([
+      filter,
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //get dashboard stock value price
+    const products = await Product.aggregate([
+      {
+        $project: {
+          total_price: { $multiply: ['$price', '$quantity'] }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          stock_value: {
+            $sum: '$total_price'
+          }
+        }
+      }
+    ])
+
+    //total purchase value price
+    const purchase = await Purchase.aggregate([
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //total sales value price
+    const sale = await Invoice.aggregate([
+      {
+        $group: {
+          _id: null,
+          value: {
+            $sum: '$total'
+          }
+        }
+      }
+    ])
+
+    //monthly reports
+    const reports = await Report.find({
+        reportType : 'daily',
+        from: {
+          $gte: month(start,end,'start'),
+          $lte: month(start,end,'end'),
+        },
+    }).populate('user')
+
+
+
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Successfully Signup.',
+      data: {
+        employees,
+        categories,
+        customers,
+        outlets,
+        current_month: {
+          sale: !sale_current[0] ? 0 : sale_current[0].value,
+          purchase: !purchase_current[0] ? 0 : purchase_current[0].value
+        },
+        product: products[0],
+        total: {
+          sale: !sale[0]? 0 : sale[0].value,
+          purchase: !purchase[0]? 0 : purchase[0]?.value
+        },
+        reports
+      }
+    })
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      status: 500,
+      message: err.message
+    })
+  }
+}

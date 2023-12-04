@@ -7,12 +7,10 @@ import { PiBarcode, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
 import { RiAddBoxLine, RiProductHuntLine } from 'react-icons/ri';
 import { RxDashboard, } from 'react-icons/rx';
 import { TbReportSearch } from 'react-icons/tb';
-import useUserStore from '../store/userStore';
 import { Link, NavLink } from 'react-router-dom';
 import Heading from '../components/Heading';
 
 const Admin_User = () => {
-    const { user } = useUserStore();
     const userData = [
         {
             title: 'Main',

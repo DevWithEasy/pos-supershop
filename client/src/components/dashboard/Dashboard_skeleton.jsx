@@ -1,13 +1,13 @@
 import React from 'react';
-import Heading from './Heading';
+import Heading from '../Heading';
 
-const Dashboard_skeleton = () => {
+const Dashboard_skeleton = ({heading}) => {
     const data = [1,2,3,4,5,6,7,8,9,10]
     return (
         <div
             className='p-4'
         >
-            <Heading>Dashborad</Heading>
+            <Heading>{heading}</Heading>
             <div className='w-full grid grid-cols-2 md:grid-cols-4 text-white gap-3'>
                 {
                     data.map((d,i)=><div

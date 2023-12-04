@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const {signup, signin, updateUser, deleteUser, getDashboardData, getAllUsers, createAdmin} = require("../controllers/authControllers")
+const {signup, signin, updateUser, deleteUser, getDashboardData, getAllUsers, createAdmin, getAdminDashboardData} = require("../controllers/authControllers")
 const verifyToken = require("../utils/verifyToken")
 
 router.post("/signup",signup)
@@ -10,5 +10,6 @@ router.post("/signup",signup)
       .delete("/delete/:id",verifyToken,deleteUser)
       .get("/", getAllUsers)
       .get("/dashboard",verifyToken,getDashboardData)
+      .get("/dashboard/admin",verifyToken,getAdminDashboardData)
 
 module.exports = router

@@ -1,71 +1,129 @@
-import React from 'react';
-import { GiMedicines } from 'react-icons/gi';
-import { RxAvatar, RxHeart, RxHome } from 'react-icons/rx';
-import Heading from '../components/Heading'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { AiOutlineBarChart } from 'react-icons/ai';
+import { BiCategoryAlt } from "react-icons/bi";
+import { CiShop } from "react-icons/ci";
+import { FaUsers } from "react-icons/fa6";
+import { HiUsers } from "react-icons/hi2";
+import { MdOutlineSell } from 'react-icons/md';
+import { TbMoneybag } from 'react-icons/tb';
+import Heading from '../components/Heading';
+import Dashboard_skeleton from '../components/dashboard/Dashboard_skeleton';
+import baseUrl from '../utils/baseUrl';
+import Dashboard_Info from '../components/dashboard/Dashboard_Info';
 
 const AdminDashboard = () => {
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState({})
+    const getDashboardData = async () => {
+        setLoading(true)
+        try {
+            const res = await axios.get(`${baseUrl}/api/auth/dashboard/admin`, {
+                headers: {
+                    authorization: localStorage.getItem('token')
+                }
+            })
+            if (res.data.status === 200) {
+                setLoading(false)
+                setData(res.data.data)
+            }
+        } catch (error) {
+            setLoading(false)
+            console.log(error)
+        }
+    }
+
+    const { employees, categories, customers, outlets, current_month, product, total } = data
+
+    const infos = [
+        {
+            title: 'Total Employee',
+            value: employees,
+            color: 'pink',
+            children: <FaUsers size={25} className='shrink-0 text-pink-500' />
+        },
+        {
+            title: 'Total Customers',
+            value: customers,
+            color: 'green',
+            children: <HiUsers size={25} className='shrink-0 text-green-500' />
+        },
+        {
+            title: 'Total Category',
+            value: categories,
+            color: 'blue',
+            children: <BiCategoryAlt size={25} className='shrink-0 text-blue-500' />
+        },
+        {
+            title: 'Total Outlets',
+            value: outlets && outlets.length,
+            color: 'yellow',
+            children: <CiShop size={25} className='shrink-0 text-yellow-500' />
+        },
+        {
+            title: 'Total Purchase(Month)',
+            value: current_month?.purchase,
+            color: 'blue',
+            children: <TbMoneybag size={25} className='shrink-0 text-blue-500' />
+        },
+        {
+            title: 'Total sale(Month)',
+            value: current_month?.sale,
+            color: 'green',
+            children: <MdOutlineSell size={25} className='shrink-0 text-green-500' />
+        },
+        {
+            title: 'Total Stock',
+            value: product?.stock_value,
+            color: 'yellow',
+            children: <AiOutlineBarChart size={25} className='shrink-0 text-yellow-500' />
+        },
+        {
+            title: 'Total Purchases',
+            value: total?.purchase,
+            color: 'pink',
+            children: <TbMoneybag size={25} className='shrink-0 text-pink-500' />
+        },
+        {
+            title: 'Total Sales',
+            value: total?.sale,
+            color: 'red',
+            children: <MdOutlineSell size={25} className='shrink-0 text-red-500' />
+        },
+    ]
+
+    useEffect(() => {
+        getDashboardData()
+    }, [])
 
     return (
-        <div className='p-2'>
-            <Heading>Admin Dashboard</Heading>
-            <div
-                className='grid grid-cols-4 gap-4'
-            >
-                <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
+        <>
+            {loading ?
+                <Dashboard_skeleton {...{ heading: 'Admin Dashboard' }} />
+                :
+                <div className='p-2'>
+                    <Heading>Admin Dashboard</Heading>
                     <div
-                        className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
+                        className='grid grid-cols-4 gap-4'
                     >
-                        <RxAvatar size={25} className='shrink-0 text-pink-500' />
-                    </div>
-
-                    <div>
-                        <p>Total Users : </p>
-                        <p className='text-2xl font-bold text-center'>
-                            20
-                        </p>
+                        {
+                            infos.map((info, i) =>
+                                <Dashboard_Info
+                                    key={i}
+                                    {...{
+                                        title: info.title,
+                                        value: String(info.value).padStart(2,'0'),
+                                        color: info.color,
+                                    }}
+                                >
+                                    {info.children}
+                                </Dashboard_Info>
+                            )
+                        }
                     </div>
                 </div>
-                <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                    <div
-                        className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
-                    >
-                        <RxHome size={25} className='shrink-0 text-blue-500' />
-                    </div>
-                    <div>
-                        <p>Total Company : </p>
-                        <p className='text-2xl font-bold text-center'>
-
-                        </p>
-                    </div>
-                </div>
-                <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                <div
-                        className='p-2 w-12 h-12 flex justify-center items-center bg-red-50 shrink-0 rounded-full'
-                    >
-                        <RxHeart size={25} className='shrink-0 text-red-500' />
-                    </div>
-                    <div>
-                        <p>Total Generics : </p>
-                        <p className='text-2xl font-bold text-center'>
-
-                        </p>
-                    </div>
-                </div>
-                <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                <div
-                        className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
-                    >
-                        <GiMedicines size={25} className='shrink-0 text-green-500' />
-                    </div>
-                    <div>
-                        <p>Total Products : </p>
-                        <p className='text-2xl font-bold text-center'>
-
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            }
+        </>
     );
 };
 

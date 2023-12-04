@@ -1,7 +1,7 @@
 import useUserStore from "../store/userStore";
 
 const Home = () => {
-    const {user} = useUserStore();
+    const {user} = useUserStore()
     return (
         <div className='h-screen p-2 space-y-2'>
             <div

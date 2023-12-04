@@ -9,9 +9,11 @@ import Loading_request from '../../components/Loding_request';
 import baseUrl from '../../utils/baseUrl';
 import handleChange from '../../utils/handleChange';
 import toast_alert from '../../utils/toast_alert';
-
+import useUserStore from '../../store/userStore';
+import Admin_Warning from '../../components/Admin_Warning';
 
 const New_product = () => {
+    const { user } = useUserStore()
     const toast = useToast()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -70,6 +72,8 @@ const New_product = () => {
     useEffect(() => {
         getData()
     }, [])
+
+    console.log(user)
 
     return (
         <div className='p-2'>
@@ -134,6 +138,7 @@ const New_product = () => {
                 </button>
                 <Loading_request {...{ loading, setLoading }} />
             </form>
+            {user?.isAdmin && <Admin_Warning />}
         </div>
     );
 };

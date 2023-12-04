@@ -54,7 +54,6 @@ const ReportChart = ({ reports }) => {
         ],
     }
 
-    console.log(reports)
     return (
         <div
             className='w-full bg-white border rounded p-2'

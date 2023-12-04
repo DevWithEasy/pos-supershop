@@ -1,18 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { AiOutlineBarChart, AiOutlineLineChart, AiOutlineUserSwitch } from 'react-icons/ai';
+import { AiOutlineBarChart } from 'react-icons/ai';
 import { FaProductHunt } from "react-icons/fa";
 import { BiCategoryAlt } from "react-icons/bi";
-import { HiUsers } from "react-icons/hi2";
 import { MdOutlineSell } from 'react-icons/md';
 import { FaUsers } from "react-icons/fa6";
-import { RxAvatar} from 'react-icons/rx';
 import { TbMoneybag } from 'react-icons/tb';
-import Dashboard_skeleton from '../components/Dashboard_skeleton';
+import Dashboard_skeleton from '../components/dashboard/Dashboard_skeleton';
 import Heading from '../components/Heading';
-import ReportChart from '../components/ReportChart';
+import ReportChart from '../components/reports_chart/ReportChart';
 import baseUrl from '../utils/baseUrl';
 import get_fixed_num from '../utils/get_fixed_num';
+import Dashboard_Info from '../components/dashboard/Dashboard_Info';
 
 const UserDashboard = () => {
     const [loading, setLoading] = useState(false)
@@ -41,119 +40,84 @@ const UserDashboard = () => {
 
     const benifits_percent = (benifits / total?.purchase
     ) * 100
+
+    const infos = [
+        {
+            title: 'Total Employee',
+            value: employees,
+            color: 'pink',
+            children: <FaUsers size={25} className='shrink-0 text-pink-500' />
+        },
+        {
+            title: 'Total Category',
+            value: categories,
+            color: 'blue',
+            children: <BiCategoryAlt size={25} className='shrink-0 text-blue-500' />
+        },
+        {
+            title: 'Total Products',
+            value: product?.total_products,
+            color: 'yellow',
+            children: <FaProductHunt size={25} className='shrink-0 text-yellow-500' />
+        },
+        {
+            title: 'Total Purchase(Month)',
+            value: current_month?.purchase,
+            color: 'blue',
+            children: <TbMoneybag size={25} className='shrink-0 text-blue-500' />
+        },
+        {
+            title: 'Total sale(Month)',
+            value: current_month?.sale,
+            color: 'green',
+            children: <MdOutlineSell size={25} className='shrink-0 text-green-500' />
+        },
+        {
+            title: 'Total Stock',
+            value: product?.stock_value,
+            color: 'yellow',
+            children: <AiOutlineBarChart size={25} className='shrink-0 text-yellow-500' />
+        },
+        {
+            title: 'Total Purchases',
+            value: total?.purchase,
+            color: 'pink',
+            children: <TbMoneybag size={25} className='shrink-0 text-pink-500' />
+        },
+        {
+            title: 'Total Sales',
+            value: total?.sale,
+            color: 'red',
+            children: <MdOutlineSell size={25} className='shrink-0 text-red-500' />
+        },
+    ]
+
     useEffect(() => {
         getDashboardData()
     }, [])
 
-    console.log(data) 
     return (
         <>
             {loading ?
-                <Dashboard_skeleton />
+                <Dashboard_skeleton {...{ heading: 'Dashboard' }} />
                 :
                 <div className='p-4'>
                     <Heading>Dashborad</Heading>
                     <div className='w-full grid grid-cols-2 md:grid-cols-4 gap-3'>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
-                            >
-                                <FaUsers size={25} className='shrink-0 text-pink-500' />
-                            </div>
-
-                            <div>
-                                <p>Total Employee : </p>
-                                <p className='text-2xl font-bold text-center text-pink-500'>{employees}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
-                            >
-                                <HiUsers size={25} className='shrink-0 text-green-500' />
-                            </div>
-                            <div>
-                                <p>Total Customers : </p>
-                                <p className='text-2xl font-bold text-center text-green-500'>{employees}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
-                            >
-                                <BiCategoryAlt size={25} className='shrink-0 text-blue-500' />
-                            </div>
-                            <div>
-                                <p>Total Category : </p>
-                                <p className='text-2xl font-bold text-center text-blue-500'>{categories}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-yellow-50 shrink-0 rounded-full'
-                            >
-                                <FaProductHunt  size={25} className='shrink-0 text-yellow-500' />
-                            </div>
-                            <div>
-                                <p>Total Products : </p>
-                                <p className='text-2xl font-bold text-center text-yellow-500'>{product?.total_products}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-blue-50 shrink-0 rounded-full'
-                            >
-                                <TbMoneybag  size={25} className='shrink-0 text-blue-500' />
-                            </div>
-                            <div>
-                                <p>Total Purchase(Month) : </p>
-                                <p className='text-2xl font-bold text-center text-blue-500'>{current_month?.purchase}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-green-50 shrink-0 rounded-full'
-                            >
-                                <MdOutlineSell  size={25} className='shrink-0 text-green-500' />
-                            </div>
-                            <div>
-                                <p>Total sale(Month) : </p>
-                                <p className='text-2xl font-bold text-center text-green-500'>{current_month?.sale}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-yellow-50 shrink-0 rounded-full'
-                            >
-                                <AiOutlineBarChart  size={25} className='shrink-0 text-yellow-500' />
-                            </div>
-                            <div>
-                                <p>Total Stock : </p>
-                                <p className='text-2xl font-bold text-center text-yellow-500'>{product?.stock_value}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-pink-50 shrink-0 rounded-full'
-                            >
-                                <TbMoneybag  size={25} className='shrink-0 text-pink-500' />
-                            </div>
-                            <div>
-                                <p>Total Purchases : </p>
-                                <p className='text-2xl font-bold text-center text-pink-500'>{total?.purchase}</p>
-                            </div>
-                        </div>
-                        <div className='bg-white flex items-center rounded-md p-4 space-x-4 border'>
-                            <div
-                                className='p-2 w-12 h-12 flex justify-center items-center bg-red-50 shrink-0 rounded-full'
-                            >
-                                <MdOutlineSell  size={25} className='shrink-0 text-red-500' />
-                            </div>
-                            <div>
-                                <p>Total Sales : </p>
-                                <p className='text-2xl font-bold text-center text-red-500'>{total?.sale}</p>
-                            </div>
-                        </div>
+                        {
+                            infos.map((info,i) =>
+                                <Dashboard_Info
+                                    key={i}
+                                    {...{
+                                        title: info.title,
+                                        value: info.value,
+                                        color: info.color,
+                                    }}
+                                >
+                                    {info.children}
+                                </Dashboard_Info>
+                            )
+                        }
                     </div>
                     <div
                         className='w-full grid grid-cols-2 gap-3 mt-5'

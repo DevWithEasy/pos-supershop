@@ -1,15 +1,15 @@
 import React from 'react';
-import { AiOutlineHome, AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineEdit, AiOutlineHome } from 'react-icons/ai';
 import { BiCategoryAlt, BiPurchaseTag } from 'react-icons/bi';
+import { FaRegAddressBook } from "react-icons/fa";
 import { LiaFileInvoiceSolid } from 'react-icons/lia';
+import { MdAutoAwesomeMosaic } from 'react-icons/md';
 import { PiBarcode, PiUsersBold, PiUsersDuotone } from 'react-icons/pi';
 import { RiAddBoxLine, RiProductHuntLine } from 'react-icons/ri';
 import { RxDashboard, } from 'react-icons/rx';
 import { TbReportSearch } from 'react-icons/tb';
 import { Link, NavLink } from 'react-router-dom';
 import useUserStore from '../store/userStore';
-import { MdAutoAwesomeMosaic, MdEditSquare } from 'react-icons/md';
-import { FaRegAddressBook } from "react-icons/fa";
 
 const SidebarAdmin = () => {
     const { user } = useUserStore();
