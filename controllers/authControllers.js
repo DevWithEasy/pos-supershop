@@ -373,7 +373,6 @@ exports.getOutletData = async (req, res, next) => {
   try {
     const employees = await Employee.find({user : user}).countDocuments()
     const categories = await Category.find().countDocuments()
-    const customers = await Customer.find().countDocuments()
 
     const filter = {
       $match: {
@@ -473,7 +472,7 @@ exports.getOutletData = async (req, res, next) => {
     //monthly reports
     const reports = await Report.find({
         reportType : 'daily',
-        user : req.user,
+        user : req.params.id,
         from: {
           $gte: month(start,end,'start'),
           $lte: month(start,end,'end'),
@@ -489,7 +488,6 @@ exports.getOutletData = async (req, res, next) => {
       data: {
         employees,
         categories,
-        customers,
         current_month: {
           sale: !sale_current[0] ? 0 : sale_current[0].value,
           purchase: !purchase_current[0] ? 0 : purchase_current[0].value
@@ -602,17 +600,6 @@ exports.getAdminDashboardData = async (req, res, next) => {
       }
     ])
 
-    //monthly reports
-    const reports = await Report.find({
-        reportType : 'daily',
-        from: {
-          $gte: month(start,end,'start'),
-          $lte: month(start,end,'end'),
-        },
-    }).populate('user')
-
-
-
     res.status(200).json({
       success: true,
       status: 200,
@@ -630,8 +617,7 @@ exports.getAdminDashboardData = async (req, res, next) => {
         total: {
           sale: !sale[0]? 0 : sale[0].value,
           purchase: !purchase[0]? 0 : purchase[0]?.value
-        },
-        reports
+        }
       }
     })
 

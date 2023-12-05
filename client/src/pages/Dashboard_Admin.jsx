@@ -11,6 +11,7 @@ import Heading from '../components/Heading';
 import Dashboard_skeleton from '../components/dashboard/Dashboard_skeleton';
 import baseUrl from '../utils/baseUrl';
 import Dashboard_Info from '../components/dashboard/Dashboard_Info';
+import Report_admin_outlet from '../components/reports_chart/Report_admin_outlet';
 
 const AdminDashboard = () => {
     const [loading, setLoading] = useState(false)
@@ -121,6 +122,11 @@ const AdminDashboard = () => {
                             )
                         }
                     </div>
+                    {data.outlets &&
+                        <Report_admin_outlet {...{
+                            outlets : data.outlets
+                        }}/>
+                    }
                 </div>
             }
         </>
