@@ -23,7 +23,7 @@ const ReportChart = ({ reports }) => {
     const [year, setYear] = useState(date.getFullYear().toString())
     const years = [... new Set(reports.map(report => report.year))]
     const findReports = reports.filter(report => report.year === year)
-    const labels = findReports.map(report => report.month)
+    const labels = findReports.map(report => new Date(report.from).getDate())
 
     const options = {
         responsive: true,

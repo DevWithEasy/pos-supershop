@@ -95,7 +95,7 @@ const UserDashboard = () => {
     useEffect(() => {
         getDashboardData()
     }, [])
-
+    console.log(data.reports)
     return (
         <>
             {loading ?

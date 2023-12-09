@@ -329,7 +329,7 @@ exports.getDashboardData = async (req, res, next) => {
         },
     })
 
-
+    console.log(start,end)
 
     res.status(200).json({
       success: true,
@@ -372,7 +372,6 @@ exports.getOutletData = async (req, res, next) => {
   
   try {
     const employees = await Employee.find({user : user}).countDocuments()
-    const categories = await Category.find().countDocuments()
 
     const filter = {
       $match: {
@@ -487,7 +486,6 @@ exports.getOutletData = async (req, res, next) => {
       message: 'Successfully Signup.',
       data: {
         employees,
-        categories,
         current_month: {
           sale: !sale_current[0] ? 0 : sale_current[0].value,
           purchase: !purchase_current[0] ? 0 : purchase_current[0].value

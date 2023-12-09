@@ -67,6 +67,7 @@ exports.createReport = async (req, res, next) => {
     try {
 
         const new_report = new Report({
+            user : req.user,
             ...req.body
         })
 
@@ -90,7 +91,7 @@ exports.createReport = async (req, res, next) => {
 exports.getAllReport = async (req, res, next) => {
     try {
 
-        const reports = await Report.find({}).sort({
+        const reports = await Report.find({user : req.user}).sort({
             createdAt: 1
         })
 
